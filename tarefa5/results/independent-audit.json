@@ -1,0 +1,113 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "method": "baseline",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 5.295370960228461,
+      "recorded_cv": 5.295370960228461
+    },
+    {
+      "method": "bayesopt",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.647569478534396,
+      "recorded_cv": 4.647569478534396
+    },
+    {
+      "method": "bayessearch",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.643562477875703,
+      "recorded_cv": 4.643562477875703
+    },
+    {
+      "method": "de_best1bin",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.561234755333677,
+      "recorded_cv": 4.561234755333677
+    },
+    {
+      "method": "de_rand1bin",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.598111119646815,
+      "recorded_cv": 4.598111119646815
+    },
+    {
+      "method": "ga",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.601032390525872,
+      "recorded_cv": 4.601032390525872
+    },
+    {
+      "method": "gp_manual",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.8254280910603145,
+      "recorded_cv": 4.8254280910603145
+    },
+    {
+      "method": "grid",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.732686876685554,
+      "recorded_cv": 4.732686876685554
+    },
+    {
+      "method": "hyperopt",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.7253446218100885,
+      "recorded_cv": 4.7253446218100885
+    },
+    {
+      "method": "optuna",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.6435200534576815,
+      "recorded_cv": 4.6435200534576815
+    },
+    {
+      "method": "pso_w04",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.569414265330341,
+      "recorded_cv": 4.569414265330341
+    },
+    {
+      "method": "pso_w07",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.533867115693849,
+      "recorded_cv": 4.533867115693849
+    },
+    {
+      "method": "pso_w09",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.527704183493258,
+      "recorded_cv": 4.527704183493258
+    },
+    {
+      "method": "random",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.732686876685554,
+      "recorded_cv": 4.732686876685554
+    },
+    {
+      "method": "ray",
+      "predictions_match_model": true,
+      "test_metrics_recomputed": true,
+      "winning_cv_recomputed": 4.609611939431095,
+      "recorded_cv": 4.609611939431095
+    }
+  ],
+  "robustness_seeds_verified": true,
+  "seconds": 4.96922640001867,
+  "scope": "AI-assisted independent recomputation of artifact consistency; not human peer review or validation of generalization."
+}

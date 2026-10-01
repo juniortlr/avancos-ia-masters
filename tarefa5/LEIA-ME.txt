@@ -1,0 +1,54 @@
+EXERCÍCIOS DA AULA 05 — AVANÇOS EM IA — UFPR / PPGEE
+
+Autores: Adriely Teixeira de Paula, Betina Zynger Capaverde, Emilio Gaudeda Junior.
+
+Este diretório contém o código, o protocolo, os dados preservados e os artefatos
+da comparação de otimização de hiperparâmetros em Concrete Compressive Strength
+(UCI 165). O manifesto final e os resultados indicam quais etapas foram executadas.
+
+ORIGEM E MÉTODO
+- Dataset: https://doi.org/10.24432/C5PK67 (I-Cheng Yeh, UCI; CC BY 4.0).
+- Enunciado: notebook da Aula 05 fornecido pelo usuário.
+- Procedimentos R&D: juniortlr/rnd-superpowers, commit
+  f68892c8b7adba358b8aa437eec00a89fe88d340.
+- O framework é um conjunto de procedimentos de pesquisa, não um motor de HPO.
+- As tarefas anteriores serviram para preservar autoria/estilo e revisar erros;
+  seus resultados não foram usados como evidência destes experimentos.
+
+REPRODUÇÃO (após extrair o pacote completo)
+1. Python 3.12 e ambiente virtual isolado.
+2. Instalar as versões de requirements-lock.txt.
+3. Executar na pasta deste arquivo:
+   python experiment.py prepare
+   python experiment.py run --method all --jobs 5 --resume
+   python experiment.py supplement --jobs 5
+   python experiment.py sample --jobs 5 --resume
+   python experiment.py robustness --jobs 5 --resume
+   python experiment.py verify
+   python audit_engine_results.py
+   python plot_results.py
+   python build_notebook.py
+   python build_latex.py
+
+O prepare reutiliza o CSV UCI preservado quando existente. Cada método concluído
+pode ser retomado com --resume se os dados, fração de treino e paralelismo forem
+compatíveis. Uma tentativa incompleta é preservada antes de nova execução.
+Se modificar código, protocolo ou dados, faça uma nova versão dos resultados em
+vez de reutilizar silenciosamente a execução anterior.
+
+O notebook contém resultados/figuras incorporados. A reconstrução usa os arquivos
+do pacote; RUN_EXPERIMENTS=True solicita a repetição das buscas completas. Executar
+as buscas pode consumir dezenas de minutos ou horas conforme o computador.
+
+OVERLEAF
+Copiar Exercício_Aula5.tex e a pasta Figuras_Aula5 para o mesmo projeto.
+Selecionar Exercício_Aula5.tex como documento principal e compilar com pdfLaTeX.
+O PDF local, se identificado como exportação ReportLab no manifesto, é gerado dos
+mesmos blocos de conteúdo; não constitui verificação de compilação LaTeX.
+
+LIMITES DE INTERPRETAÇÃO
+O teste é um holdout fixo de linhas. A seleção pelo melhor teste é exploratória;
+a seleção primária usa CV. As cinco seeds medem aleatoriedade do procedimento
+condicional à divisão, e não representam cinco datasets independentes. Os métodos
+têm budgets e resoluções diferentes por exigência do exercício. Consulte o
+protocolo, a análise crítica e os registros antes de generalizar as conclusões.

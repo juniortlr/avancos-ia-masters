@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "methods_checked": [
+    "baseline",
+    "grid",
+    "random",
+    "gp_manual",
+    "bayessearch",
+    "bayesopt",
+    "optuna",
+    "hyperopt",
+    "ray",
+    "ga",
+    "de_best1bin",
+    "de_rand1bin",
+    "pso_w07",
+    "pso_w04",
+    "pso_w09"
+  ],
+  "limits": "Structural checks and metric traceability; not independent scientific validation"
+}

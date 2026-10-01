@@ -1,0 +1,2 @@
+{"utc": "2026-09-30T23:43:52.858947+00:00", "event": "started", "method": "ray", "seed": 42, "jobs": 5}
+{"utc": "2026-09-30T23:43:57.552516+00:00", "event": "failed", "error": "ValueError('You passed a `metric` or `mode` argument to `tune.run(...)`, but the scheduler you are using was already instantiated with their own `metric` and `mode` parameters. Either remove the arguments from your scheduler or from `tune.run(...)` args.')"}

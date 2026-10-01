@@ -1,0 +1,52 @@
+[
+  {
+    "snapshot": 1,
+    "observations": 5,
+    "valid": true
+  },
+  {
+    "snapshot": 2,
+    "observations": 6,
+    "valid": true
+  },
+  {
+    "snapshot": 3,
+    "observations": 7,
+    "valid": true
+  },
+  {
+    "snapshot": 4,
+    "observations": 8,
+    "valid": true
+  },
+  {
+    "snapshot": 5,
+    "observations": 9,
+    "valid": true
+  },
+  {
+    "snapshot": 6,
+    "observations": 10,
+    "valid": true
+  },
+  {
+    "snapshot": 7,
+    "observations": 11,
+    "valid": true
+  },
+  {
+    "snapshot": 8,
+    "observations": 12,
+    "valid": true
+  },
+  {
+    "snapshot": 9,
+    "observations": 13,
+    "valid": true
+  },
+  {
+    "snapshot": 10,
+    "observations": 14,
+    "valid": true
+  }
+]

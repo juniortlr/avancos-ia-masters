@@ -1,0 +1,257 @@
+{
+  "repository": "juniortlr/rnd-superpowers",
+  "commit": "f68892c8b7adba358b8aa437eec00a89fe88d340",
+  "source": "GitHub connector at exact commit; core source subset, not full repository checkout",
+  "files": [
+    {
+      "path": ".gitignore",
+      "git_blob_sha1": "6ae681b04f8f8779020be9538f5730cef8551673",
+      "size": 179
+    },
+    {
+      "path": "AGENTS.md",
+      "git_blob_sha1": "6abd7f3c0a187edc8a4810635602ee373a588c50",
+      "size": 969
+    },
+    {
+      "path": "README.md",
+      "git_blob_sha1": "eeb60c9a4320ce9d93ef2246f987917b0ab22b68",
+      "size": 5202
+    },
+    {
+      "path": "agents/research-superpowers.agent.md",
+      "git_blob_sha1": "abd7bc37d16a6c29b4085f6b50a10fbd0d011a49",
+      "size": 6180
+    },
+    {
+      "path": "docs/method-catalog.md",
+      "git_blob_sha1": "a052bea92b85f233fca0b84e0b7fb5af98f7b759",
+      "size": 7337
+    },
+    {
+      "path": "docs/research-intake-and-parallelism-plan.md",
+      "git_blob_sha1": "ebf2921315fe1ec5d620e33e85e314b2df5b4677",
+      "size": 17801
+    },
+    {
+      "path": "docs/research-loop.md",
+      "git_blob_sha1": "d284f3be93640d95622bfc532870ee045dd4a03c",
+      "size": 5478
+    },
+    {
+      "path": "docs/research-workflows.md",
+      "git_blob_sha1": "68a9a1bcbf6b41a5a4efd4d15e1d504801dd993d",
+      "size": 3211
+    },
+    {
+      "path": "docs/review-and-communication-workflow.md",
+      "git_blob_sha1": "8e454b366f80636cea78954ee02d1c6b9b35c1cf",
+      "size": 4401
+    },
+    {
+      "path": "docs/sources.md",
+      "git_blob_sha1": "647bebe78a725d515484dbd07e76f736d9314075",
+      "size": 4374
+    },
+    {
+      "path": "docs/upgrade-research-plan.md",
+      "git_blob_sha1": "aa87fdec90e5046ce4bdd537acf0957a5cac42bf",
+      "size": 4124
+    },
+    {
+      "path": "docs/validation.md",
+      "git_blob_sha1": "1ad8e808dc73152c436cf1fc58764d58778e0ae6",
+      "size": 1810
+    },
+    {
+      "path": "examples/split-manifest.csv",
+      "git_blob_sha1": "69b292751abc3dfcf66abb6690b6a294a0de0ec9",
+      "size": 344
+    },
+    {
+      "path": "install.ps1",
+      "git_blob_sha1": "81cabf91a3c7d98d16d17a53e63f322acdd653a4",
+      "size": 2727
+    },
+    {
+      "path": "requirements-dev.txt",
+      "git_blob_sha1": "bfb190960cd2cc7d5314f71cc62c9ce5b0e6f008",
+      "size": 13
+    },
+    {
+      "path": "scripts/audit_split.py",
+      "git_blob_sha1": "abc131c38bd8dbcb2562e569a2eaf4df7880cecc",
+      "size": 3610
+    },
+    {
+      "path": "scripts/plan_ab.py",
+      "git_blob_sha1": "3821b6533335dab06acda725ba229e6790a36ae1",
+      "size": 2437
+    },
+    {
+      "path": "scripts/validate_project.py",
+      "git_blob_sha1": "0f8c47529b0987de2b15d4cd1344cdc12df6f1f3",
+      "size": 2289
+    },
+    {
+      "path": "skills/analysis-with-a-null-model/SKILL.md",
+      "git_blob_sha1": "360011cc7184ccfe9efc258587effeba17c61128",
+      "size": 2688
+    },
+    {
+      "path": "skills/analyzing-reliability/SKILL.md",
+      "git_blob_sha1": "1fb0e25275d0943121f0c6eeca4eb3dd2b470325",
+      "size": 1768
+    },
+    {
+      "path": "skills/budgeting-automl/SKILL.md",
+      "git_blob_sha1": "a06041bbf4879f334f24e29d50ac1e63c67495f7",
+      "size": 2262
+    },
+    {
+      "path": "skills/conducting-outsider-review/SKILL.md",
+      "git_blob_sha1": "8f3d86c7eddcbbab36704d92ab15c4ad24196b36",
+      "size": 1931
+    },
+    {
+      "path": "skills/conducting-peer-review-round/SKILL.md",
+      "git_blob_sha1": "3879a6e4a458104d80175539017fcb8dc8c09142",
+      "size": 3119
+    },
+    {
+      "path": "skills/conducting-self-review/SKILL.md",
+      "git_blob_sha1": "85afe63b527dd2b4b636c225e9bfe5e8e5452bd4",
+      "size": 2170
+    },
+    {
+      "path": "skills/conducting-tutor-review/SKILL.md",
+      "git_blob_sha1": "1dc706060f30e12c9f11516c406d30bccb3f2988",
+      "size": 2164
+    },
+    {
+      "path": "skills/data-provenance-and-contracts/SKILL.md",
+      "git_blob_sha1": "7f8e7332196f55e5e5eaf1541355de0d16d60fb2",
+      "size": 7443
+    },
+    {
+      "path": "skills/defining-problem-statements/SKILL.md",
+      "git_blob_sha1": "97d466f89c2dddbe26167983ab948d076ac36f58",
+      "size": 2950
+    },
+    {
+      "path": "skills/designing-ab-tests/SKILL.md",
+      "git_blob_sha1": "091517df559d6ba090b990990cf7fb8f6159a354",
+      "size": 2588
+    },
+    {
+      "path": "skills/designing-scientific-experiments/SKILL.md",
+      "git_blob_sha1": "dc155bf132398c08209d1e63c3de595ca3b51501",
+      "size": 1940
+    },
+    {
+      "path": "skills/estimating-uncertainty/SKILL.md",
+      "git_blob_sha1": "d685f0cd181c0cfb46397f1b56c1056257d310db",
+      "size": 2410
+    },
+    {
+      "path": "skills/evidence-ledger-and-gates/SKILL.md",
+      "git_blob_sha1": "1db1576270a503050af0d96d54a5542087353a6c",
+      "size": 2739
+    },
+    {
+      "path": "skills/exploring-data/SKILL.md",
+      "git_blob_sha1": "132d9d60b783cc1fb37a90be6c37a99046f38a44",
+      "size": 2052
+    },
+    {
+      "path": "skills/framing-a-research-question/SKILL.md",
+      "git_blob_sha1": "fdd733de01392a079999bc10474f53f7d70691a9",
+      "size": 1899
+    },
+    {
+      "path": "skills/identifying-causal-effects/SKILL.md",
+      "git_blob_sha1": "fa36fe41ac4988f9325ffe19eccb53c50035367a",
+      "size": 2631
+    },
+    {
+      "path": "skills/mining-patterns/SKILL.md",
+      "git_blob_sha1": "1aed2891de3a4b233da96ecc943ec4d90fdf3652",
+      "size": 2081
+    },
+    {
+      "path": "skills/preregistering-an-analysis/SKILL.md",
+      "git_blob_sha1": "90328a76fc46f150bb9bb227d461fd00771d0980",
+      "size": 2216
+    },
+    {
+      "path": "skills/red-teaming-a-result/SKILL.md",
+      "git_blob_sha1": "1f5fc9c6742119c4864d29023486be4f233e7c60",
+      "size": 2505
+    },
+    {
+      "path": "skills/reporting-a-finding/SKILL.md",
+      "git_blob_sha1": "1fd61b6a833ff75cb1d2fd9373d03bde545ee19b",
+      "size": 1994
+    },
+    {
+      "path": "skills/reproducing-research/SKILL.md",
+      "git_blob_sha1": "dae5db60c0429f0c6cda476c1a19adf66ef6eb01",
+      "size": 1924
+    },
+    {
+      "path": "skills/reviewing-scientific-literature/SKILL.md",
+      "git_blob_sha1": "431f1974bfc8084ec190a30cc586eacafa7411f2",
+      "size": 2207
+    },
+    {
+      "path": "skills/training-classical-ml/SKILL.md",
+      "git_blob_sha1": "f29ec8436eb93d9e04b8729f107fc0f90e3d017a",
+      "size": 2566
+    },
+    {
+      "path": "skills/using-research-superpowers/SKILL.md",
+      "git_blob_sha1": "89448d4c50376b9d23bcd1b9607a2bfd25ae0e43",
+      "size": 8934
+    },
+    {
+      "path": "skills/validating-physics-informed-models/SKILL.md",
+      "git_blob_sha1": "c0bea141f7c0ebc6156afae4936a8bc57ce782a8",
+      "size": 2241
+    },
+    {
+      "path": "skills/validating-time-series/SKILL.md",
+      "git_blob_sha1": "f85d66274a3a3543de0a5bc37abc480636a9ee35",
+      "size": 2191
+    },
+    {
+      "path": "skills/writing-executive-summaries/SKILL.md",
+      "git_blob_sha1": "27edf5395ee36ef1139c11eae193eb1b8dfc6afb",
+      "size": 2315
+    },
+    {
+      "path": "skills/writing-research-papers/SKILL.md",
+      "git_blob_sha1": "76c85198bf9a9b48f6b1fd7627889a41e98215f5",
+      "size": 2160
+    },
+    {
+      "path": "templates/research-cycle.md",
+      "git_blob_sha1": "46fcebacdd0f01080c391d991caad2e2daa63fca",
+      "size": 1510
+    },
+    {
+      "path": "templates/run-manifest.json",
+      "git_blob_sha1": "bb47cb2fe8c642e54d095c8cbd2e2cfb46e01015",
+      "size": 613
+    },
+    {
+      "path": "templates/study-protocol.md",
+      "git_blob_sha1": "1478ab2f5ac124f46a60df7ecae43c62feebeb19",
+      "size": 676
+    },
+    {
+      "path": "tests/test_research_checks.py",
+      "git_blob_sha1": "12bd26a53f3cec2f15dae882b62c9e95856cab04",
+      "size": 2587
+    }
+  ]
+}

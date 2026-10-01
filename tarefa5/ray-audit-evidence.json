@@ -1,0 +1,25 @@
+{
+  "trials": 40,
+  "stage_rows": 117,
+  "trial_ids": 40,
+  "complete": 24,
+  "pruned": 16,
+  "fits_calculated": 585,
+  "fits_reported": 585,
+  "trees_calculated": 24935,
+  "trees_reported": 24935,
+  "best_full_cv": 4.609611939431095,
+  "selected_cv": 4.609611939431095,
+  "best_params": {
+    "learning_rate": 0.19057480414057001,
+    "subsample": 0.7016790776038879,
+    "n_estimators": 188.0
+  },
+  "selected_params": {
+    "learning_rate": 0.19057480414057001,
+    "subsample": 0.7016790776038879,
+    "n_estimators": 188
+  },
+  "search_seconds": 160.00827630003914,
+  "issues": []
+}

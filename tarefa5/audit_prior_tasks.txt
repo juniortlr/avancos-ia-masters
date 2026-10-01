@@ -1,0 +1,84 @@
+AUDITORIA DAS TAREFAS ANTERIORES — AULAS 01–04
+Fontes lidas integralmente: tarefa5/overleaf_original/Exercício_Aula1.tex, Exercício_Aula2.tex, Exercício_Aula3.tex e Exercício_Aula4.tex.
+O arquivo Exercício_Aula5.tex está vazio. Nenhum original foi alterado.
+Esta auditoria é leitura das fontes LaTeX; não valida a execução dos notebooks, as imagens originais nem números experimentais contra dados brutos.
+
+1. AUTORIA E ESTILO A PRESERVAR
+Autoria repetida nos quatro documentos, exatamente: Adriely Teixeira de Paula, Betina Zynger Capaverde, Emilio Gaudeda Junior.
+Curso: Avanços em Inteligência Artificial, EELT7025 — PPGEE, UFPR.
+Base: article [12pt,a4paper], margens2.5cm, inputenc UTF8, fontenc T1, babel brazilian; amsmath/amssymb, graphicx, booktabs, caption, float, geometry, hyperref, xcolor, enumitem, array; longtable nas aulas2–4.
+Capa: nome da disciplina, código/programa/instituição, 'Exercícios da Aula 0N', subtítulo temático, autores e data. Sumário seguido de nova página.
+Estrutura: dataset inicial; seção por exercício; subseções alinhadas aos itens; tabelas com booktabs, figuras com caption e label; discussão imediata dos achados, síntese/recomendação e considerações finais. Diretórios de imagens Figuras_AulaN, nomes com hífens.
+Aula4 tem apêndice estatístico e seção de reprodutibilidade. Sua narrativa dos 'Atos' documenta investigação anterior, mas não precisa ser imitada: a tarefa5 deve apresentar protocolo e evidência de maneira direta.
+Padrão visual útil: tabelas com unidades, comparação de métricas e custo, gráficos integrados ao texto. Evitar negrito excessivo e afirmações dramáticas sem evidência.
+Data: fontes usam today; para a entrega da aula5 preferir data explícita 30 de setembro de 2026 para não mudar quando recompilar.
+
+2. FEEDBACK DOCENTE — O QUE FOI E NÃO FOI ENCONTRADO
+Não há, nos quatro .tex, comentário ou trecho explicitamente identificado como feedback do professor, correção assinada, nota atribuída ou parecer docente. Não foram encontrados comandos de anotação como todo/marginpar ou comentários em vermelho de revisão.
+Os comentários '%' lidos são majoritariamente separadores e notas de template. As aulas1–3 definem uma macro figuraPendente, mas as figuras efetivamente usadas são includegraphics; a simples existência da macro não prova figuras faltantes.
+Aula4 registra perguntas que motivaram correções ('Foi descartado algum dado que poderia servir?' e 'o dataset completo foi baixado?'), sem identificar quem as fez. Portanto atribuir essas críticas ao professor seria inventar proveniência.
+As 'correções' de Aula4 são autocorreções relatadas pelos autores. Os itens da seção4 desta auditoria são críticas nossas, diferenciadas das autocorreções explícitas.
+Verificação complementar de UI feita pelo agente principal: Review Overview exibiu No comments or suggestions; Resolved comments exibiu No resolved comments. Assim, nenhum feedback docente está disponível nas fontes nem no painel atual inspecionado. Isso não demonstra ausência histórica de feedback em canais externos.
+
+3. DATASETS, PROTOCOLOS E LIÇÕES EXPLICITAMENTE REGISTRADAS
+Aula1:
+- Benchmark Iris150x4 e Wine178x13, ambos3 classes; 10-fold CV e holdout70/30. Seleção de melhor modelo pelo AccCV.
+- Wine: árvore e regra chamada1-SE; profundidades5 e2; explicitação de incerteza CV.
+- California Housing20640x8: Pipeline SelectKBest/f_regression+Ridge, GridSearchCV10-fold; selecionou todos8 atributos, portanto mesmo resultado do Ridge referência.
+- Breast Cancer569x30, 2 classes: modelos fixos treinados uma vez, bootstrap1000 sobre teste para AUC e IC95%.
+- Boas ideias a manter: separar CV de teste, comparar baseline, identificar unidades e documentar incerteza. Não copiar fórmula equivocada de1-SE nem inferência por sobreposição de IC.
+
+Aula2:
+- PJM/PJME145366 observações e PJMW143206, 2002–2018; declara4 duplicatas,30 lacunas, reindexação/interpolação, PJME final145392.
+- EDA de demanda, IQR/MAD, correlações, STL24h, ACF/PACF/FFT, Ljung-Box, ADF/KPSS e síntese de decisão.
+- ItalyPowerDemand1096 séries24pontos, classes547/549;7 atributos temporais; efeitos/MI, Mahalanobis, PCA e baseline/LR/KNN/RF.
+- Autocorreção explícita: matriz de covariância quase singular com7 atributos gerava ~40% outliers; adotou5 atributos e MinCovDet support_fraction=.9 (sem notebook, não verificar se suficiente).
+- Texto não especifica split/seeds para classificação ItalyPowerDemand nem média de F1; não inferir que foi padrão UCR ou split aleatório.
+
+Aula3:
+- Retoma apenas PJM/PJME+PJMW e números semelhantes à aula2. EDA mais completa: normalidade, estatísticas, outliers por mês, relações categóricas, informação mútua e anomalias sobre resíduo STL.
+- Autocorreção explícita: z-score móvel bruto não detectava anomalias por incorporar ciclo diário; usou resíduos STL e discute complementaridade com IQR/MAD.
+- Ponto positivo: atribui outliers a eventos com alguma cautela ('consistente com') e relaciona decisão à física; falta evidência meteorológica externa para confirmar ondas de calor.
+
+Aula4:
+- SCIG-3phase-Dataset, InnovaPower/MitDev-Eletrica, commitb091742, DOI10.5281/zenodo.17161986;225 ensaios de3s,20kHz,35 canais:108 FAULT_TURNS+108 FAULT_WINDINGS+9 HEALTHY;9 regimes.
+- Relata5715 janelas,79 atributos; EspaçoA79 atributos/global StandardScaler; EspaçoB9 ondulações2f padronizadas por janelas saudáveis do regime.
+- Dois rótulos avaliados: condição3 classes e regime9classes;12 algoritmos de clustering; métricas internas/exteriores, ruído, custo e recomendação.
+- Seed20260923. Spectral/MeanShift/AffinityPropagation em subamostra1500; dendrogramas2000. Não transportar essa seed/subamostra para aula5, cujo enunciado fixa42 e exige protocolo comum.
+- AUTOCORREÇÃO1: inicialmente usou3 de35 canais e concluiu que controle mascarava falta; auditou canais internos/tensões/PI e construiu assinatura2f.
+- AUTOCORREÇÃO2: tinha só21 de225 ensaios e declarou limitação do dataset; inventário completo mostrou rótulos cruzados, outros regimes e outro tipo de falta.
+- AUTOCORREÇÃO3: correlação de ondas senoidais foi usada indevidamente como redundância; passou a atributos por janela.
+- AUTOCORREÇÃO4: joelho de k-distância superestimou eps; substituiu por percentil80 após varredura.
+- AUTOCORREÇÃO5: min_cluster_size pela heurística n/60 caiu em transição abrupta; varredura mostrou sensibilidade50→100→200.
+- AUTOCORREÇÃO6: script de exemplo com2*Theta_est-pi/2 foi confrontado às medições e substituído por Theta_est. Não validar essa interpretação física sem o código/dados originais.
+- LIÇÃO CENTRAL DOS AUTORES: não declarar impossibilidade sem auditar fontes, inventário, atributos descartados e suposições.
+
+4. CRÍTICAS DESTA AUDITORIA — NÃO SÃO FEEDBACK DOCENTE
+4.1 Aula1 linhas180,197,210: chama de1-SE a regra com1 desvio-padrão. Erro padrão e desvio padrão não são sinônimos; em estimativa usual SE=SD/sqrt(k) sob hipótese de folds tratáveis aproximadamente. Com média.9052,SD.0658,k10, o limiar aproximado seria.8844, não.8394. Profundidade2 com média.8542 não passaria esse limiar. Na tarefa5 informar std entre seeds como std, sem chamar IC/SE ou significância.
+4.2 Aula1 linha329: sobreposição de IC marginais não é teste formal de diferença entre modelos. Como previsões compartilham teste, comparação adequada é pareada. Na tarefa5 evitar 'estatisticamente superior' baseado só em RMSE pontual ou mean±std.
+4.3 Aulas2/3 linha106: classifica falta de timestamp por calendário/DST como MCAR. Dependência explícita do calendário contradiz alegação de completa aleatoriedade; e timestamp inexistente na hora civil pode ser representação do fuso, não observação física perdida. Na tarefa5 apresentar taxa real de missing/duplicatas e regra de limpeza, sem rotular mecanismo não demonstrado.
+4.4 Aula3 linha434: síntese diz ADF/KPSS concordam na diferença/resíduo, mas tabela de diagnóstico classifica resíduo STL como conflito. Contradição interna inequívoca. Na tarefa5 gerar tabelas e texto a partir dos mesmos artefatos, revisar cada conclusão contra valores.
+4.5 Aulas2/3: distribuição marginal do alvo não estabelece distribuição dos resíduos; recomendação 'normalidade rejeitada→evitar erros gaussianos' extrapola. Na tarefa5 Shapiro é dos resíduos finais, não do y; rejeição não invalida automaticamente GBR/RMSE.
+4.6 Aula2 classificação ItalyPowerDemand: F1 não informa binary/macro/weighted, classe positiva, split, CV nem seed. Na tarefa5 usar nomes explícitos 'RMSE de teste [MPa]', CV5-fold, split42, n em treino/teste e convenção sinal.
+4.7 Aula4 linha174: ausência de sobreposição elimina compartilhamento de amostras, mas não garante independência de janelas do mesmo ensaio. Não chamar5715 janelas de5715 ensaios independentes. Na tarefa5 remover duplicatas antes do split e registrar limitação de generalização a composições relacionadas se aplicável; não alegar independência biológica/física só por split aleatório.
+4.8 Aula4 linha273: EspaçoB usa rótulo saudável e regime para normalização; isso é calibração informada por rótulos. Sem separação independente explícita, não demonstra detecção prospectiva. É risco metodológico, não prova de vazamento no notebook não lido. Na tarefa5 scaler/imputer somente dentro Pipeline fit no treino/fold; teste reservado não participa HPO.
+4.9 Aula4 linhas372,679: subamostra1500 para alguns métodos comparada a todos5715 nos demais; tabelas não têm coluna n apesar de linha679 dizer que subamostra está registrada nas tabelas. Qualidade/custo não são diretamente comparáveis sem essa informação. Na tarefa5 todos métodos usam mesmos dados/folds, e orçamentos diversos precisam ficar visíveis.
+4.10 Aula4 linha403: pertinência média é apresentada como substituta de cluster_persistence/estabilidade. São estatísticas diferentes; indisponibilidade de pacote não autoriza chamar uma de outra. Na tarefa5 implementar ASHA real e não apenas importar o scheduler, configurar EI/UCB explicitamente, distinguir trial podado de avaliação completa.
+4.11 Aula4 linha613: percentil95 estimado de dados não garante automaticamente probabilidade exata.05 independente para todos ensaios; chamar binomial 'exato' exige hipótese e calibração. Não auditar p-valores sem dados; na tarefa5 evitar p-valores sobre trials adaptativos como se IID.
+4.12 Aula4 linha546: tempo GMM arredondado0.00s é inadequado para inverso do tempo/razão eficiência. Na tarefa5 preservar precisão suficiente e medir perf_counter; nunca dividir por tempo arredondado0.
+4.13 Aula4 recomenda DBSCAN por ARI e depois propõe limiar escalar2f em produção; regra de implantação diferente não herda automaticamente métricas do DBSCAN. Na tarefa5 métricas devem pertencer exatamente aos HP/modelo refitados, sem decode/clipping divergente entre busca e final.
+4.14 Aula4 linha681: promete12 figuras; fonte tem13 includegraphics. Checar inventário real, não contagens memorizadas.
+4.15 LaTeX: Aula1 reutiliza label fig:fig1-metricas-barras em8 figuras; Aula2 fig:fig1 em11; Aula3 fig:fig1 em8. Referências podem apontar ao lugar errado. Aula5 deve ter labels únicos, arquivos presentes, sem placeholders e compilação revisada.
+
+5. DECISÕES CONCRETAS PARA AULA5
+- Preservar autores/cabeçalho/estilo, mas manter relato direto em itens1–10.
+- UCI165 inteiro: auditar shape, nomes/unidades, missing, duplicatas exatas e versão/hash do dado. Reportar n bruto/limpo/treino/teste.
+- Cumprir protocolo do enunciado, não herdar10-fold,70/30,seed20260923 ou subamostras anteriores.
+- Salvar folds, seeds, espaço, budgets, versões e logs/trials; resultados somente de execução verificável.
+- Mesmos limites de HP e folds; explicitar grade discreta versus domínio contínuo; contar efetivamente avaliações, candidatos únicos, CV-fits e podas.
+- Distinguir CV usado na busca e teste usado para avaliação; winner no teste é descritivo/exploratório, escolha produção porCV. Robustez reroda HPO.
+- Tratar cada fallback por nome real; não renomear método/estatística para aparentar requisito cumprido.
+- Não emitir diagnóstico causal, superioridade estatística ou garantia de produção com base só no vencedor de um holdout.
+- Notebooks reexecutáveis completos; PDF com figuras corretas/legíveis, labels únicos, tabelas consistentes; conteúdo derivado dos mesmos CSV/JSON.
+- As lições de Aula4 são especialmente pertinentes ao commit rnd-superpowers solicitado: usar contrato de dados, hipóteses explícitas, experimentos registrados e verificação das fontes; citar exatamente quais práticas foram usadas sem alegar ferramentas que não rodaram.
+

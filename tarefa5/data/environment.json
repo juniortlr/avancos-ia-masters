@@ -1,0 +1,24 @@
+{
+  "python": "3.12.1 (tags/v3.12.1:2305ca5, Dec  7 2023, 22:03:25) [MSC v.1937 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 191 Stepping 2, GenuineIntel",
+  "logical_cpus": 16,
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.7.0",
+    "ucimlrepo": "0.0.7",
+    "scikit-optimize": "0.10.2",
+    "bayesian-optimization": "3.3.0",
+    "optuna": "5.0.0",
+    "hyperopt": "0.3.0",
+    "ray": "2.58.0",
+    "deap": "1.4.4",
+    "matplotlib": "3.11.2",
+    "seaborn": "0.13.2"
+  },
+  "thread_limits": 1
+}

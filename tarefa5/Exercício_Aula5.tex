@@ -1,0 +1,862 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath,amssymb,graphicx,booktabs,caption,float,geometry,hyperref}
+\usepackage[table]{xcolor}
+\usepackage{enumitem,array,longtable,microtype}
+\geometry{margin=2.5cm}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\setlength{\emergencystretch}{3em}
+\definecolor{bestgreen}{RGB}{215,240,218}
+\definecolor{timeyellow}{RGB}{255,242,179}
+\title{\Large\textbf{Avanços em Inteligência Artificial}\\
+\large EELT7025 --- PPGEE, UFPR\\[0.3cm]
+\normalsize Exercícios da Aula 05\\
+\normalsize Otimização de hiperparâmetros na resistência à compressão do concreto}
+\author{\parbox{\textwidth}{\centering Adriely Teixeira de Paula\\
+Betina Zynger Capaverde\\Emilio Gaudeda Junior}}
+\date{30 de setembro de 2026}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Protocolo, objetivo e rastreabilidade}
+
+Comparamos estratégias de otimização de hiperparâmetros (HPO) de um único \texttt{GradientBoostingRegressor} sobre o dataset \emph{Concrete Compressive Strength}, UCI 165, com resistência à compressão em MPa\cite{uci}. Os dois exercícios usam o mesmo conjunto de dados, a mesma divisão treino/teste e os mesmos cinco folds. O objetivo é medir qualidade preditiva e custo; não foi fornecido um limiar industrial de erro aceitável.
+
+O protocolo local e o orçamento foram fixados antes dos resultados em \texttt{study-protocol.md} e \texttt{search-budget.json}, seguindo práticas de investigação do \emph{rnd-superpowers}, no commit solicitado\cite{rnd}. A referência da disciplina orienta os itens 1--10\cite{aula}. As lições das tarefas anteriores foram incorporadas como verificação do inventário completo, registro das exclusões e confronto entre conclusões e resultados. Não havia comentário docente disponível nas fontes nem no painel de revisão consultado; essa revisão não é atribuída ao professor.
+
+\textbf{Desenho da comparação.} É um estudo computacional exploratório em um dataset e um holdout. A configuração de cada método é escolhida pelo RMSE médio de validação cruzada, isto é, a média dos cinco RMSEs de folds, não o RMSE de previsões out-of-fold agrupadas; o teste apenas avalia essa configuração. A seleção posterior do menor RMSE de teste, exigida nos itens 9.4 e 10.2, é descritiva e informada pelos resultados. A seleção pelo menor CV é apresentada separadamente da recomendação operacional, que pondera qualidade e custo após os resultados. Não se afirma superioridade estatística universal nem validação confirmatória independente depois dessa seleção.
+
+\textbf{Tempo e recursos.} Cada tempo total soma busca/CV e um ajuste final; instalação, download, gráficos, previsão de teste e serialização final ficam fora. Para o baseline, o total inclui CV e fit, e o fit é informado separadamente. Usaram-se 5 folds concorrentes, estimadores com limite de uma thread e métodos executados sequencialmente em CPU local. O pool loky de processos foi aquecido fora do cronômetro; Ray usa cinco threads de folds dentro de um trial. Os tempos incluem overhead dos otimizadores e refletem esta execução, sujeitos à carga da máquina.
+
+\section{Exercício 1 — preparação, baseline e buscas clássicas}
+
+\subsection{1. Carregamento, qualidade e pré-processamento}
+
+Os dados foram obtidos por \texttt{ucimlrepo.fetch\_ucirepo(id=165)}. O arquivo bruto contém 1030 linhas e 9 colunas (oito preditores e um alvo). Foram removidas 25 duplicatas exatas da linha completa, conservando a primeira ocorrência; restaram 1005 observações. Zero é um valor válido dos ingredientes, não um código de ausência. Nenhuma observação foi removida com base no erro do modelo.
+
+\begin{table}[H]
+\centering
+\caption{Qualidade de todas as colunas no arquivo bruto.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrr}
+\toprule
+Variável & Tipo lido & Ausentes & Proporção \\
+\midrule
+Cimento & float64 & 0 & 0{,}00\% \\
+Escória & float64 & 0 & 0{,}00\% \\
+Cinza volante & float64 & 0 & 0{,}00\% \\
+Água & float64 & 0 & 0{,}00\% \\
+Superplastificante & float64 & 0 & 0{,}00\% \\
+Agregado graúdo & float64 & 0 & 0{,}00\% \\
+Agregado miúdo & float64 & 0 & 0{,}00\% \\
+Idade & int64 & 0 & 0{,}00\% \\
+Resistência & float64 & 0 & 0{,}00\% \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Estatísticas descritivas brutas. Ingredientes em kg/m$^3$, idade em dias e alvo em MPa.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrr}
+\toprule
+Variável & $n$ & Média & DP & Mín. & $Q_1$ & Mediana & $Q_3$ & Máx. \\
+\midrule
+Cimento & 1030 & 281{,}17 & 104{,}51 & 102{,}00 & 192{,}38 & 272{,}90 & 350{,}00 & 540{,}00 \\
+Escória & 1030 & 73{,}90 & 86{,}28 & 0{,}00 & 0{,}00 & 22{,}00 & 142{,}95 & 359{,}40 \\
+Cinza volante & 1030 & 54{,}19 & 64{,}00 & 0{,}00 & 0{,}00 & 0{,}00 & 118{,}30 & 200{,}10 \\
+Água & 1030 & 181{,}57 & 21{,}35 & 121{,}80 & 164{,}90 & 185{,}00 & 192{,}00 & 247{,}00 \\
+Superplastificante & 1030 & 6{,}20 & 5{,}97 & 0{,}00 & 0{,}00 & 6{,}40 & 10{,}20 & 32{,}20 \\
+Agregado graúdo & 1030 & 972{,}92 & 77{,}75 & 801{,}00 & 932{,}00 & 968{,}00 & 1029{,}40 & 1145{,}00 \\
+Agregado miúdo & 1030 & 773{,}58 & 80{,}18 & 594{,}00 & 730{,}95 & 779{,}50 & 824{,}00 & 992{,}60 \\
+Idade & 1030 & 45{,}66 & 63{,}17 & 1{,}00 & 7{,}00 & 28{,}00 & 56{,}00 & 365{,}00 \\
+Resistência & 1030 & 35{,}82 & 16{,}71 & 2{,}33 & 23{,}71 & 34{,}45 & 46{,}14 & 82{,}60 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+A limpeza precedeu a divisão aleatória 80/20 com \texttt{random\_state=42}: 804 observações de treino e 201 de teste. A validação usa \texttt{KFold(5, shuffle=True, random\_state=42)} com índices congelados. Imputação por mediana, \texttt{StandardScaler} e GBR são um único pipeline ajustado dentro de cada fold e, no refit, somente no treino. A imputação é uma regra preventiva; sua necessidade efetiva está na tabela de ausentes. A padronização é exigida pelo enunciado, embora as árvores não dependam dela. O alvo não é padronizado, preservando MPa nas métricas.
+
+O \texttt{describe()} global exigido pelo roteiro expõe estatísticas agregadas de todo o arquivo; a EDA gráfica substantiva abaixo usa apenas o treino. A unidade é uma observação de composição e idade do concreto. A divisão por linha não comprova independência entre misturas relacionadas; faltam identificadores de lote para avaliar generalização entre laboratórios ou lotes desconhecidos.
+
+\textbf{Sobreposição de composições.} Depois de remover duplicatas completas de preditores e alvo, a auditoria encontrou 5 vetores de preditores idênticos presentes em treino e teste, envolvendo 8 linhas de treino e 5 de teste, com respostas distintas nas linhas não duplicadas. Podem ser medições relacionadas da mesma composição e idade. Assim, o holdout por linha avalia observações retidas; ele não valida previsão para receitas inéditas. Uma avaliação por grupos de composição é uma extensão necessária para essa outra pergunta, não executada nem substituída pelo split exigido aqui.
+
+No treino, a resistência tem mediana 33{,}74\,MPa, intervalo observado $[3{,}32;79{,}99]$ MPa e assimetria 0{,}391. A associação linear marginal de maior módulo com o alvo foi de Cimento, $r=0{,}497$. O scatter e o mapa de calor complementam esse resumo: relações não lineares ou interações podem ser úteis ao GBR mesmo quando a correlação marginal é menor.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/01_eda_distributions.png}}
+\caption{Distribuição do alvo e relação entre cimento e resistência no conjunto de treino.}
+\label{fig:01-eda-distributions}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/02_eda_correlations.png}}
+\caption{Correlações no treino; associações descritivas não identificam efeitos causais.}
+\label{fig:02-eda-correlations}
+\end{figure}
+
+\subsection{2. Modelo baseline sem otimização}
+
+A referência usa os parâmetros padrão do scikit-learn\cite{sklearn}, exceto \texttt{random\_state=42}; nos três hiperparâmetros comparados, $\eta=0{,}1000$, $s=1{,}000$ e $N=100$. O tempo exclusivo de treinamento final foi 0{,}0960\,s; CV mais treinamento levou 0{,}349\,s.
+
+\begin{table}[H]
+\centering
+\caption{Baseline: métricas em MPa, exceto $R^2$, tempo total e avaliação CV.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+\midrule
+Baseline & 5{,}2954 & 5{,}6039 & 4{,}1284 & 0{,}8947 & 0{,}349 & 1 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/03_baseline_predictions.png}}
+\caption{Baseline: resistência observada versus prevista no holdout; a diagonal representa previsão exata.}
+\label{fig:03-baseline-predictions}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Referências suplementares no mesmo split e folds, sem busca de hiperparâmetros.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrr}
+\toprule
+Referência adicional & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) \\
+\midrule
+Preditor da média & 16{,}0283 & 17{,}2964 & 13{,}9719 & -0{,}0028 & 0{,}163 \\
+Ridge $\alpha=1$ & 10{,}2018 & 11{,}1934 & 8{,}8976 & 0{,}5800 & 0{,}021 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Essas referências foram executadas depois da comparação principal, para contextualizar a dificuldade preditiva sem interferir nos tempos dos métodos. O preditor da média ignora as features; Ridge fornece uma referência linear com regularização fixa. O baseline exigido continua sendo o GBR com defaults, e é ele que define as razões de ganho e eficiência no restante do relatório.
+
+\subsection{3. Busca em grade e espaço de hiperparâmetros}
+
+\begin{table}[H]
+\centering
+\caption{Espaço fixado prospectivamente; demais hiperparâmetros permanecem nos defaults.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lll}
+\toprule
+Hiperparâmetro & Domínio & Valores da grade \\
+\midrule
+Taxa $\eta$ (learning\_rate) & $[0{,}03;0{,}20]$, log & $0{,}03;0{,}10;0{,}20$ \\
+Fração $s$ (subsample) & $[0{,}60;1{,}00]$ & $0{,}60;0{,}80;1{,}00$ \\
+Árvores $N$ (n\_estimators) & $[50;200]$, inteiro & $50;100;150;200$ \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+O produto cartesiano tem $3\times3\times4=36$ candidatos. O \texttt{GridSearchCV} avalia todos com cinco folds e \texttt{neg\_root\_mean\_squared\_error}; os sinais são revertidos neste relatório. O menor CV RMSE foi 4{,}7327\,MPa, em $\eta=0{,}2000$, $s=0{,}800$ e $N=150$, após 4{,}134\,s incluindo refit. Os limites são os mesmos dos métodos contínuos posteriores, mas a grade tem apenas estes pontos; isso impede tratar as resoluções de busca como idênticas.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/05_grid_heatmap.png}}
+\caption{RMSE CV em função de taxa de aprendizado e subsample, fixando $N=150$ no ótimo da grade.}
+\label{fig:05-grid-heatmap}
+\end{figure}
+
+Ao aumentar $\eta$ de 0,03 para 0,20, a mudança do RMSE no corte foi $-1{,}1588\,$MPa para $s=0{,}60$; $-1{,}2580\,$MPa para $s=0{,}80$; $-1{,}2171\,$MPa para $s=1{,}00$. A diferença entre esses efeitos evidencia dependência do efeito da taxa em relação ao subsample no corte observado. A grade esparsa permite descrever regiões melhores e piores, mas não demonstrar suavidade global ou contar ótimos locais no domínio contínuo.
+
+\subsection{4. Busca aleatória, convergência e sensibilidade}
+
+O \texttt{RandomizedSearchCV} sorteou 30 candidatos sem reposição da mesma grade, com seed 42 e os mesmos folds. A melhor configuração foi $\eta=0{,}2000$, $s=0{,}800$ e $N=150$, CV RMSE 4{,}7327\,MPa e tempo total 3{,}412\,s.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/04_grid_random_convergence.png}}
+\caption{Melhor CV RMSE acumulado na ordem registrada dos candidatos em \texttt{cv\_results\_}. O eixo conta avaliações, não segundos nem a ordem de término dos fits paralelos.}
+\label{fig:04-grid-random-convergence}
+\end{figure}
+
+A busca aleatória igualou o mínimo da grade na avaliação 6. Não pode superar estritamente o mínimo CV de uma grade exaustiva quando usa um subconjunto de seus candidatos, os mesmos folds e a mesma seed do estimador. Sua possível vantagem está em alcançar qualidade semelhante com menos avaliações. Essa restrição não determina a ordenação no holdout.
+
+\begin{table}[H]
+\centering
+\caption{Associação entre valor do hiperparâmetro e RMSE CV nos 30 candidatos aleatórios.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+Hiperparâmetro & $\rho$ de Spearman & $p$ exploratório & $n$ \\
+\midrule
+learning\_rate & -0{,}7594 & $1{,}14\times10^{-6}$ & 30 \\
+subsample & 0{,}1528 & $0{,}4203$ & 30 \\
+n\_estimators & -0{,}6216 & $2{,}46\times10^{-4}$ & 30 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+A maior associação monotônica em módulo foi de \texttt{learning\_rate}, com $\rho=-0{,}7594$. Como o score está em RMSE positivo, sinal negativo associa valores maiores a erro menor. Spearman é marginal: não isola interações, não estabelece causalidade e não garante importância universal. Taxa de aprendizado e número de árvores controlam conjuntamente a intensidade do boosting; subsample altera a aleatoriedade de ajuste, tornando dependência do contexto plausível.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/06_random_spearman.png}}
+\caption{Correlações de Spearman empíricas; barras em módulo não são efeitos causais.}
+\label{fig:06-random-spearman}
+\end{figure}
+
+\subsection{5. Síntese do exercício 1}
+
+\begin{table}[H]
+\centering
+\caption{Métodos clássicos: CV/teste em MPa, tempo CV+refit e avaliações efetivas.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+\midrule
+Baseline & 5{,}2954 & 5{,}6039 & 4{,}1284 & 0{,}8947 & 0{,}349 & 1 \\
+Grid Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 4{,}134 & 36 \\
+Random Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 3{,}412 & 30 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\textbf{A otimização trouxe ganho e compensa o custo?} O melhor teste entre as buscas clássicas empatou entre Grid e Random; o Random teve menor tempo, com redução de 20{,}36\% no RMSE e custo adicional de 3{,}063\,s. A decisão econômica depende da tolerância de erro e da frequência de retreinamento, não informadas.
+
+\textbf{Quando Grid Search é preferível?} Em espaços discretos pequenos, nos quais a cobertura completa é viável e uma superfície comparável precisa ser inspecionada. Em dimensões maiores, o custo cresce multiplicativamente; busca aleatória distribui um orçamento fixo de modo mais flexível\cite{bergstra}.
+
+\textbf{O heatmap revela interação?} Os efeitos extremos da taxa, acima quantificados para cada subsample, não são assumidos constantes. O corte mantém o número de árvores no ótimo; suas conclusões são locais a esse corte e aos níveis avaliados.
+
+\section{Exercício 2 — otimização Bayesiana, metaheurísticas e avaliação}
+
+\subsection{6. Processo Gaussiano e Expected Improvement}
+
+O loop manual usa $\eta$ em escala logarítmica e subsample, com $N=100$ fixado antes da execução. Cinco pontos aleatórios inicializam o GP; dez aquisições posteriores totalizam 15 avaliações. O kernel é Matérn $\nu=5/2$ com amplitude e componente de ruído ajustáveis\cite{gp}. A aquisição minimiza RMSE por Expected Improvement (EI), com $\xi=0{,}01$:
+
+\[ I(x)=f_{\min}-\mu(x)-\xi,\qquad\mathrm{EI}(x)=I(x)\Phi\!\left(\frac{I(x)}{\sigma(x)}\right)+\sigma(x)\phi\!\left(\frac{I(x)}{\sigma(x)}\right).\]
+
+O máximo de EI é aproximado numa malha $61\times61$ do domínio normalizado, evitando repetir pontos já observados. Isso é uma otimização discreta da aquisição no espaço contínuo, não uma garantia de máximo global analítico. A transformação de coordenadas é $\eta=0{,}03(0{,}20/0{,}03)^{u_1}$ e $s=0{,}60+0{,}40u_2$.
+
+\begin{table}[H]
+\centering
+\caption{Dez aquisições: posterior registrado antes da nova avaliação. RMSE e incerteza em MPa.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{rrrrrrr}
+\toprule
+Iter. & Obs. prévias & $\bar\sigma$ & EI máxima & Melhor prévio & Próx. $\eta$ & Próx. $s$ \\
+\midrule
+1 & 5 & 0{,}1357 & 0{,}1984 & 4{,}9288 & 0{,}2000 & 1{,}0000 \\
+2 & 6 & 0{,}1563 & 0{,}0725 & 4{,}9288 & 0{,}0775 & 1{,}0000 \\
+3 & 7 & 0{,}0729 & 0{,}0265 & 4{,}9288 & 0{,}1877 & 0{,}6000 \\
+4 & 8 & 0{,}0473 & 0{,}0121 & 4{,}9288 & 0{,}1654 & 1{,}0000 \\
+5 & 9 & 0{,}0591 & 0{,}1348 & 4{,}9288 & 0{,}2000 & 0{,}8133 \\
+6 & 10 & 0{,}0629 & 0{,}0104 & 4{,}8608 & 0{,}2000 & 0{,}8000 \\
+7 & 11 & 0{,}0607 & 0{,}0027 & 4{,}8254 & 0{,}2000 & 0{,}7933 \\
+8 & 12 & 0{,}0936 & 0{,}0036 & 4{,}8254 & 0{,}2000 & 0{,}6000 \\
+9 & 13 & 0{,}0888 & 0{,}0029 & 4{,}8254 & 0{,}2000 & 0{,}6067 \\
+10 & 14 & 0{,}0856 & 0{,}0031 & 4{,}8254 & 0{,}2000 & 0{,}6133 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+A incerteza média da malha passou de 0{,}1357 para 0{,}0856\,MPa, com 4 aumentos entre iterações consecutivas. Ela não precisa diminuir monotonicamente, porque os hiperparâmetros do kernel são reajustados e novas observações podem revelar estrutura inesperada. A EI máxima passou de 0{,}1984 para 0{,}0031. O critério busca equilibrar regiões promissoras e incerteza segundo o modelo; dez passos não provam convergência ao ótimo verdadeiro.
+
+Nas três últimas aquisições, a taxa proposta esteve em $[0{,}2000;0{,}2000]$ e o subsample em $[0{,}6000;0{,}6133]$. Esses candidatos descrevem onde a EI concentrou a exploração final; a localização ótima real permanece desconhecida.
+
+O melhor GP manual obteve CV RMSE 4{,}8254\,MPa e teste 4{,}6763\,MPa em $\eta=0{,}2000$, $s=0{,}800$ e $N=100$. Comparado às 36 avaliações da grade e 30 da busca aleatória, usou 15; a diferença de qualidade está na tabela e figura seguintes. A economia de avaliações não é comparação isolada de eficiência do algoritmo: o GP explora apenas dois hiperparâmetros, enquanto os demais exploram três.
+
+\begin{table}[H]
+\centering
+\caption{Comparação do GP manual com as buscas clássicas.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+\midrule
+Grid Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 4{,}134 & 36 \\
+Random Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 3{,}412 & 30 \\
+GP manual & 4{,}8254 & 4{,}6763 & 3{,}4329 & 0{,}9267 & 2{,}080 & 15 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/07_gp_comparison.png}}
+\caption{Convergência do GP manual e comparação com Grid/Random; o GP mantém 100 árvores.}
+\label{fig:07-gp-comparison}
+\end{figure}
+
+As dez figuras individuais estão no apêndice de aquisições. Cada uma exibe posterior, observações e EI com o candidato escolhido. O corte $\mu\pm2\sigma$ mantém o subsample do próximo candidato; as observações reais aparecem no mapa bidimensional, sem projetar pontos de outros subsamples sobre essa curva. A banda caracteriza incerteza do surrogate, não intervalo de previsão da resistência do concreto.
+
+\subsection{7. Cinco bibliotecas de otimização Bayesiana}
+
+\begin{table}[H]
+\centering
+\caption{Bibliotecas aplicadas aos três hiperparâmetros do espaço completo.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llr}
+\toprule
+Biblioteca & Configuração executada & Trials iniciados \\
+\midrule
+scikit-optimize & GP Matérn 5/2; EI; 10 iniciais & 40 \\
+bayes\_opt & GP; UCB $\kappa=2{,}576$; 5 iniciais + 35 & 40 \\
+Optuna & TPE; minimizar RMSE; seed 42 & 40 \\
+Hyperopt & TPE; \texttt{hp.loguniform} para $\eta$ & 40 \\
+Ray Tune & OptunaSearch + ASHA; recurso progressivo & 40 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Foram usados GP e aquisição explicitamente configurados no skopt\cite{skopt} e no bayes\_opt\cite{bayesopt}; TPE orientou Optuna\cite{optuna} e Hyperopt\cite{hyperopt}. Cada biblioteca iniciou 40 candidatos. Os métodos contínuos compartilham os limites da grade; valores intermediários são admissíveis, e a taxa é amostrada em escala logarítmica. O inteiro $N$ usa a mesma regra de conversão na avaliação e no ajuste final, evitando comparar um candidato com um refit diferente.
+
+\textbf{ASHA efetivo.} O recurso é a fração do número de árvores proposto, com estágios $0{,}25;0{,}50;0{,}75;1{,}00$, warm start e RMSE nos cinco folds a cada estágio. O scheduler tem grace period 0,25 e fator de redução 2; apenas candidatos com recurso completo podem vencer\cite{ray}. Houve 24 avaliações completas e 16 podas, com 117 relatórios intermediários e 585 chamadas de fit por fold/estágio. Ao todo foram construídas 24935 árvores nos folds, descontando árvores reaproveitadas pelo warm start. Candidatos parciais não equivalem a candidatos completos; seus scores não definem o vencedor.
+
+O tempo de busca do Ray inclui a inicialização do serviço, ao passo que o pool loky foi aquecido fora do cronômetro. A comparação de custo reflete essa convenção operacional declarada; não é um benchmark puro de tempo de treinamento nem prevê o custo de uma sessão persistente já inicializada.
+
+\begin{table}[H]
+\centering
+\caption{Cinco bibliotecas: melhor CV completo e métricas do refit no teste.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+\midrule
+skopt (GP + EI) & 4{,}6436 & 4{,}5346 & 2{,}9857 & 0{,}9311 & 13{,}728 & 40 \\
+bayes\_opt (GP + UCB) & 4{,}6476 & 4{,}4439 & 3{,}0819 & 0{,}9338 & 11{,}133 & 40 \\
+Optuna (TPE) & 4{,}6435 & 4{,}4328 & 3{,}1128 & 0{,}9341 & 6{,}906 & 40 \\
+Hyperopt (TPE) & 4{,}7253 & 4{,}8299 & 3{,}4202 & 0{,}9218 & 5{,}551 & 40 \\
+Ray (Optuna + ASHA) & 4{,}6096 & 4{,}6428 & 3{,}1124 & 0{,}9277 & 160{,}197 & 40 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/08_bayesian_convergence.png}}
+\caption{Convergência das cinco bibliotecas. Para ASHA, interpretar separadamente trabalho parcial e candidato completo.}
+\label{fig:08-bayesian-convergence}
+\end{figure}
+
+Entre as bibliotecas, Ray (Optuna + ASHA) retornou o menor CV RMSE (4{,}6096\,MPa), enquanto Hyperopt (TPE) teve o menor tempo total (5{,}551\,s). O melhor CV depende da trajetória adaptativa e do orçamento de 40 trials; esta comparação não demonstra que a mesma ordenação se repetiria em outro dataset.
+
+\subsection{8. Metaheurísticas: GA, DE e PSO}
+
+\textbf{8.1. Algoritmo genético.} DEAP\cite{deap}, população 20, 15 gerações, crossover de dois pontos com probabilidade 0,7, mutação uniforme inteira com probabilidade 0,25 e probabilidade por gene $1/3$, seleção por torneio de tamanho 3. Os genes são $g_1,g_2\in\{0,\ldots,1000\}$ e $g_3\in\{50,\ldots,200\}$; a decodificação usa $u_1=g_1/1000$, $u_2=g_2/1000$, $N=g_3$. O melhor indivíduo é preservado em Hall of Fame. Fitness herdados válidos não são recalculados; a contagem corresponde às chamadas efetivamente realizadas.
+
+O GA realizou 259 avaliações e 113 candidatos distintos. A diversidade, fração de genótipos distintos na população, passou de 100{,}00\% para 20{,}00\%. O maior intervalo sem melhoria acumulada durou 12 gerações, da 3 à 14; o ganho na última geração foi de apenas 0{,}000363\,MPa. A contração da diversidade junto à estagnação sugere risco de convergência prematura, mas não prova um ótimo local nem quantifica a distância ao ótimo global desconhecido.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/09_ga_generations.png}}
+\caption{GA: fitness mínimo, médio e melhor acumulado, acompanhados da diversidade por geração.}
+\label{fig:09-ga-generations}
+\end{figure}
+
+\textbf{8.2. Evolução diferencial.} Foram executadas as estratégias \texttt{best1bin} e \texttt{rand1bin}, com \texttt{maxiter=15}, \texttt{popsize=10}, mutação em $[0{,}5;1{,}0]$ e recombinação 0,7\cite{de}. O popsize multiplica a dimensão: são 30 indivíduos, não dez. A busca usa coordenadas normalizadas, sem polish, atualização imediata e tolerância padrão 0,01. O critério de dispersão pode encerrar antes de 15 gerações.
+
+\begin{table}[H]
+\centering
+\caption{Término efetivo da evolução diferencial.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Estratégia & Gerações & Avaliações & CV RMSE & Tempo (s) \\
+\midrule
+DE best1bin & 12 & 390 & 4{,}5612 & 56{,}677 \\
+DE rand1bin & 12 & 390 & 4{,}5981 & 52{,}258 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/10_de_convergence.png}}
+\caption{DE: melhor RMSE CV acumulado em best1bin e rand1bin.}
+\label{fig:10-de-convergence}
+\end{figure}
+
+Nesta execução, DE best1bin atingiu o menor CV RMSE: 4{,}5612\,MPa. A estratégia best1bin usa o melhor vetor como base e tende a intensificar busca local; rand1bin usa uma base aleatória. A curva mostra o efeito realizado aqui; uma seed não permite transformar essa diferença em superioridade geral de uma estratégia.
+
+O perfil observado foi: DE best1bin: 4{,}6235\,MPa após 100 avaliações, último ganho na avaliação 310; DE rand1bin: 4{,}6235\,MPa após 100 avaliações, último ganho na avaliação 266. O patamar final de cada curva deve ser interpretado junto à tolerância de parada, não como comprovação de convergência ao ótimo global.
+
+\textbf{8.3. Enxame de partículas.} Implementação explícita das atualizações de velocidade e posição\cite{pso}, com 20 partículas, 15 atualizações, $c_1=c_2=1{,}5$ e inércias $w\in\{0{,}4;0{,}7;0{,}9\}$. A inicialização também é avaliada: $20(15+1)=320$ chamadas por variante. A posição fica em $[0,1]^3$; ao atingir uma borda, a coordenada é truncada e sua velocidade zerada. O gráfico usa média do fitness corrente do enxame, não média dos melhores pessoais.
+
+\begin{table}[H]
+\centering
+\caption{Sensibilidade do PSO à inércia, com os demais parâmetros e orçamento iguais.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+\midrule
+PSO w=0,4 & 4{,}5694 & 4{,}5138 & 3{,}1941 & 0{,}9317 & 55{,}410 & 320 \\
+PSO w=0,7 & 4{,}5339 & 4{,}6955 & 3{,}0591 & 0{,}9261 & 52{,}052 & 320 \\
+PSO w=0,9 & 4{,}5277 & 4{,}5358 & 3{,}1241 & 0{,}9310 & 51{,}257 & 320 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/11_pso_inertia.png}}
+\caption{PSO: trajetória de gbest e média do enxame corrente para as três inércias.}
+\label{fig:11-pso-inertia}
+\end{figure}
+
+A menor validação entre as três inércias foi de PSO w=0,9, 4{,}5277\,MPa. Inércia maior mantém mais da velocidade anterior; menor inércia reduz esse impulso. As curvas registram o compromisso observado entre exploração e estabilização, sem assumir monotonicidade do fitness médio.
+
+A evolução do gbest nas iterações 5, 10 e 15 foi, em MPa: PSO w=0,4: 4{,}6100, 4{,}6090 e 4{,}5694; PSO w=0,7: 4{,}5849, 4{,}5849 e 4{,}5339; PSO w=0,9: 4{,}5277, 4{,}5277 e 4{,}5277. Essa comparação quantifica a velocidade e os patamares nesta seed; uma configuração de inércia não é universalmente preferível.
+
+\subsection{9. Dashboard comparativo e diagnósticos finais}
+
+\begin{table}[H]
+\centering
+\caption{Comparação completa e variantes: verde marca melhores métricas e amarelo o menor tempo total; erros em MPa.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+\midrule
+Baseline & 5{,}2954 & 5{,}6039 & 4{,}1284 & 0{,}8947 & \cellcolor{timeyellow}0{,}349 & 1 \\
+Grid Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 4{,}134 & 36 \\
+Random Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 3{,}412 & 30 \\
+GP manual & 4{,}8254 & 4{,}6763 & 3{,}4329 & 0{,}9267 & 2{,}080 & 15 \\
+skopt (GP + EI) & 4{,}6436 & 4{,}5346 & \cellcolor{bestgreen}2{,}9857 & 0{,}9311 & 13{,}728 & 40 \\
+bayes\_opt (GP + UCB) & 4{,}6476 & 4{,}4439 & 3{,}0819 & 0{,}9338 & 11{,}133 & 40 \\
+Optuna (TPE) & 4{,}6435 & 4{,}4328 & 3{,}1128 & 0{,}9341 & 6{,}906 & 40 \\
+Hyperopt (TPE) & 4{,}7253 & 4{,}8299 & 3{,}4202 & 0{,}9218 & 5{,}551 & 40 \\
+Ray (Optuna + ASHA) & 4{,}6096 & 4{,}6428 & 3{,}1124 & 0{,}9277 & 160{,}197 & 40 \\
+GA (DEAP) & 4{,}6010 & 4{,}5181 & 3{,}0133 & 0{,}9316 & 41{,}114 & 259 \\
+DE best1bin & 4{,}5612 & 4{,}6933 & 3{,}3025 & 0{,}9262 & 56{,}677 & 390 \\
+DE rand1bin & 4{,}5981 & \cellcolor{bestgreen}4{,}4135 & 3{,}0899 & \cellcolor{bestgreen}0{,}9347 & 52{,}258 & 390 \\
+PSO w=0,7 & 4{,}5339 & 4{,}6955 & 3{,}0591 & 0{,}9261 & 52{,}052 & 320 \\
+PSO w=0,4 & 4{,}5694 & 4{,}5138 & 3{,}1941 & 0{,}9317 & 55{,}410 & 320 \\
+PSO w=0,9 & \cellcolor{bestgreen}4{,}5277 & 4{,}5358 & 3{,}1241 & 0{,}9310 & 51{,}257 & 320 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+A tabela contém os 12 métodos principais e as três variantes adicionais de DE/PSO. A coluna Aval. conta candidatos registrados; em Ray inclui podas, cujo trabalho parcial é discriminado anteriormente e no apêndice. Os orçamentos diferentes são exigidos pelo roteiro. Vantagens em qualidade com muitas avaliações não devem ser atribuídas somente ao otimizador.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/13_radar.png}}
+\caption{Radar dos 12 métodos principais: maior é melhor em todos os eixos; os limites são os do conjunto exibido.}
+\label{fig:13-radar}
+\end{figure}
+
+Nos erros, o radar inverte a normalização min--max; em $R^2$ e $1/t$, preserva a orientação crescente. A área de um polígono depende da escala e não é uma métrica agregada validada. Para o mesmo alvo de teste, $R^2$ e RMSE induzem a mesma ordenação e não são eixos independentes de qualidade. Entre os 12 métodos principais exibidos, Optuna (TPE) tem o menor RMSE de teste (4{,}4328\,MPa); Baseline tem o menor tempo total. Os demais eixos e os compromissos de qualidade são avaliados na tabela, sem impor um peso econômico arbitrário a cada dimensão.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/14_pareto.png}}
+\caption{Qualidade versus custo: ambas as coordenadas são minimizadas; a fronteira identifica os métodos não dominados.}
+\label{fig:14-pareto}
+\end{figure}
+
+A fronteira de Pareto observada contém Baseline, Random Search, GP manual, Optuna (TPE), DE rand1bin. Um método é dominado quando outro tem RMSE e tempo não maiores, com ao menos uma melhora estrita. Empates são preservados. A fronteira pode mudar com hardware, seed, orçamento ou outro conjunto de teste.
+
+\textbf{9.4. Melhor resultado descritivo no teste:} DE rand1bin, em $\eta=0{,}1797$, $s=0{,}713$ e $N=190$. As previsões do mesmo refit alimentam RMSE, MAE, $R^2$, resíduos e importância; não houve ajuste de hiperparâmetros a partir desses diagnósticos.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/15_best_predictions_residuals.png}}
+\caption{Vencedor descritivo no holdout: observado versus previsto e distribuição dos resíduos $y-\hat y$.}
+\label{fig:15-best-predictions-residuals}
+\end{figure}
+
+Em 201 resíduos, a média foi 0{,}7045\,MPa e o desvio padrão amostral 4{,}3678\,MPa. Shapiro--Wilk: $W=0{,}9303$, $p=$$3{,}36\times10^{-8}$. Rejeita-se a hipótese de normalidade ao nível exploratório de 5\%. O diagnóstico se refere aos resíduos, não à distribuição marginal do alvo; não normalidade não invalida automaticamente o GBR ou as métricas de erro.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/16_feature_importance.png}}
+\caption{Importância das features do GBR final por redução acumulada de impureza.}
+\label{fig:16-feature-importance}
+\end{figure}
+
+Os três maiores valores foram Idade (35{,}32\%); Cimento (28{,}12\%); Água (10{,}05\%). Essa importância descreve o modelo ajustado, pode se distribuir entre variáveis correlacionadas e não mede efeito causal de um ingrediente sobre a resistência.
+
+\subsection{10. Importância, robustez, custo-benefício e recomendação}
+
+\textbf{10.1. Importância dos hiperparâmetros.} Foi utilizado \texttt{get\_param\_importances} do Optuna com avaliador fANOVA e seed 42\cite{optuna}. O HPO principal usa todas as 804 linhas de treino; outra busca de 40 trials usa uma subamostra aleatória de 402 linhas, preservando o holdout. Não se inclui o teste no que se chama treino integral. Os folds da subamostra seguem a mesma regra, mas suas observações diferem; a comparação é uma sensibilidade ao tamanho do treino.
+
+\begin{table}[H]
+\centering
+\caption{Importâncias normalizadas fANOVA após 40 trials Optuna em cada tamanho.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrr}
+\toprule
+Hiperparâmetro & Treino integral & Metade do treino \\
+\midrule
+learning\_rate & 68{,}36\% & 30{,}21\% \\
+n\_estimators & 29{,}91\% & 62{,}58\% \\
+subsample & 1{,}73\% & 7{,}21\% \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/18_optuna_importances.png}}
+\caption{Comparação da importância dos hiperparâmetros com treino integral e subamostra de 50\%.}
+\label{fig:18-optuna-importances}
+\end{figure}
+
+O principal hiperparâmetro no treino integral foi \texttt{learning\_rate} e na subamostra foi \texttt{n\_estimators}. O RMSE de teste do Optuna passou de 5{,}6774\,MPa na subamostra para 4{,}4328\,MPa no treino integral. Essas importâncias dependem do espaço, dos trials observados e do avaliador; não são uma propriedade fixa do dataset nem são diretamente equivalentes às correlações marginais de Spearman.
+
+\textbf{10.2. Robustez do procedimento.} Os vencedores por CV e por teste foram submetidos ao procedimento completo de busca nas seeds $\{0,7,21,42,99\}$, mantendo dados, holdout e folds. Variaram as seeds do otimizador e do GBR. A execução principal de seed 42 foi reutilizada. Se os vencedores coincidem, há apenas uma série de cinco repetições, sem duplicação de custo.
+
+\begin{table}[H]
+\centering
+\caption{Reexecuções completas do HPO com dados e partições fixos.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Método & Seed & CV RMSE & Teste RMSE & Tempo (s) \\
+\midrule
+DE rand1bin & 0 & 4{,}6413 & 4{,}5569 & 40{,}783 \\
+DE rand1bin & 7 & 4{,}6532 & 4{,}6909 & 33{,}620 \\
+DE rand1bin & 21 & 4{,}6508 & 4{,}5783 & 33{,}120 \\
+DE rand1bin & 42 & 4{,}5981 & 4{,}4135 & 52{,}258 \\
+DE rand1bin & 99 & 4{,}6524 & 4{,}4555 & 31{,}526 \\
+PSO w=0,9 & 0 & 4{,}5548 & 4{,}6603 & 43{,}779 \\
+PSO w=0,9 & 7 & 4{,}5661 & 4{,}5388 & 48{,}289 \\
+PSO w=0,9 & 21 & 4{,}5955 & 4{,}4263 & 49{,}861 \\
+PSO w=0,9 & 42 & 4{,}5277 & 4{,}5358 & 51{,}257 \\
+PSO w=0,9 & 99 & 4{,}5643 & 4{,}4826 & 50{,}981 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.65\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/17_robustness.png}}
+\caption{RMSE de teste do vencedor descritivo nas cinco seeds; não é intervalo de confiança de generalização.}
+\label{fig:17-robustness}
+\end{figure}
+
+DE rand1bin: RMSE de teste médio $4{,}5390\pm0{,}1092$ MPa (desvio padrão amostral, $n=5$), intervalo observado $[4{,}4135;4{,}6909]$ MPa. A variação relativa $\mathrm{DP}/\mathrm{média}$ foi 2{,}41\%. São cinco aleatoriedades de um mesmo dataset; a dispersão não quantifica incerteza entre populações, lotes ou outros conjuntos de teste.
+
+PSO w=0,9: RMSE de teste médio $4{,}5288\pm0{,}0867$ MPa (desvio padrão amostral, $n=5$), intervalo observado $[4{,}4263;4{,}6603]$ MPa. A variação relativa $\mathrm{DP}/\mathrm{média}$ foi 1{,}92\%. São cinco aleatoriedades de um mesmo dataset; a dispersão não quantifica incerteza entre populações, lotes ou outros conjuntos de teste.
+
+A maior dispersão relativa foi 2{,}41\% do RMSE médio. Isso indica estabilidade relativa às cinco seeds estudadas no holdout fixo, com a faixa de variação acima explicitada; não assegura estabilidade em produção nem sustenta interpretar diferenças de centésimos de MPa como decisivas.
+
+\textbf{10.3. Custo-benefício computacional.} Para erro menor ser melhor, a razão exigida é\[E_m=\frac{(\mathrm{RMSE}_0-\mathrm{RMSE}_m)/\mathrm{RMSE}_0}{t_m-t_0}.\]Ela usa segundos adicionais de busca/CV+refit. O baseline é indefinido; denominadores não positivos também não recebem uma divisão artificial por epsilon.
+
+\begin{table}[H]
+\centering
+\caption{Eficiência relativa ao baseline; traço significa razão não definida.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+Método & Ganho relativo & $\Delta t$ (s) & $E_m$ (s$^{-1}$) \\
+\midrule
+Baseline & 0{,}00\% & 0{,}000 & \textemdash \\
+Grid Search & 20{,}36\% & 3{,}785 & 0{,}0537830 \\
+Random Search & 20{,}36\% & 3{,}063 & 0{,}0664614 \\
+GP manual & 16{,}55\% & 1{,}731 & 0{,}0956433 \\
+skopt (GP + EI) & 19{,}08\% & 13{,}379 & 0{,}0142618 \\
+bayes\_opt (GP + UCB) & 20{,}70\% & 10{,}784 & 0{,}0191949 \\
+Optuna (TPE) & 20{,}90\% & 6{,}557 & 0{,}0318695 \\
+Hyperopt (TPE) & 13{,}81\% & 5{,}202 & 0{,}0265499 \\
+Ray (Optuna + ASHA) & 17{,}15\% & 159{,}848 & 0{,}0010729 \\
+GA (DEAP) & 19{,}38\% & 40{,}765 & 0{,}0047530 \\
+DE best1bin & 16{,}25\% & 56{,}328 & 0{,}0028846 \\
+DE rand1bin & 21{,}24\% & 51{,}908 & 0{,}0040921 \\
+PSO w=0,7 & 16{,}21\% & 51{,}702 & 0{,}0031353 \\
+PSO w=0,4 & 19{,}45\% & 55{,}060 & 0{,}0035327 \\
+PSO w=0,9 & 19{,}06\% & 50{,}908 & 0{,}0037437 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+A maior razão definida foi a de GP manual, $E=0{,}0956433\,$s$^{-1}$. Essa razão responde ao ganho marginal por tempo adicional nesta máquina; pode favorecer ganhos pequenos e baratos, e não inclui inferência, manutenção ou valor econômico do erro.
+
+\textbf{10.4. Recomendação justificada (até dez linhas).}
+
+Adotaria Optuna TPE como opção operacional: CV de 4{,}6435\,MPa, teste de 4{,}4328\,MPa e 6{,}906\,s em 40 avaliações. A API padronizada facilita integração ao pipeline e reprodução com seeds, versões e logs. Este é um julgamento pós-resultados de custo e qualidade: a seleção por CV permanece PSO w=0,9, e o vencedor descritivo do teste é DE rand1bin. Antes de produção, validaria em novos lotes e confrontaria o erro com a tolerância de engenharia.
+
+\clearpage\appendix
+
+\section{Parâmetros selecionados e contabilidade computacional}
+
+\begin{table}[H]
+\centering
+\caption{Melhores parâmetros por CV; baseline registra seus defaults.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+Método & learning\_rate & subsample & n\_estimators \\
+\midrule
+Baseline & 0{,}100000 & 1{,}000000 & 100 \\
+Grid Search & 0{,}200000 & 0{,}800000 & 150 \\
+Random Search & 0{,}200000 & 0{,}800000 & 150 \\
+GP manual & 0{,}200000 & 0{,}800000 & 100 \\
+skopt (GP + EI) & 0{,}199032 & 0{,}716111 & 198 \\
+bayes\_opt (GP + UCB) & 0{,}150675 & 0{,}843548 & 197 \\
+Optuna (TPE) & 0{,}184487 & 0{,}697361 & 171 \\
+Hyperopt (TPE) & 0{,}153621 & 0{,}720169 & 141 \\
+Ray (Optuna + ASHA) & 0{,}190575 & 0{,}701679 & 188 \\
+GA (DEAP) & 0{,}192554 & 0{,}712400 & 199 \\
+DE best1bin & 0{,}185928 & 0{,}922905 & 166 \\
+DE rand1bin & 0{,}179739 & 0{,}713162 & 190 \\
+PSO w=0,7 & 0{,}200000 & 0{,}681240 & 198 \\
+PSO w=0,4 & 0{,}193127 & 0{,}909809 & 185 \\
+PSO w=0,9 & 0{,}168098 & 0{,}622404 & 200 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Chamadas efetivas e tempos. No Ray, fit CV é uma chamada por fold/estágio, com warm start; não equivale a treinamento completo do zero.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Método & Busca/CV (s) & Refit (s) & Aval. & Únicos & Fits CV & Completos & Podados \\
+\midrule
+Baseline & 0{,}253 & 0{,}0960 & 1 & 1 & 5 & 1 & 0 \\
+Grid Search & 3{,}991 & 0{,}1430 & 36 & 36 & 180 & 36 & 0 \\
+Random Search & 3{,}288 & 0{,}1239 & 30 & 30 & 150 & 30 & 0 \\
+GP manual & 1{,}990 & 0{,}0898 & 15 & 15 & 75 & 15 & 0 \\
+skopt (GP + EI) & 13{,}558 & 0{,}1699 & 40 & 40 & 200 & 40 & 0 \\
+bayes\_opt (GP + UCB) & 10{,}947 & 0{,}1866 & 40 & 40 & 200 & 40 & 0 \\
+Optuna (TPE) & 6{,}759 & 0{,}1468 & 40 & 40 & 200 & 40 & 0 \\
+Hyperopt (TPE) & 5{,}429 & 0{,}1218 & 40 & 40 & 200 & 40 & 0 \\
+Ray (Optuna + ASHA) & 160{,}008 & 0{,}1887 & 40 & 40 & 585 & 24 & 16 \\
+GA (DEAP) & 40{,}953 & 0{,}1614 & 259 & 113 & 1295 & 259 & 0 \\
+DE best1bin & 56{,}532 & 0{,}1455 & 390 & 389 & 1950 & 390 & 0 \\
+DE rand1bin & 52{,}105 & 0{,}1530 & 390 & 390 & 1950 & 390 & 0 \\
+PSO w=0,7 & 51{,}899 & 0{,}1527 & 320 & 311 & 1600 & 320 & 0 \\
+PSO w=0,4 & 55{,}241 & 0{,}1690 & 320 & 319 & 1600 & 320 & 0 \\
+PSO w=0,9 & 51{,}112 & 0{,}1453 & 320 & 319 & 1600 & 320 & 0 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+O baseline usa perda quadrática, profundidade máxima 3 e demais parâmetros padrão da versão registrada. Fora das três dimensões acima, os métodos preservam esses parâmetros. Contagens distintas de candidatos e candidatos únicos mostram revisitas; não foi aplicado cache de scores entre otimizadores para artificialmente reduzir seu custo. O custo das sensibilidades é adicional à tabela principal.
+
+\section{Ambiente e evidências de reprodução}
+
+\textbf{Formato desta entrega.} O PDF foi exportado com ReportLab a partir dos mesmos blocos de conteúdo usados para gerar a fonte LaTeX. O arquivo \texttt{.tex} e as figuras acompanham a entrega; a compilação LaTeX não foi verificada neste ambiente. A exportação PDF não constitui evidência de compilação do projeto TeX.
+
+Python: 3.12.1 (tags/v3.12.1:2305ca5, Dec  7 2023, 22:03:25) [MSC v.1937 64 bit (AMD64)]. Plataforma: Windows-11-10.0.26200-SP0. Processador: identificador não disponibilizado pelo sistema. CPUs lógicas detectadas: 16.
+
+\begin{table}[H]
+\centering
+\caption{Versões registradas na execução, distintas das versões futuras de documentação online.}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll}
+\toprule
+Biblioteca & Versão instalada \\
+\midrule
+numpy & 2.5.3 \\
+pandas & 3.0.6 \\
+scipy & 1.18.1 \\
+scikit-learn & 1.9.1 \\
+joblib & 1.6.0 \\
+threadpoolctl & 3.7.0 \\
+ucimlrepo & 0.0.7 \\
+scikit-optimize & 0.10.2 \\
+bayesian-optimization & 3.3.0 \\
+optuna & 5.0.0 \\
+hyperopt & 0.3.0 \\
+ray & 2.58.0 \\
+deap & 1.4.4 \\
+matplotlib & 3.11.2 \\
+seaborn & 0.13.2 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+São fornecidos notebook executado, código de experimentos, dados e contrato, manifesto de split/folds, resultados por trial, previsões, figuras e fontes do relatório. Os arquivos \texttt{result.json}, \texttt{trials.csv}, \texttt{predictions.csv} e \texttt{analysis.json} conectam números e figuras à mesma execução. Reexecutar o HPO pode alterar tempos; seeds controlam aleatoriedade, mas não garantem igualdade bit a bit entre bibliotecas, versões e plataformas.
+
+Os registros por método guardam o SHA-256 integral do script executado. Foram encontrados 2 hashes de código na comparação principal. Um hash identifica o arquivo inteiro; uma diferença não implica automaticamente mudança no algoritmo, mas deve ser confrontada ao histórico de alterações.
+
+\noindent\textbf{Baseline, Grid Search, Random Search, GP manual, skopt (GP + EI), bayes\_opt (GP + UCB), Optuna (TPE), Hyperopt (TPE)}:\\{\small\ttfamily\path{f652fe5eab5e5cec8ea6b8c53e7de4b31fc3f14f453fd695768e8e0b0cf3aea8}}\par
+
+\noindent\textbf{Ray (Optuna + ASHA), GA (DEAP), DE best1bin, DE rand1bin, PSO w=0,7, PSO w=0,4, PSO w=0,9}:\\{\small\ttfamily\path{4bd4e786823cd9b0637186f1a46f4651d3e092b341d8316d3cdfc3c7c1dceda1}}\par
+
+\noindent\textbf{uci165\_raw.csv}, SHA-256:\\{\small\ttfamily\path{becab3d4456f67058a4db247ef0ae2dfbe6cef8e50c18898beed13e100202c5d}}\par
+
+\noindent\textbf{clean.csv}, SHA-256:\\{\small\ttfamily\path{503672bc1db72cdcb457df56bc34d44e94a933cee18b7a8baaabc8540ac7719e}}\par
+
+\noindent\textbf{split-manifest.csv}, SHA-256:\\{\small\ttfamily\path{53a672d829c8bea46dc35372870640922b377684b0b6bd2985b8fe7a2877e0c5}}\par
+
+\noindent\textbf{prepared.npz}, SHA-256:\\{\small\ttfamily\path{a642bb83837a56a7772fdbf5f876265a3be1524b76a43d90db3ad9d4972c7b14}}\par
+
+A integridade estrutural foi conferida por índices de treino/teste disjuntos, contagem de candidatos e recálculo de métricas a partir das previsões. Isso não substitui validação científica independente. O compromisso metodológico mais relevante é manter as limitações visíveis: um único dataset, budgets diferentes, busca contínua versus grade discreta e seleção descritiva pelo teste.
+
+\clearpage
+
+\section{Dez iterações do GP manual}
+
+\subsection*{Aquisição 1}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/gp_iteration_01.png}}
+\caption{Posterior e EI antes da aquisição 1, com 5 observações. Candidato: $\eta=0{,}2000$, $s=1{,}0000$. As observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras seções.}
+\label{fig:gp-iteration-01}
+\end{figure}
+
+\clearpage
+
+\subsection*{Aquisição 2}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/gp_iteration_02.png}}
+\caption{Posterior e EI antes da aquisição 2, com 6 observações. Candidato: $\eta=0{,}0775$, $s=1{,}0000$. As observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras seções.}
+\label{fig:gp-iteration-02}
+\end{figure}
+
+\clearpage
+
+\subsection*{Aquisição 3}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/gp_iteration_03.png}}
+\caption{Posterior e EI antes da aquisição 3, com 7 observações. Candidato: $\eta=0{,}1877$, $s=0{,}6000$. As observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras seções.}
+\label{fig:gp-iteration-03}
+\end{figure}
+
+\clearpage
+
+\subsection*{Aquisição 4}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/gp_iteration_04.png}}
+\caption{Posterior e EI antes da aquisição 4, com 8 observações. Candidato: $\eta=0{,}1654$, $s=1{,}0000$. As observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras seções.}
+\label{fig:gp-iteration-04}
+\end{figure}
+
+\clearpage
+
+\subsection*{Aquisição 5}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/gp_iteration_05.png}}
+\caption{Posterior e EI antes da aquisição 5, com 9 observações. Candidato: $\eta=0{,}2000$, $s=0{,}8133$. As observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras seções.}
+\label{fig:gp-iteration-05}
+\end{figure}
+
+\clearpage
+
+\subsection*{Aquisição 6}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/gp_iteration_06.png}}
+\caption{Posterior e EI antes da aquisição 6, com 10 observações. Candidato: $\eta=0{,}2000$, $s=0{,}8000$. As observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras seções.}
+\label{fig:gp-iteration-06}
+\end{figure}
+
+\clearpage
+
+\subsection*{Aquisição 7}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/gp_iteration_07.png}}
+\caption{Posterior e EI antes da aquisição 7, com 11 observações. Candidato: $\eta=0{,}2000$, $s=0{,}7933$. As observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras seções.}
+\label{fig:gp-iteration-07}
+\end{figure}
+
+\clearpage
+
+\subsection*{Aquisição 8}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/gp_iteration_08.png}}
+\caption{Posterior e EI antes da aquisição 8, com 12 observações. Candidato: $\eta=0{,}2000$, $s=0{,}6000$. As observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras seções.}
+\label{fig:gp-iteration-08}
+\end{figure}
+
+\clearpage
+
+\subsection*{Aquisição 9}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/gp_iteration_09.png}}
+\caption{Posterior e EI antes da aquisição 9, com 13 observações. Candidato: $\eta=0{,}2000$, $s=0{,}6067$. As observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras seções.}
+\label{fig:gp-iteration-09}
+\end{figure}
+
+\clearpage
+
+\subsection*{Aquisição 10}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth,height=0.74\textheight,keepaspectratio]{\detokenize{Figuras_Aula5/gp_iteration_10.png}}
+\caption{Posterior e EI antes da aquisição 10, com 14 observações. Candidato: $\eta=0{,}2000$, $s=0{,}6133$. As observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras seções.}
+\label{fig:gp-iteration-10}
+\end{figure}
+
+\begin{thebibliography}{99}
+\bibitem{uci} Yeh, I. (1998). \emph{Concrete Compressive Strength} [Dataset].
+UCI Machine Learning Repository. DOI: \href{https://doi.org/10.24432/C5PK67}{10.24432/C5PK67}.
+\bibitem{rnd} juniortlr. \emph{rnd-superpowers}, versão fixada no commit
+\texttt{f68892c8b7adba358b8aa437eec00a89fe88d340}.
+\url{https://github.com/juniortlr/rnd-superpowers/commit/f68892c8b7adba358b8aa437eec00a89fe88d340}.
+\bibitem{aula} Coelho, L. dos S. (2026). \emph{Aula 05: Otimização de hiperparâmetros}.
+EELT7025, PPGEE, Universidade Federal do Paraná. Notebook fornecido na disciplina.
+\bibitem{sklearn} Scikit-learn. \emph{GradientBoostingRegressor; Pipeline; GridSearchCV;
+RandomizedSearchCV}. Documentação oficial.
+\url{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingRegressor.html}.
+\bibitem{bergstra} Bergstra, J.; Bengio, Y. (2012). Random search for hyper-parameter
+optimization. \emph{Journal of Machine Learning Research}, 13, 281--305.
+\url{https://jmlr.org/papers/v13/bergstra12a.html}.
+\bibitem{gp} Rasmussen, C. E.; Williams, C. K. I. (2006).
+\emph{Gaussian Processes for Machine Learning}. MIT Press.
+\url{https://gaussianprocess.org/gpml/}.
+\bibitem{skopt} Scikit-optimize. \emph{BayesSearchCV}. Documentação oficial.
+\url{https://scikit-optimize.readthedocs.io/en/stable/modules/generated/skopt.BayesSearchCV.html}.
+\bibitem{bayesopt} Bayesian-optimization. \emph{BayesianOptimization}.
+\url{https://github.com/bayesian-optimization/BayesianOptimization}.
+\bibitem{optuna} Akiba, T. et al. (2019). Optuna: a next-generation hyperparameter
+optimization framework. \emph{KDD}, 2623--2631. DOI:10.1145/3292500.3330701.
+Documentação de importância: \url{https://optuna.readthedocs.io/en/stable/reference/generated/optuna.importance.get_param_importances.html}.
+\bibitem{hyperopt} Bergstra, J.; Bardenet, R.; Bengio, Y.; Kégl, B. (2011).
+Algorithms for hyper-parameter optimization. \emph{Advances in Neural Information Processing Systems}, 24.
+\bibitem{ray} Ray Tune. \emph{OptunaSearch e ASHAScheduler}. Documentação oficial.
+\url{https://docs.ray.io/en/latest/tune/api/doc/ray.tune.schedulers.ASHAScheduler.html}.
+\bibitem{deap} DEAP. \emph{Evolutionary algorithms made easy}. Documentação oficial.
+\url{https://deap.readthedocs.io/en/master/}.
+\bibitem{de} Storn, R.; Price, K. (1997). Differential evolution: a simple and efficient
+heuristic for global optimization over continuous spaces. \emph{Journal of Global Optimization}, 11, 341--359.
+DOI:10.1023/A:1008202821328.
+\bibitem{pso} Kennedy, J.; Eberhart, R. (1995). Particle swarm optimization.
+\emph{ICNN'95}, 4, 1942--1948. DOI:10.1109/ICNN.1995.488968.
+\end{thebibliography}
+\end{document}

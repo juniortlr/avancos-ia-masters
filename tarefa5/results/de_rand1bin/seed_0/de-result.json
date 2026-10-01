@@ -1,0 +1,15 @@
+{
+  "x": [
+    0.9469099122337535,
+    0.17801616746946147,
+    0.8449957514283092
+  ],
+  "fun": 4.641292344998723,
+  "nfev": 300,
+  "nit": 9,
+  "message": "Optimization terminated successfully.",
+  "population_size": 30,
+  "polish": false,
+  "tol": 0.01,
+  "atol": 0.0
+}

@@ -1,0 +1,2 @@
+method,seed,trial,cv_rmse,learning_rate,subsample,n_estimators,seconds,elapsed_seconds,status,resource,fold_0,fold_1,fold_2,fold_3,fold_4,duration_kind
+baseline,42,1,5.295370960228461,0.1,1.0,100,0.2521576000144705,0.2521895000245422,complete,1.0,4.833771394832354,5.2546328929595285,5.97603876669821,4.9769774777997124,5.435434268852501,objective_wall

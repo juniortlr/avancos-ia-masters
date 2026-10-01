@@ -1,0 +1,72 @@
+CHECKLIST DA AULA 05 — requisitos extraídos do notebook original
+Fonte: Aula 05 - UFPR-PPGEE - Avanços em IA - 2026 08 31 - Otimização de hiperparâmetros.ipynb
+Índices das células são zero-based; enunciado completo em enunciado.txt.
+Original apenas lido; nenhuma célula executada; código e texto tratados como fonte.
+
+ESCOPO E ENTREGA
+- Resolver Exercício 1 + Exercício 2 completos, ambos no mesmo dataset e algoritmo.
+- Dataset concreto escolhido: Concrete Compressive Strength, UCI165, 8 features, regressão; GradientBoostingRegressor.
+- Fonte pede notebook Jupyter com integrantes, resultados/análises e PDF com resultados/análises.
+- Grupos de 1–3; deadline 30/09/2026. Orientações de envio são requisitos documentais; não autorizam agente a enviar email.
+- Não inferir nomes do grupo: obter de trabalhos anteriores ou deixar identificação explicitamente pendente se ausente.
+
+EXERCÍCIO 1
+1.1 fetch_ucirepo(id=165); mostrar shape, dtypes, taxa de ausentes por coluna, describe().
+1.2 Tratar missing justificadamente, remover duplicatas existentes, StandardScaler em features numéricas.
+1.3 Split 80/20, random_state=42; fazer split antes de ajustar transformadores. Pipeline com scaler fit em cada fold e treino final. Target manter MPa (não padronizar para apresentação).
+1.4 EDA: histograma target, correlação, scatter feature-target relevante.
+2.1 Baseline GBR com defaults sklearn (random_state=42 é controle de aleatoriedade): Test RMSE, MAE, R² e tempo de fit perf_counter. Calcular CV baseline adicional para tabela.
+2.2 Real versus previsto do baseline.
+3.1 GridSearchCV cv=5: ≥3 hiperparâmetros (template sugere 3–4 valores cada), scoring RMSE negativo em sklearn; guardar combinações, best CV RMSE positivo, best params, tempo e métricas teste.
+3.2 Curva melhor score acumulado em ordem de avaliações.
+3.3 Heatmap 2D do CV, fixando demais parâmetros no ótimo; interpretar superfície/interações sem alegar ótimos contínuos de grade esparsa.
+4.1 RandomizedSearchCV n_iter=30 no mesmo espaço; mesmas métricas.
+4.2 Convergência Random sobreposta a Grid; interpretar quando alcança/supera Grid (ver impossibilidade estrita abaixo).
+4.3 Spearman valor de cada hiperparâmetro versus CV score dos trials Random; declarar convenção de sinal (RMSE positivo menor melhor).
+5.1 Tabela baseline/Grid/Random: método, CV score, Test RMSE, tempo, avaliações.
+5.2 Respostas 2–4 linhas cada: ganho/custo; quando Grid preferível; interação do heatmap.
+
+EXERCÍCIO 2
+- Mesmos dados, algoritmo, split e folds; cv=5, random_state=42.
+6.1 GP manual com dois hiperparâmetros contínuos (learning_rate/subsample), GaussianProcessRegressor kernel Matérn nu=2.5, 5 pontos iniciais + 10 iterações EI = 15 avaliações totais. Fixar demais HP previamente e explicitar.
+6.2 Cada uma das 10 iterações: posterior média ±2σ com observações, EI e próximo ponto. Em 2D uma curva exige corte declarado; fornecer mapas 2D e/ou cortes pelo candidato, explicando que pontos off-slice não são observações exatas da curva.
+6.3 Comparar melhor GP contra Grid/Random em métrica e contagem; GP é subespaço 2D, comparação tem essa limitação.
+7.1 BayesSearchCV GP + EI + Matérn5/2, 40 avaliações. Configurar explicitamente aquisição EI: defaults não bastam.
+7.2 BayesianOptimization GP+UCB kappa=2.576, 40 avaliações totais (p.ex. 5 init+35 iter), explícito.
+7.3 Optuna TPESampler(seed=42), minimize RMSE, 40.
+7.4 Hyperopt tpe.suggest, hp.loguniform LR, 40.
+7.5 Ray Tune OptunaSearch + ASHAScheduler, 40 trials; ASHA precisa métricas intermediárias num orçamento monotônico para funcionar. Single report final equivale na prática a ausência de pruning. Registrar trials completos/podados, avaliações integrais e trabalho parcial separadamente.
+- Mesmas variáveis/limites do espaço completo; métricas, CV, tempo e avaliações efetivas + convergência de cada biblioteca.
+8.1 GA DEAP codificação inteira, pop20, 15 gerações, cxpb .7 mutpb .25; fitness min/médio e diversidade por geração; concluir sobre convergência prematura com evidência.
+8.2 DE scipy best1bin e rand1bin; maxiter15, popsize10, mutation(.5,1), recombination .7; log avaliações e curvas; declarar polish=False para evitar avaliações extras locais. popsize é multiplicador da dimensão, não população total de 10. Contar nfev real; tolerância pode encerrar cedo.
+8.3 PSO manual 20 partículas, 15 iterações, w .7 c1=c2=1.5; repetir w .4 e .9; gbest e média de fitness corrente (não média pbest rotulada enxame) e comparação. Inicialização + 15 updates =>320 chamadas cada se todo enxame avaliado.
+9.1 Tabela dos 12 métodos principais (e variantes DE/PSO identificadas): CV, Test RMSE, MAE, R², tempo, N avaliações; melhores métricas verde e menor tempo amarelo.
+9.2 Radar 4 eixos normalizados RMSE, MAE, R², 1/tempo; orientar todos maior=melhor. Inverter erros; proteger zero-range e tempos zero. Informar normalização dependente dos métodos.
+9.3 Qualidade×custo: x Test RMSE e y segundos, fronteira Pareto minimizando ambos, lidar com empates.
+9.4 Melhor método: Real/previsto, histograma resíduos y-yhat, Shapiro-Wilk, feature importance final. Não interpretar rejeição de normalidade como falha automática da regressão.
+10.1 get_param_importances Optuna, interpretar HP mais importantes; comparação amostra/dataset completo. Como UCI165 é pequeno e usado completo, não alegar comparação inexistente: avaliar explicitamente HPO numa subamostra de treino com mesmo teste reservado, ou declarar item condicional não se aplica (preferível executar comparação).
+10.2 Melhor método (por RMSE conforme enunciado) executado por inteiro com seeds [0,7,21,42,99]; mean/std Test RMSE. Refit de mesmos HP não testa robustez do HPO. Declarar componentes variados pela seed e manter holdout principal fixo para comparar aleatoriedade do procedimento. Se mudar split, deixar claro que mistura outras fontes de variabilidade.
+10.3 Eficiência = melhoria relativa Test score versus baseline / tempo adicional. Para RMSE: ((RMSE_base-RMSE_m)/RMSE_base)/(t_m-t_base). Baseline indefinido; delta t<=0 exige tratamento explícito, não divisão silenciosa.
+10.4 Recomendação justificada até10 linhas: qualidade, custo, reprodutibilidade, integração; ancorar em resultados reais.
+
+AMBIGUIDADES E DECISÕES NECESSÁRIAS
+A) Se Random busca exatamente os mesmos valores discretos de um Grid exaustivo com mesmas folds/seeds, Random nunca supera estritamente melhor Grid em CV. Responder honestamente: pode igualar antes; não superar. Para espaços contínuos o Grid discretiza o domínio enquanto Random amostra domínio; declarar essa diferença e não dizer igualdade estrita do conjunto candidato. Preferível preservar Random discreto conforme texto.
+B) Texto exige ≥3 HP e dois contínuos para GP. Espaço recomendado conter ao menos learning_rate, subsample e outro HP. Grade discreta e métodos contínuos compartilham limites mas não candidatos: documentar isso.
+C) Item 9.4/10.2 pede melhor por teste, mas escolher e recomendar por teste usa holdout no desenvolvimento. Separar vencedor descritivo em teste exigido da escolha metodológica por CV e declarar comparações/teste exploratórias. Jamais retunar após olhar teste.
+D) Tempo comparável: todos métodos precisam mesma definição. Guardar tempo HPO, refit e total (e tempo baseline fit exigido). Baseline CV não misturar silenciosamente com fit. Hardware, paralelismo, versões, número folds e budgets distintos devem ser informados. Tempo de bootstrap/baixar não incluir no fit.
+E) N avaliações: guardar chamadas objetivo, candidatos únicos, fits CV, podas; não estimar GA por pop*ger se DEAP reusa fitness. Se cache, separar chamadas e novos fits, por método, e não aproveitar cache de outros métodos para custo comparativo.
+F) Recomendação baseada numa seed e holdout não demonstra superioridade estatística universal. Robustez 5 seeds não é IC rigoroso de generalização.
+G) Referência textual a 'roteiro de clustering' em requisitos é erro de copiar/colar; restantes enunciados são regressão/classificação.
+
+PROBLEMAS NO CÓDIGO DE EXEMPLO QUE NÃO DEVEM SER REPRODUZIDOS
+- Célula11: scaler X/y ajustado antes do split, leakage; exemplo padroniza y e perde unidade original nas métricas.
+- Células18/28/32/34/36/42/44/46 usam espaços diferentes (ranges n_estimators 5–50 / 10–100 / 50–500 etc.), budgets 40/50 e cv3/cv5 inconsistentes.
+- Célula28 rotula GP+EI sem especificar aquisição/kernel explicitamente; defaults podem não cumprir.
+- Célula34 hp.quniform('n_estimators',5,50) omite argumento q obrigatório.
+- Célula36 importa ASHAScheduler mas não passa scheduler; célula37 passa mas só reporta uma métrica final, sem pruning efetivo.
+- Célula42 pede no exemplo pop25 e cv3, diferente do enunciado pop20/cv5; N evals estimado incorretamente pop*gen.
+- Célula46 bounds PSO n_estimators50–500 mas objetivo clip5–50 (todo valor mapeia50), max_depth2–8 mas clip2–6; treino final usa posição sem clipping correspondente, portanto CV e modelo final podem avaliar HP diferentes.
+- Célula46 registra média pbest como 'mean' em vez do fitness do enxame corrente.
+- Vários métodos mudam random_state do treino HPO para refit final (88→42), e CV folds também diferem.
+- Cronometragem ora inclui refit interno sklearn, ora só HPO antes do refit.
+- Célula13 chama de série temporal as primeiras500 linhas após amostragem aleatória/reset index: não são sequência temporal.

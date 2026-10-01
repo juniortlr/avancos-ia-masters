@@ -1,0 +1,39 @@
+Notas de execução — 30/09/2026
+
+O ambiente virtual local foi criado com Python 3.12. A primeira instalação de
+dependências parou por falta de espaço temporário. A instalação foi concluída
+com --no-cache-dir; pip check informou ausência de dependências quebradas.
+
+O download da UCI exigiu permissão de rede fora da sandbox; a chamada usada foi
+ucimlrepo.fetch_ucirepo(id=165). O enunciado original não foi executado nem editado.
+
+A implementação GP manual emitiu avisos ConvergenceWarning: em algumas iterações,
+um length_scale atingiu o limite superior 100 e/ou noise_level o inferior 1e-10.
+Esses avisos não foram ocultados; os limites prospectivos foram mantidos. Portanto
+o ajuste do surrogate deve ser interpretado com essa limitação, sem alegar que a
+otimização do kernel encontrou uma solução global.
+
+Ray Tune iniciou localmente, mas a primeira tentativa foi interrompida antes de
+qualquer candidato por metric/mode duplicados entre tune.run e ASHAScheduler.
+A correção atribuiu esses parâmetros a tune.run, preservando a configuração do
+experimento. A tentativa falha foi arquivada em results/ray/seed_42_superseded_*.
+As duas versões do código são preservadas em code_versions e cada result.json
+registra seu SHA-256. Os métodos anteriores não foram refeitos para alterar scores.
+
+O projeto Overleaf foi lido e exportado pela interface autenticada. Posteriormente
+o navegador recusou acesso com a mensagem de que a permissão havia sido negada.
+Não houve tentativa de contornar a recusa. Após autorização explícita do usuário
+para liberar acesso, uma nova leitura foi recusada: a política informou que uma
+preferência salva ainda bloqueava overleaf.com. Os artefatos finais foram produzidos
+localmente e o arquivo da Aula 5 no projeto remoto permanece sem atualização.
+
+Fechamento: notebook com 71 células de código executadas, zero erros e 28 imagens;
+PDF de 38 páginas revisado visualmente, 27 figuras e 20 tabelas. A fonte TeX teve
+referências de figuras, ambientes e labels verificados; compilação ainda pendente.
+As duas entregas ZIP passaram na verificação de integridade CRC.
+
+Os tempos principais excluem preparação dos dados, instalação, início do pool
+loky (registrado separadamente), gráficos e serialização. Incluem a busca/CV e um
+refit no treino integral. O início/overhead do runtime Ray integra seu tempo de
+busca. Esse backend usa cinco threads por trial, enquanto os demais usam cinco
+processos CV. Não tratar os tempos como benchmark universal de algoritmos.

@@ -1,0 +1,22 @@
+method,role,space_dimension,planned_candidates_max,seed,folds,training_fraction,notes
+baseline,reference,0,1,42,5,1,GBR defaults except random_state
+grid,primary,3,36,42,5,1,complete discrete grid
+random,primary,3,30,42,5,1,same discrete grid sampled without replacement
+gp_manual,demonstration,2,15,42,5,1,5initial plus10EI fixed n_estimators100
+bayessearch,primary,3,40,42,5,1,GP Matern2.5 EI
+bayesopt,primary,3,40,42,5,1,GP UCB kappa2.576
+optuna,primary,3,40,42,5,1,TPE
+hyperopt,primary,3,40,42,5,1,TPE loguniform LR
+ray,primary,3,40,42,5,1,OptunaSearch ASHA complete and pruned counted separately
+ga,primary,3,320,42,5,1,integer genes20population15generations count actual fitness calls
+de_best1bin,primary,3,480,42,5,1,popsize10dimension3 maxiter15 may stop early
+de_rand1bin,sensitivity,3,480,42,5,1,same DE controls except strategy
+pso_w07,primary,3,320,42,5,1,20particles initialization plus15updates
+pso_w04,sensitivity,3,320,42,5,1,same PSO controls except inertia
+pso_w09,sensitivity,3,320,42,5,1,same PSO controls except inertia
+optuna_half_training,sensitivity,3,40,42,5,0.5,same reserved holdout and limits
+selected_winner_seed0,robustness,,,0,5,1,dimension and budget follow selected method fixed holdout and folds
+selected_winner_seed7,robustness,,,7,5,1,dimension and budget follow selected method fixed holdout and folds
+selected_winner_seed21,robustness,,,21,5,1,dimension and budget follow selected method fixed holdout and folds
+selected_winner_seed42,robustness,,,42,5,1,reuse corresponding main run explicitly
+selected_winner_seed99,robustness,,,99,5,1,dimension and budget follow selected method fixed holdout and folds

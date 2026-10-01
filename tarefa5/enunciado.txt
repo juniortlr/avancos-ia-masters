@@ -1,0 +1,247 @@
+=== Cell 58 [markdown] ===
+# 📝 Lista de exercícios - Aula 05
+
+=== Cell 59 [markdown] ===
+### **Requisitos**
+* **Grupos** de 1 a 3 pessoas.
+* **Enviar** para leandro.coelho@ufpr.br o notebook Jupyter com o nome dos integrantes do grupo, os resultados e as análises.
+* **Corpo** do email: Nomes dos integrantes do grupo.
+* **Assunto** do email: Avanços em IA - Exercícios da aula 05.
+* **Anexo** ao email: Notebook Jupyter com resultados e as análises solicitados nos exercícios, e um arquivo PDF com resultados e as análises.
+* Cada grupo deve escolher **1 dataset real** dentre os **10 sugeridos** (tabela na seção **Enunciados**) e aplicar sobre ele o **Exercício 1** e o **Exercício 2** — ambos incidem sobre o **mesmo dataset** e, juntos, retomam todo o roteiro de clustering apresentado nesta aula. Datasets diferentes dos sugeridos podem ser usados mediante aprovação prévia do professor.
+* <font color="red"><b>Deadline para envio da lista de exercícios resolvida por email:</b> 30 de setembro de 2026</font>
+
+
+=== Cell 60 [markdown] ===
+### **Enunciados**
+
+**Datasets sugeridos (escolha 1 dentre os 10)**
+
+Os exercícios aplicam otimização de hiperparâmetros sobre **tarefas de regressão ou classificação** em dados reais de engenharia, energia ou ciências aplicadas.
+
+O foco está no **processo de HPO**, não na tarefa em si. Escolha um dataset com volume suficiente (preferencialmente ≥ 1000 amostras) e ao menos 4 atributos (features).
+
+---
+
+| # | Dataset | Tarefa | Variáveis / Alvo | Fonte UCI / Repositório |
+|---|---------|--------|--------------------|-------------------------|
+| 1 | **Individual Household Electric Power Consumption** | Regressão | 6 features elétricas → Global Active Power | [UCI id=235](https://archive.ics.uci.edu/dataset/235) |
+| 2 | **Combined Cycle Power Plant** | Regressão | T, V, AP, RH → PE (potência líquida) | [UCI id=294](https://archive.ics.uci.edu/dataset/294) |
+| 3 | **Energy Efficiency** | Regressão | 8 características arquitetônicas → Heating/Cooling load | [UCI id=242](https://archive.ics.uci.edu/dataset/242) |
+| 4 | **Concrete Compressive Strength** | Regressão | 8 ingredientes → resistência à compressão (MPa) | [UCI id=165](https://archive.ics.uci.edu/dataset/165) |
+| 5 | **Air Quality** | Regressão | Sensores de gases → concentração de CO/NOx | [UCI id=360](https://archive.ics.uci.edu/dataset/360) |
+| 6 | **Appliances Energy Prediction** | Regressão | T, umidade, hora → consumo de eletrodomésticos (Wh) | [UCI id=374](https://archive.ics.uci.edu/dataset/374) |
+| 7 | **Superconductivty Data** | Regressão | 81 features físicas → temperatura crítica (K) | [UCI id=464](https://archive.ics.uci.edu/dataset/464) |
+| 8 | **Wine Quality (Red + White)** | Regressão ou Classificação | 11 físico-químicas → qualidade (0–10) | [UCI id=186](https://archive.ics.uci.edu/dataset/186) |
+| 9 | **Default of Credit Card Clients** | Classificação | 23 variáveis socioeconômicas → default (0/1) | [UCI id=350](https://archive.ics.uci.edu/dataset/350) |
+| 10 | **Dry Bean Dataset** | Classificação | 16 atributos morfológicos → 7 classes de feijão | [UCI id=602](https://archive.ics.uci.edu/dataset/602) |
+
+---
+
+> **Carregamento padronizado (todos os 10 datasets estão no UCI ML Repository):**
+> ```python
+> from ucimlrepo import fetch_ucirepo
+> ds = fetch_ucirepo(id=XXX)   # substitua XXX pelo id da tabela acima
+> X = ds.data.features
+> y = ds.data.targets
+> ```
+
+
+=== Cell 61 [markdown] ===
+<font color="blue"><b>Exercício 1 — Baseline, Busca aleatória, Busca em grade,análise do espaço de hiperparâmetros</b></font>
+
+Cobre os Módulos 0–2 da aula: preparação do dataset, métodos clássicos de HPO e análise exploratória do espaço de hiperparâmetros.
+
+Escolha **um** dos 10 datasets sugeridos e um algoritmo de aprendizado supervisionado (`GradientBoostingRegressor` ou `GradientBoostingClassifier` dependendo da tarefa). Execute as etapas a seguir sobre o mesmo par (dataset, algoritmo) ao longo de **todo o Exercício 1**.
+
+---
+
+**1. Carregamento e pré-processamento**
+
+1.1. Carregue o dataset via `ucimlrepo` e exiba: shape, tipos das colunas, proporção de valores ausentes por coluna e estatísticas descritivas (`describe()`).
+
+1.2. Trate valores ausentes (imputação ou remoção — justifique a estratégia), remova duplicatas se existirem e aplique `StandardScaler` às features numéricas.
+
+1.3. Divida em treino (80%) e teste (20%) com `random_state=42`. Para classificação, use `stratify=y`.
+
+1.4. Apresente uma EDA com: histograma do target, mapa de calor de correlação e pelo menos um scatter plot relevante entre features e target.
+
+---
+
+**2. Modelo baseline (sem otimização)**
+
+2.1. Treine o modelo com os **hiperparâmetros padrão** do sklearn e registre:
+  - Para regressão: RMSE, MAE e R² no conjunto de teste.
+  - Para classificação: acurácia, F1-macro e AUC-ROC no conjunto de teste.
+  - Tempo de treinamento (`time.perf_counter()`).
+
+2.2. Gere o gráfico de **Real vs. Previsto** (regressão) ou **Matriz de Confusão** (classificação) para o baseline.
+
+---
+
+**3. Busca em grade**
+
+3.1. Defina uma grade com **pelo menos 3 hiperparâmetros** e aplique `GridSearchCV` com `cv=5` e a mesma métrica de avaliação do baseline.
+Calcule: número total de combinações avaliadas, melhor CV score, melhores hiperparâmetros, tempo total e métricas no conjunto de teste.
+
+3.2. Plote a **curva de convergência**: melhor score acumulado por número de avaliações.
+
+3.3. Utilizando os resultados do `cv_results_`, gere um **heatmap 2D** do score médio de CV em função de dois hiperparâmetros (fixando os demais no valor ótimo encontrado). Interprete: a superfície é suave? Há múltiplos ótimos locais?
+
+---
+
+**4. Busca aleatória**
+
+4.1. Aplique `RandomizedSearchCV` com `n_iter=30` sobre o **mesmo espaço** do Grid Search. Registre as mesmas métricas do item 3.1.
+
+4.2. Plote a curva de convergência do Random Search e sobreponha à do Grid Search em um único gráfico. Interprete: com qual número de avaliações o Random Search supera o melhor Grid Search?
+
+4.3. Analise a **importância empírica de cada hiperparâmetro**: para cada hiperparâmetro, calcule a correlação de Spearman entre seu valor e o CV score nos trials do Random Search. Qual hiperparâmetro tem maior impacto? Esse resultado é consistente com o esperado para o algoritmo escolhido?
+
+---
+
+**5. Síntese do exercício 1**
+
+5.1. Monte uma tabela comparativa com: Método, CV Score, Test RMSE (ou F1), Tempo (s) e N° de avaliações — para o Baseline, Grid Search e Random Search.
+
+5.2. Responda objetivamente (2–4 linhas cada):
+  - A otimização trouxe ganho real em relação ao baseline? O ganho justifica o custo computacional?
+  - Em que cenários o Grid Search ainda é preferível ao Random Search?
+  - O heatmap revelou alguma interação relevante entre hiperparâmetros?
+
+
+=== Cell 62 [code] ===
+# ─── Exercício 1 — Template de Código ────────────────────────────────────────
+# INSTRUÇÕES: preencha as seções marcadas com TODO.
+# Não apague os comentários de seção — eles guiam a correção.
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import time
+import warnings
+warnings.filterwarnings('ignore')
+
+from ucimlrepo import fetch_ucirepo
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV, cross_val_score
+from sklearn.ensemble import GradientBoostingRegressor, GradientBoostingClassifier
+from sklearn.metrics import (mean_squared_error, mean_absolute_error, r2_score,
+                              accuracy_score, f1_score, roc_auc_score,
+                              confusion_matrix, ConfusionMatrixDisplay)
+from scipy.stats import spearmanr
+
+np.random.seed(42)
+DATASET_ID = None   # TODO: substitua pelo id do dataset escolhido (ex: 235)
+TASK       = None   # TODO: 'regression' ou 'classification'
+
+# ── 1. Carregamento ───────────────────────────────────────────────────────────
+# TODO: carregue o dataset, exiba shape, dtypes, missing values e describe()
+
+# ── 2. Pré-processamento ──────────────────────────────────────────────────────
+# TODO: trate NaN, normalize, divida treino/teste
+
+# ── 3. Baseline ───────────────────────────────────────────────────────────────
+# TODO: treine com parâmetros default, registre métricas e tempo
+
+# ── 4. Grid Search ────────────────────────────────────────────────────────────
+param_grid = {
+    # TODO: defina ao menos 3 hiperparâmetros com 3-4 valores cada
+    # Exemplo: 'n_estimators': [50, 100, 200], ...
+}
+
+# TODO: GridSearchCV + métricas + heatmap 2D
+
+# ── 5. Random Search ─────────────────────────────────────────────────────────
+# TODO: RandomizedSearchCV (n_iter=30) + métricas + correlação de Spearman
+
+# ── 6. Síntese ────────────────────────────────────────────────────────────────
+# TODO: tabela comparativa + interpretação
+
+=== Cell 63 [markdown] ===
+<font color="blue"><b>Exercício 2 — Otimização Bayesiana, metaheurísticas e avaliação</b></font>
+
+Continue sobre o **mesmo dataset e o mesmo algoritmo** do Exercício 1. Mantenha os mesmos splits treino/teste e o mesmo protocolo de validação cruzada (`cv=5`, `random_state=42`).
+
+---
+
+**6. Gaussian Process como Surrogate Model (demonstração)**
+
+6.1. Escolha **dois hiperparâmetros contínuos** do seu modelo (ex: `learning_rate` e `subsample`). Implemente — do zero, sem usar `BayesSearchCV` — o loop de Bayesian Optimization com GP:
+  - Inicialize com 5 pontos aleatórios;
+  - A cada iteração: ajuste um `GaussianProcessRegressor` (kernel Matérn 5/2) sobre as observações anteriores; maximize a **Expected Improvement** para escolher o próximo ponto; avalie o modelo nesse ponto.
+  - Execute 10 iterações.
+
+6.2. Para cada iteração, plote: (a) o posterior do GP (média ± 2σ) e as observações; (b) a curva de EI com o próximo ponto destacado. Comente: a incerteza do GP diminui conforme esperado? O EI converge para a região ótima?
+
+6.3. Compare o RMSE/F1 do melhor ponto encontrado pelo GP (item 6.1) com os resultados do Grid e Random Search do Exercício 1. O GP foi mais eficiente em número de avaliações?
+
+---
+
+**7. Bibliotecas de Bayesian Optimization — espaço completo**
+
+Aplique as **5 bibliotecas** a seguir sobre o **espaço completo de hiperparâmetros** (o mesmo do Exercício 1, com pelo menos 3 hiperparâmetros). Use `n_iter=40` (ou equivalente) em cada uma:
+
+| # | Biblioteca | Configuração mínima exigida |
+|---|-----------|-----------------------------|
+| 7.1 | `scikit-optimize` (`BayesSearchCV`) | GP + EI, kernel Matérn 5/2 |
+| 7.2 | `bayesian-optimization` (`BayesianOptimization`) | GP + UCB, `kappa=2.576` |
+| 7.3 | `Optuna` | Sampler TPE, `direction='minimize'` (RMSE) ou `'maximize'` (F1) |
+| 7.4 | `Hyperopt` | `tpe.suggest`, `hp.loguniform` para LR |
+| 7.5 | `Ray Tune` | `OptunaSearch` + `ASHAScheduler` |
+
+Para cada biblioteca registre: melhor CV score, métricas no conjunto de teste, tempo total (s) e número de avaliações efetivas. Plote a curva de convergência de cada uma.
+
+---
+
+**8. Metaheurísticas — GA, DE e PSO**
+
+Aplique os 3 algoritmos bioinspirados sobre o mesmo espaço de hiperparâmetros:
+
+8.1. **Algoritmo genético (GA)** com DEAP:
+  - Codificação inteira dos hiperparâmetros (ver seção 5.1 da aula).
+  - População: 20 indivíduos; Gerações: 15; `cxpb=0.7`, `mutpb=0.25`.
+  - Plote a curva de fitness mínimo e médio por geração.
+  - Analise a diversidade da população ao longo das gerações: o algoritmo convergiu prematuramente?
+
+8.2. **Evolução fiferencial (DE)** via `scipy.optimize.differential_evolution`:
+  - Estratégia `best1bin`; `maxiter=15`, `popsize=10`, `mutation=(0.5, 1.0)`, `recombination=0.7`.
+  - Registre a sequência de avaliações da função objetivo e plote a convergência.
+  - Compare a estratégia `best1bin` com `rand1bin`: execute ambas e discuta a diferença no perfil de convergência.
+
+8.3. **Otimização por enxame de partículas (PSO)** (implementado do zero, conforme Módulo 5.3 da aula):
+  - 20 partículas, 15 iterações, `w=0.7`, `c1=1.5`, `c2=1.5`.
+  - Plote a trajetória do gbest e a média do enxame por iteração.
+  - Experimente valores diferentes de inércia (`w=0.4` e `w=0.9`) e discuta o impacto na convergência.
+
+---
+
+**9. Dashboard comparativo**
+
+9.1. Monte uma tabela consolidando **todos os métodos** (Baseline, Grid, Random, GP-scratch, skopt, bayes_opt, Optuna, Hyperopt, Ray Tune, GA, DE, PSO) com as colunas:
+  - CV Score; Test RMSE ou Test F1; Test MAE ou Test AUC; Test R² ou Test Acurácia; Tempo (s); N° de avaliações.
+  - Destaque com cor verde o melhor valor em cada coluna de métrica de qualidade e com amarelo o menor tempo.
+
+9.2. Construa um **radar chart** (gráfico aranha) com os 4 eixos normalizados: RMSE, MAE, R² (ou acurácia), 1/Tempo — um polígono por método. Quais métodos dominam em qualidade? Quais dominam em eficiência?
+
+9.3. Gere um **scatter plot Qualidade × Custo** (eixo x = Test RMSE ou 1–F1; eixo y = Tempo em segundos). Identifique a **fronteira de Pareto** dos métodos não-dominados e destaque esses pontos no gráfico.
+
+9.4. Para o **melhor método** identificado na tabela:
+  - Gere o gráfico Real vs. Previsto (regressão) ou Matriz de Confusão (classificação) no conjunto de teste.
+  - Plote o histograma dos resíduos e verifique normalidade (teste de Shapiro-Wilk).
+  - Calcule e plote a **feature importance** do modelo final (se o algoritmo suportar).
+
+---
+
+**10. Análise crítica e recomendação**
+
+10.1. **Importância dos hiperparâmetros** (Optuna `get_param_importances`): quais hiperparâmetros mais impactam o desempenho no seu dataset? Esse resultado muda se você usar o dataset inteiro ao invés da amostra?
+
+10.2. Realize um experimento de **robustez**: execute o melhor método (por RMSE/F1) com 5 seeds diferentes (`random_state ∈ {0, 7, 21, 42, 99}`) e reporte a média e desvio padrão do Test RMSE ou F1. O resultado é estável?
+
+10.3. **Custo-benefício computacional**: calcule a *razão de eficiência* = melhoria relativa do Test Score em relação ao baseline dividida pelo tempo adicional gasto. Qual método apresenta melhor razão?
+
+10.4. Redija uma **recomendação justificada** (máx. 10 linhas) respondendo: *"Qual método de HPO você adotaria em produção para este dataset/algoritmo, e por quê?"* Considere: qualidade do modelo, custo computacional, reprodutibilidade e facilidade de integração em pipelines automatizados.
+
+

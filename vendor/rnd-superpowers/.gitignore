@@ -1,0 +1,13 @@
+# Editor / OS noise
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# Runtime caches; raw research datasets stay outside version control.
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/

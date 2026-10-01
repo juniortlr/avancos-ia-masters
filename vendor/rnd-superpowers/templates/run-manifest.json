@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "template-not-a-run",
+  "question_id": null,
+  "claim_type": null,
+  "analysis_mode": null,
+  "estimand": null,
+  "independent_unit": null,
+  "rows": null,
+  "entities": null,
+  "data_sources": [],
+  "input_sha256": {},
+  "code_revision": null,
+  "environment_file": null,
+  "split_manifest": null,
+  "outcome_exposure_before_plan": null,
+  "command": null,
+  "seeds": [],
+  "primary_metric": null,
+  "baseline": null,
+  "budget": {
+    "wall_seconds": null,
+    "cpu_cores": null,
+    "gpu_hours": null
+  },
+  "actual_resources": {},
+  "artifacts": [],
+  "limitations": []
+}

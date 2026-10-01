@@ -1,0 +1,1539 @@
+{
+  "audit_utc": "2026-10-01T00:01:53.738497+00:00",
+  "completed_methods": [
+    "baseline",
+    "grid",
+    "random",
+    "gp_manual",
+    "bayessearch",
+    "bayesopt",
+    "optuna",
+    "hyperopt",
+    "ray",
+    "ga",
+    "de_best1bin",
+    "de_rand1bin",
+    "pso_w07",
+    "pso_w04",
+    "pso_w09"
+  ],
+  "missing_methods": [],
+  "checks": [
+    {
+      "check": "input_sha256:uci165_raw.csv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "input_sha256:clean.csv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "input_sha256:split-manifest.csv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "input_sha256:prepared.npz",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "holdout_disjoint",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "fold_partition",
+      "status": "pass",
+      "detail": {
+        "0": 161,
+        "1": 161,
+        "2": 161,
+        "3": 161,
+        "4": 160
+      }
+    },
+    {
+      "check": "baseline:trial_count",
+      "status": "pass",
+      "detail": 1
+    },
+    {
+      "check": "baseline:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "baseline:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "baseline:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "baseline:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "baseline:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "baseline:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "baseline:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "baseline:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "baseline:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "grid:trial_count",
+      "status": "pass",
+      "detail": 36
+    },
+    {
+      "check": "grid:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "grid:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "grid:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "grid:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "grid:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "grid:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "grid:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "grid:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "grid:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "random:trial_count",
+      "status": "pass",
+      "detail": 30
+    },
+    {
+      "check": "random:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "random:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "random:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "random:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "random:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "random:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "random:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "random:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "random:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "gp_manual:trial_count",
+      "status": "pass",
+      "detail": 15
+    },
+    {
+      "check": "gp_manual:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "gp_manual:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "gp_manual:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "gp_manual:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "gp_manual:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "gp_manual:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "gp_manual:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "gp_manual:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "gp_manual:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayessearch:trial_count",
+      "status": "pass",
+      "detail": 40
+    },
+    {
+      "check": "bayessearch:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayessearch:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayessearch:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayessearch:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayessearch:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayessearch:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayessearch:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayessearch:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayessearch:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayesopt:trial_count",
+      "status": "pass",
+      "detail": 40
+    },
+    {
+      "check": "bayesopt:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayesopt:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayesopt:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayesopt:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayesopt:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayesopt:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayesopt:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayesopt:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "bayesopt:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "optuna:trial_count",
+      "status": "pass",
+      "detail": 40
+    },
+    {
+      "check": "optuna:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "optuna:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "optuna:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "optuna:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "optuna:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "optuna:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "optuna:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "optuna:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "optuna:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "hyperopt:trial_count",
+      "status": "pass",
+      "detail": 40
+    },
+    {
+      "check": "hyperopt:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "hyperopt:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "hyperopt:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "hyperopt:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "hyperopt:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "hyperopt:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "hyperopt:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "hyperopt:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "hyperopt:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:trial_count",
+      "status": "pass",
+      "detail": 40
+    },
+    {
+      "check": "ray:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:trial_count",
+      "status": "pass",
+      "detail": 259
+    },
+    {
+      "check": "ga:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:generations",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:incumbent_monotonic",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ga:integer_encoding",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_best1bin:trial_count",
+      "status": "pass",
+      "detail": 390
+    },
+    {
+      "check": "de_best1bin:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_best1bin:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_best1bin:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_best1bin:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_best1bin:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_best1bin:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_best1bin:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_best1bin:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_best1bin:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_best1bin:actual_nfev",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_rand1bin:trial_count",
+      "status": "pass",
+      "detail": 390
+    },
+    {
+      "check": "de_rand1bin:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_rand1bin:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_rand1bin:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_rand1bin:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_rand1bin:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_rand1bin:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_rand1bin:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_rand1bin:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_rand1bin:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "de_rand1bin:actual_nfev",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:trial_count",
+      "status": "pass",
+      "detail": 320
+    },
+    {
+      "check": "pso_w07:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:generations",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:incumbent_monotonic",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w07:current_swarm_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:trial_count",
+      "status": "pass",
+      "detail": 320
+    },
+    {
+      "check": "pso_w04:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:generations",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:incumbent_monotonic",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w04:current_swarm_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:trial_count",
+      "status": "pass",
+      "detail": 320
+    },
+    {
+      "check": "pso_w09:fold_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:parameters_in_domain",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:selection",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:test_metrics",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:test_rows",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:residual_definition",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:timing",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:fixed_protocol",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:cv_work",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:generations",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:incumbent_monotonic",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "pso_w09:current_swarm_mean",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "grid:full_cartesian",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "random:grid_subset_identical_folds",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:trial_ids",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:monotonic_stage_prefix",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:actual_tree_increments",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:work_totals",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "ray:pruning_status",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:.gitignore",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:AGENTS.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:README.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:agents/research-superpowers.agent.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:docs/method-catalog.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:docs/research-intake-and-parallelism-plan.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:docs/research-loop.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:docs/research-workflows.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:docs/review-and-communication-workflow.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:docs/sources.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:docs/upgrade-research-plan.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:docs/validation.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:examples/split-manifest.csv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:install.ps1",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:requirements-dev.txt",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:scripts/audit_split.py",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:scripts/plan_ab.py",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:scripts/validate_project.py",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/analysis-with-a-null-model/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/analyzing-reliability/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/budgeting-automl/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/conducting-outsider-review/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/conducting-peer-review-round/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/conducting-self-review/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/conducting-tutor-review/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/data-provenance-and-contracts/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/defining-problem-statements/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/designing-ab-tests/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/designing-scientific-experiments/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/estimating-uncertainty/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/evidence-ledger-and-gates/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/exploring-data/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/framing-a-research-question/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/identifying-causal-effects/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/mining-patterns/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/preregistering-an-analysis/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/red-teaming-a-result/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/reporting-a-finding/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/reproducing-research/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/reviewing-scientific-literature/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/training-classical-ml/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/using-research-superpowers/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/validating-physics-informed-models/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/validating-time-series/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/writing-executive-summaries/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:skills/writing-research-papers/SKILL.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:templates/research-cycle.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:templates/run-manifest.json",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:templates/study-protocol.md",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:tests/test_research_checks.py",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "framework:requested_commit",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "code_snapshot:f652fe5e",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "code_snapshot:4bd4e786",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "selection:cv_winner",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "selection:test_winner_descriptive",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:all_method_seed_pairs",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:0:full_procedure",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:0:selected_cv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:0:aggregate_matches",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:0:rmse_holdout",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:7:full_procedure",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:7:selected_cv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:7:aggregate_matches",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:7:rmse_holdout",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:21:full_procedure",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:21:selected_cv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:21:aggregate_matches",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:21:rmse_holdout",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:42:full_procedure",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:42:selected_cv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:42:aggregate_matches",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:42:rmse_holdout",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:99:full_procedure",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:99:selected_cv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:99:aggregate_matches",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:pso_w09:99:rmse_holdout",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:0:full_procedure",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:0:selected_cv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:0:aggregate_matches",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:0:rmse_holdout",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:7:full_procedure",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:7:selected_cv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:7:aggregate_matches",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:7:rmse_holdout",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:21:full_procedure",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:21:selected_cv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:21:aggregate_matches",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:21:rmse_holdout",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:42:full_procedure",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:42:selected_cv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:42:aggregate_matches",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:42:rmse_holdout",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:99:full_procedure",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:99:selected_cv",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:99:aggregate_matches",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:de_rand1bin:99:rmse_holdout",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:sample_sd:de_rand1bin",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "robustness:sample_sd:pso_w09",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "sample50:development_subset",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "sample50:budget",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "sample50:same_test_and_rmse",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "optuna:importance_normalization:full",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "optuna:importance_normalization:half",
+      "status": "pass",
+      "detail": null
+    },
+    {
+      "check": "all_methods_completed",
+      "status": "pass",
+      "detail": []
+    }
+  ],
+  "code_groups": {
+    "f652fe5eab5e5cec8ea6b8c53e7de4b31fc3f14f453fd695768e8e0b0cf3aea8": [
+      "baseline",
+      "grid",
+      "random",
+      "gp_manual",
+      "bayessearch",
+      "bayesopt",
+      "optuna",
+      "hyperopt"
+    ],
+    "4bd4e786823cd9b0637186f1a46f4651d3e092b341d8316d3cdfc3c7c1dceda1": [
+      "ray",
+      "ga",
+      "de_best1bin",
+      "de_rand1bin",
+      "pso_w07",
+      "pso_w04",
+      "pso_w09"
+    ]
+  },
+  "feature_vectors_crossing_holdout": [
+    [
+      471,
+      472,
+      473
+    ],
+    [
+      475,
+      476,
+      477
+    ],
+    [
+      478,
+      479,
+      480
+    ],
+    [
+      523,
+      524
+    ],
+    [
+      525,
+      526
+    ]
+  ],
+  "ray": {
+    "trials": 40,
+    "stage_rows": 117,
+    "complete": 24,
+    "pruned": 16,
+    "incremental_cv_fits": 585,
+    "new_cv_trees": 24935
+  },
+  "framework": {
+    "commit": "f68892c8b7adba358b8aa437eec00a89fe88d340",
+    "verified_files": 50,
+    "total_files": 50,
+    "scope": "Exact core source subset; validation example directory not copied"
+  },
+  "robustness": {
+    "selection": {
+      "selected_by_cv": "pso_w09",
+      "descriptive_best_by_test": "de_rand1bin",
+      "selection_before_robustness": true,
+      "seeds": [
+        0,
+        7,
+        21,
+        42,
+        99
+      ],
+      "fixed": [
+        "holdout split seed42",
+        "CV folds seed42",
+        "dataset"
+      ],
+      "varied": [
+        "optimizer random seed",
+        "GradientBoostingRegressor random_state"
+      ],
+      "limitation": "Test-winner selection is outcome-informed; five-seed spread measures procedure randomness conditional on fixed data, not population uncertainty"
+    },
+    "summary": [
+      {
+        "method": "de_rand1bin",
+        "mean": "4.5390187738235905",
+        "std": "0.10916363594220892",
+        "min": "4.413513036931648",
+        "max": "4.690940334271325",
+        "count": "5"
+      },
+      {
+        "method": "pso_w09",
+        "mean": "4.528786144224736",
+        "std": "0.08673454928382915",
+        "min": "4.426286484689527",
+        "max": "4.660333512229623",
+        "count": "5"
+      }
+    ],
+    "new_hpo_runs": 8
+  },
+  "sample50": {
+    "train_rows": 402,
+    "test_rows": 201,
+    "cv_rmse": 5.073834776694824,
+    "test_rmse": 5.677444167457973
+  },
+  "scope": "Saved-data arithmetic audit only; no model fitted. Other processes may conduct separate dynamic audits."
+}

@@ -1,0 +1,404 @@
+{
+  "audit_utc": "2026-09-30T23:44:15.834920+00:00",
+  "completed_methods": [
+    "baseline",
+    "bayesopt",
+    "bayessearch",
+    "gp_manual",
+    "grid",
+    "hyperopt",
+    "optuna",
+    "random"
+  ],
+  "checks": [
+    {
+      "check": "hash:uci165_raw.csv",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "hash:clean.csv",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "hash:split-manifest.csv",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "hash:prepared.npz",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "holdout_disjoint",
+      "status": "pass",
+      "detail": "train=804,test=201"
+    },
+    {
+      "check": "fold_partition",
+      "status": "pass",
+      "detail": "{'0': 161, '1': 161, '2': 161, '3': 161, '4': 160}"
+    },
+    {
+      "check": "baseline:n_trials",
+      "status": "pass",
+      "detail": "1"
+    },
+    {
+      "check": "baseline:fold_mean",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "baseline:bounds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "baseline:selection",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "baseline:test_metrics",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "baseline:heldout_rows",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "baseline:timing",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "baseline:split_folds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayesopt:n_trials",
+      "status": "pass",
+      "detail": "40"
+    },
+    {
+      "check": "bayesopt:fold_mean",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayesopt:bounds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayesopt:selection",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayesopt:test_metrics",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayesopt:heldout_rows",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayesopt:timing",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayesopt:split_folds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayessearch:n_trials",
+      "status": "pass",
+      "detail": "40"
+    },
+    {
+      "check": "bayessearch:fold_mean",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayessearch:bounds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayessearch:selection",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayessearch:test_metrics",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayessearch:heldout_rows",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayessearch:timing",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "bayessearch:split_folds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "gp_manual:n_trials",
+      "status": "pass",
+      "detail": "15"
+    },
+    {
+      "check": "gp_manual:fold_mean",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "gp_manual:bounds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "gp_manual:selection",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "gp_manual:test_metrics",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "gp_manual:heldout_rows",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "gp_manual:timing",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "gp_manual:split_folds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "grid:n_trials",
+      "status": "pass",
+      "detail": "36"
+    },
+    {
+      "check": "grid:fold_mean",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "grid:bounds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "grid:selection",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "grid:test_metrics",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "grid:heldout_rows",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "grid:timing",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "grid:split_folds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "hyperopt:n_trials",
+      "status": "pass",
+      "detail": "40"
+    },
+    {
+      "check": "hyperopt:fold_mean",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "hyperopt:bounds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "hyperopt:selection",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "hyperopt:test_metrics",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "hyperopt:heldout_rows",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "hyperopt:timing",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "hyperopt:split_folds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "optuna:n_trials",
+      "status": "pass",
+      "detail": "40"
+    },
+    {
+      "check": "optuna:fold_mean",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "optuna:bounds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "optuna:selection",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "optuna:test_metrics",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "optuna:heldout_rows",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "optuna:timing",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "optuna:split_folds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "random:n_trials",
+      "status": "pass",
+      "detail": "30"
+    },
+    {
+      "check": "random:fold_mean",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "random:bounds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "random:selection",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "random:test_metrics",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "random:heldout_rows",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "random:timing",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "random:split_folds",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "grid:cartesian",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "check": "random:grid_subset_identical_fold_scores",
+      "status": "pass",
+      "detail": ""
+    }
+  ],
+  "feature_vectors_crossing_holdout": [
+    [
+      471,
+      472,
+      473
+    ],
+    [
+      475,
+      476,
+      477
+    ],
+    [
+      478,
+      479,
+      480
+    ],
+    [
+      523,
+      524
+    ],
+    [
+      525,
+      526
+    ]
+  ],
+  "notes": [
+    "Read-only independent metric recomputation; no fitting or Ray initialization.",
+    "Partial audit while suite executes; not final completion."
+  ]
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "method": "baseline",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "bayesopt",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "bayessearch",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "de_best1bin",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "de_rand1bin",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "ga",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "gp_manual",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "grid",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "hyperopt",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "optuna",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "pso_w04",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "pso_w07",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "pso_w09",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "random",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  },
+  {
+    "method": "ray",
+    "saved_model_params": true,
+    "model_seed": 42,
+    "preprocess_train_only": true
+  }
+]

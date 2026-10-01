@@ -1,0 +1,4 @@
+row_id,entity_id,split,prediction_time,label_end,feature_available_at
+synthetic-1,entity-A,train,2025-01-01T00:00:00Z,2025-02-01T00:00:00Z,2024-12-31T00:00:00Z
+synthetic-2,entity-B,validation,2025-03-01T00:00:00Z,2025-04-01T00:00:00Z,2025-02-28T00:00:00Z
+synthetic-3,entity-C,test,2025-05-01T00:00:00Z,2025-06-01T00:00:00Z,2025-04-30T00:00:00Z

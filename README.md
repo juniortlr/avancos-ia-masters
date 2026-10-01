@@ -1,0 +1,59 @@
+# Avanços em Inteligência Artificial — PPGEE/UFPR
+
+Exercícios e resultados da disciplina EELT7025. Integrantes: **Adriely Teixeira de Paula, Betina Zynger Capaverde e Emilio Gaudeda Junior**.
+
+## Tarefa 5 — otimização de hiperparâmetros
+
+Comparação de estratégias de otimização do `GradientBoostingRegressor` no dataset **Concrete Compressive Strength (UCI 165)**. O relatório cobre os dois exercícios e os itens 1–10 do enunciado, incluindo GP manual, cinco bibliotecas de otimização Bayesiana, GA, DE, PSO e análise de robustez.
+
+| Material | Arquivo |
+|---|---|
+| Notebook com os resultados executados | [Aula05_Tarefa5_Resultados.ipynb](tarefa5/Aula05_Tarefa5_Resultados.ipynb) |
+| Relatório de 38 páginas | [Exercicio_Aula5.pdf](tarefa5/output/pdf/Exercicio_Aula5.pdf) |
+| Fonte LaTeX | [Exercício_Aula5.tex](tarefa5/Exercício_Aula5.tex) |
+| Figuras para o Overleaf | [Figuras_Aula5](tarefa5/Figuras_Aula5) |
+| Implementação de todos os experimentos | [experiment.py](tarefa5/experiment.py) |
+| Análise e gráficos | [plot_results.py](tarefa5/plot_results.py) |
+| Dados, split e contrato | [data](tarefa5/data) |
+| Trials, previsões, modelos e métricas | [results](tarefa5/results) |
+| Protocolo e orçamento prospectivos | [study-protocol.md](tarefa5/study-protocol.md), [search-budget.json](tarefa5/search-budget.json) |
+| Enunciado original fornecido | [Aula05_Enunciado.ipynb](enunciados/Aula05_Enunciado.ipynb) |
+
+Os 15 métodos/variantes totalizaram 2.281 avaliações na comparação principal. A auditoria passou em 280 verificações aritméticas e de integridade; CV, previsões e métricas dos 15 modelos também foram recalculados separadamente. O notebook arquivado executou 71 células de código, sem erros, e contém 28 figuras incorporadas.
+
+| Referência da execução arquivada | RMSE (MPa) |
+|---|---:|
+| Baseline no teste | 5,603850 |
+| Menor CV: PSO, inércia 0,9 | 4,527704 |
+| Menor erro descritivo no teste: DE rand1bin | 4,413513 |
+
+A escolha por CV e o vencedor descritivo do teste são distintos. O holdout é fixo e contém algumas composições também presentes no treino com respostas diferentes; não comprova generalização para receitas inéditas. Cinco seeds avaliam aleatoriedade condicional ao split, não cinco datasets independentes. Os métodos têm orçamentos e resoluções diferentes. Consulte o relatório antes de generalizar o ranking.
+
+## Reprodução local
+
+O experimento original usou Python 3.12. As versões instaladas estão em [requirements-lock.txt](tarefa5/requirements-lock.txt). Os tempos registrados pertencem à máquina original; uma nova execução deve manter seus próprios tempos e resultados.
+
+```bash
+python -m venv .venv
+# Ative o ambiente virtual conforme seu sistema.
+python -m pip install -r tarefa5/requirements-lock.txt
+python tarefa5/experiment.py verify
+python tarefa5/audit_saved_outputs.py --require-all
+python tarefa5/plot_results.py
+```
+
+Para repetir as buscas, siga [LEIA-ME.txt](tarefa5/LEIA-ME.txt) e use uma cópia separada dos artefatos. Os dados preservados permitem reconstruir a análise sem depender de uma nova consulta à UCI. Logs temporários do Ray, caches, ambientes virtuais e arquivos intermediários de renderização não são versionados.
+
+## Overleaf e aulas anteriores
+
+Para a Aula 5, adicione `Exercício_Aula5.tex` na raiz do projeto e a pasta `Figuras_Aula5` ao lado dele; selecione essa fonte como documento principal. O PDF disponibilizado foi exportado de blocos compartilhados com o LaTeX usando ReportLab. A compilação no Overleaf ainda não foi verificada; o acesso automatizado ao projeto permaneceu bloqueado por uma preferência salva do navegador.
+
+As fontes e figuras das [aulas 1–4](referencias/overleaf_aulas_01_a_04) são cópias do projeto usado como referência. Foram preservadas como recebidas, sem alegar reexecução ou validação dos seus experimentos. Não foram fornecidos notebooks executáveis dessas quatro aulas nesta sessão.
+
+## Fontes e atribuições
+
+- Dados: I-Cheng Yeh, [Concrete Compressive Strength, UCI 165](https://doi.org/10.24432/C5PK67), CC BY 4.0. A remoção de 25 duplicatas completas e a divisão de 1.005 linhas em 804/201 são registradas no contrato de dados.
+- Metodologia: [juniortlr/rnd-superpowers, commit f68892c8b7adba358b8aa437eec00a89fe88d340](https://github.com/juniortlr/rnd-superpowers/commit/f68892c8b7adba358b8aa437eec00a89fe88d340). O snapshot em [vendor](vendor/rnd-superpowers) contém os 50 arquivos centrais usados, com hashes Git verificados e manifesto. Trata-se de procedimentos de pesquisa, não de um motor de HPO.
+- O notebook em `enunciados/` é material didático fornecido, com autoria e conteúdo originais preservados. As referências bibliográficas completas constam do relatório.
+
+Este repositório não atribui uma licença global aos materiais de terceiros. Os termos e atribuições de cada fonte continuam aplicáveis. O [manifesto de publicação](publication-manifest.json) registra os arquivos e seus hashes.

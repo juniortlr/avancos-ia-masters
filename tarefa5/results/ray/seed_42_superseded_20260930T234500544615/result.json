@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "method": "ray",
+  "seed": 42,
+  "error": "ValueError('You passed a `metric` or `mode` argument to `tune.run(...)`, but the scheduler you are using was already instantiated with their own `metric` and `mode` parameters. Either remove the arguments from your scheduler or from `tune.run(...)` args.')",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\EG\\Documents\\ChatGPT\\avançosia\\tarefa5\\experiment.py\", line 592, in run_method\n    ray_search(obj)\n  File \"C:\\Users\\EG\\Documents\\ChatGPT\\avançosia\\tarefa5\\experiment.py\", line 513, in ray_search\n    analysis = tune.run(train, config={\"learning_rate\": tune.loguniform(.03, .2),\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\EG\\Documents\\ChatGPT\\avançosia\\.venv\\Lib\\site-packages\\ray\\tune\\tune.py\", line 849, in run\n    raise ValueError(\nValueError: You passed a `metric` or `mode` argument to `tune.run(...)`, but the scheduler you are using was already instantiated with their own `metric` and `mode` parameters. Either remove the arguments from your scheduler or from `tune.run(...)` args.\n",
+  "elapsed_seconds": 4.689534300006926,
+  "completed_candidates": 0,
+  "data_fingerprint": "503672bc1db72cdcb457df56bc34d44e94a933cee18b7a8baaabc8540ac7719e:53a672d829c8bea46dc35372870640922b377684b0b6bd2985b8fe7a2877e0c5"
+}

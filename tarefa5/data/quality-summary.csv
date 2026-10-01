@@ -1,0 +1,10 @@
+column,dtype,missing_count,missing_fraction
+Cement,float64,0,0.0
+Blast Furnace Slag,float64,0,0.0
+Fly Ash,float64,0,0.0
+Water,float64,0,0.0
+Superplasticizer,float64,0,0.0
+Coarse Aggregate,float64,0,0.0
+Fine Aggregate,float64,0,0.0
+Age,int64,0,0.0
+target_mpa,float64,0,0.0

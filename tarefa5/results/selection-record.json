@@ -1,0 +1,22 @@
+{
+  "selected_by_cv": "pso_w09",
+  "descriptive_best_by_test": "de_rand1bin",
+  "selection_before_robustness": true,
+  "seeds": [
+    0,
+    7,
+    21,
+    42,
+    99
+  ],
+  "fixed": [
+    "holdout split seed42",
+    "CV folds seed42",
+    "dataset"
+  ],
+  "varied": [
+    "optimizer random seed",
+    "GradientBoostingRegressor random_state"
+  ],
+  "limitation": "Test-winner selection is outcome-informed; five-seed spread measures procedure randomness conditional on fixed data, not population uncertainty"
+}

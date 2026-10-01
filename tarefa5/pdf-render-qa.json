@@ -1,0 +1,460 @@
+{
+  "pages": [
+    {
+      "page": 1,
+      "characters": 273,
+      "images": 0,
+      "heading": [
+        "Avanços em Inteligência Artificial",
+        "EELT7025 - PPGEE, UFPR",
+        "Exercícios da Aula 05"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 2,
+      "characters": 1822,
+      "images": 0,
+      "heading": [
+        "Sumário",
+        "3",
+        "1. Protocolo, objetivo e rastreabilidade"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 3,
+      "characters": 2716,
+      "images": 0,
+      "heading": [
+        "1. Protocolo, objetivo e rastreabilidade",
+        "Comparamos estratégias de otimização de hiperparâmetros (HPO) de um único",
+        "GradientBoostingRegressor sobre o dataset Concrete Compressive Strength, UCI 165, com"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 4,
+      "characters": 2159,
+      "images": 0,
+      "heading": [
+        "Tabela 1. Qualidade de todas as colunas no arquivo bruto.",
+        "Variável",
+        "Tipo lido"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 5,
+      "characters": 857,
+      "images": 1,
+      "heading": [
+        "8 linhas de treino e 5 de teste, com respostas distintas nas linhas não duplicadas. Podem ser",
+        "medições relacionadas da mesma composição e idade. Assim, o holdout por linha avalia",
+        "observações retidas; ele não valida previsão para receitas inéditas. Uma avaliação por grupos"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 6,
+      "characters": 570,
+      "images": 1,
+      "heading": [
+        "Figura 2. Correlações no treino; associações descritivas não identificam efeitos causais.",
+        "2. Modelo baseline sem otimização",
+        "A referência usa os parâmetros padrão do scikit-learn [4], exceto random_state=42 ; nos três"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 7,
+      "characters": 778,
+      "images": 1,
+      "heading": [
+        "Figura 3. Baseline: resistência observada versus prevista no holdout; a diagonal representa previsão exata.",
+        "Tabela 4. Referências suplementares no mesmo split e folds, sem busca de hiperparâmetros.",
+        "Referência adicional"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 8,
+      "characters": 1270,
+      "images": 1,
+      "heading": [
+        "3. Busca em grade e espaço de hiperparâmetros",
+        "Tabela 5. Espaço fixado prospectivamente; demais hiperparâmetros permanecem nos defaults.",
+        "Hiperparâmetro"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 9,
+      "characters": 1481,
+      "images": 1,
+      "heading": [
+        "4. Busca aleatória, convergência e sensibilidade",
+        "O RandomizedSearchCV sorteou 30 candidatos sem reposição da mesma grade, com seed 42",
+        "e os mesmos folds. A melhor configuração foi η=0,2000, s=0,800 e N=150, CV RMSE 4,7327"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 10,
+      "characters": 1259,
+      "images": 1,
+      "heading": [
+        "Figura 6. Correlações de Spearman empíricas; barras em módulo não são efeitos causais.",
+        "5. Síntese do exercício 1",
+        "Tabela 7. Métodos clássicos: CV/teste em MPa, tempo CV+refit e avaliações efetivas."
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 11,
+      "characters": 2238,
+      "images": 1,
+      "heading": [
+        "3. Exercício 2 - otimização Bayesiana, metaheurísticas e",
+        "avaliação",
+        "6. Processo Gaussiano e Expected Improvement"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 12,
+      "characters": 1293,
+      "images": 1,
+      "heading": [
+        "isolada de eficiência do algoritmo: o GP explora apenas dois hiperparâmetros, enquanto os",
+        "demais exploram três.",
+        "Tabela 9. Comparação do GP manual com as buscas clássicas."
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 13,
+      "characters": 1752,
+      "images": 0,
+      "heading": [
+        "Foram usados GP e aquisição explicitamente configurados no skopt [7] e no bayes_opt [8]; TPE",
+        "orientou Optuna [9] e Hyperopt [10]. Cada biblioteca iniciou 40 candidatos. Os métodos",
+        "contínuos compartilham os limites da grade; valores intermediários são admissíveis, e a taxa é"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 14,
+      "characters": 1402,
+      "images": 1,
+      "heading": [
+        "Figura 8. Convergência das cinco bibliotecas. Para ASHA, interpretar separadamente trabalho parcial e candidato",
+        "completo.",
+        "Entre as bibliotecas, Ray (Optuna + ASHA) retornou o menor CV RMSE (4,6096 MPa),"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 15,
+      "characters": 1008,
+      "images": 2,
+      "heading": [
+        "Figura 9. GA: fitness mínimo, médio e melhor acumulado, acompanhados da diversidade por geração.",
+        "8.2. Evolução diferencial. Foram executadas as estratégias best1bin e rand1bin , com",
+        "maxiter=15 , popsize=10 , mutação em [0,5;1,0] e recombinação 0,7 [13]. O popsize multiplica a"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 16,
+      "characters": 1756,
+      "images": 1,
+      "heading": [
+        "superioridade geral de uma estratégia.",
+        "O perfil observado foi: DE best1bin: 4,6235 MPa após 100 avaliações, último ganho na",
+        "avaliação 310; DE rand1bin: 4,6235 MPa após 100 avaliações, último ganho na avaliação 266."
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 17,
+      "characters": 1380,
+      "images": 0,
+      "heading": [
+        "9. Dashboard comparativo e diagnósticos finais",
+        "Tabela 14. Comparação completa e variantes: verde marca melhores métricas e amarelo o menor tempo total;",
+        "erros em MPa."
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 18,
+      "characters": 686,
+      "images": 1,
+      "heading": [
+        "Figura 12. Radar dos 12 métodos principais: maior é melhor em todos os eixos; os limites são os do conjunto",
+        "exibido.",
+        "Nos erros, o radar inverte a normalização min-max; em R2 e 1/t, preserva a orientação"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 19,
+      "characters": 1045,
+      "images": 2,
+      "heading": [
+        "Figura 13. Qualidade versus custo: ambas as coordenadas são minimizadas; a fronteira identifica os métodos não",
+        "dominados.",
+        "A fronteira de Pareto observada contém Baseline, Random Search, GP manual, Optuna (TPE),"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 20,
+      "characters": 1142,
+      "images": 1,
+      "heading": [
+        "não normalidade não invalida automaticamente o GBR ou as métricas de erro.",
+        "Figura 15. Importância das features do GBR final por redução acumulada de impureza.",
+        "Os três maiores valores foram Idade (35,32%); Cimento (28,12%); Água (10,05%). Essa"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 21,
+      "characters": 1325,
+      "images": 1,
+      "heading": [
+        "Figura 16. Comparação da importância dos hiperparâmetros com treino integral e subamostra de 50%.",
+        "O principal hiperparâmetro no treino integral foi learning_rate e na subamostra foi n_estimators .",
+        "O RMSE de teste do Optuna passou de 5,6774 MPa na subamostra para 4,4328 MPa no treino"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 22,
+      "characters": 1263,
+      "images": 2,
+      "heading": [
+        "Figura 17. RMSE de teste do vencedor descritivo nas cinco seeds; não é intervalo de confiança de generalização.",
+        "DE rand1bin: RMSE de teste médio 4,5390±0,1092 MPa (desvio padrão amostral, n=5),",
+        "intervalo observado [4,4135;4,6909] MPa. A variação relativa DP / média foi 2,41%. São cinco"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 23,
+      "characters": 1418,
+      "images": 0,
+      "heading": [
+        "Tabela 17. Eficiência relativa ao baseline; traço significa razão não definida.",
+        "Método",
+        "Ganho relativo"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 24,
+      "characters": 726,
+      "images": 0,
+      "heading": [
+        "A. Parâmetros selecionados e contabilidade computacional",
+        "Tabela 18. Melhores parâmetros por CV; baseline registra seus defaults.",
+        "Método"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 25,
+      "characters": 1847,
+      "images": 0,
+      "heading": [
+        "Tabela 19. Chamadas efetivas e tempos. No Ray, fit CV é uma chamada por fold/estágio, com warm start; não",
+        "equivale a treinamento completo do zero.",
+        "Método"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 26,
+      "characters": 1629,
+      "images": 0,
+      "heading": [
+        "Tabela 20. Versões registradas na execução, distintas das versões futuras de documentação online.",
+        "Biblioteca",
+        "Versão instalada"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 27,
+      "characters": 597,
+      "images": 0,
+      "heading": [
+        "split-manifest.csv, SHA-256:",
+        "53a672d829c8bea46dc35372870640922b377684b0b6bd2985b8fe7a2877e0c5",
+        "prepared.npz, SHA-256:"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 28,
+      "characters": 286,
+      "images": 1,
+      "heading": [
+        "C. Dez iterações do GP manual",
+        "Aquisição 1",
+        "Figura 18. Posterior e EI antes da aquisição 1, com 5 observações. Candidato: η=0,2000, s=1,0000. As"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 29,
+      "characters": 256,
+      "images": 1,
+      "heading": [
+        "Aquisição 2",
+        "Figura 19. Posterior e EI antes da aquisição 2, com 6 observações. Candidato: η=0,0775, s=1,0000. As",
+        "observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 30,
+      "characters": 256,
+      "images": 1,
+      "heading": [
+        "Aquisição 3",
+        "Figura 20. Posterior e EI antes da aquisição 3, com 7 observações. Candidato: η=0,1877, s=0,6000. As",
+        "observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 31,
+      "characters": 256,
+      "images": 1,
+      "heading": [
+        "Aquisição 4",
+        "Figura 21. Posterior e EI antes da aquisição 4, com 8 observações. Candidato: η=0,1654, s=1,0000. As",
+        "observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 32,
+      "characters": 256,
+      "images": 1,
+      "heading": [
+        "Aquisição 5",
+        "Figura 22. Posterior e EI antes da aquisição 5, com 9 observações. Candidato: η=0,2000, s=0,8133. As",
+        "observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 33,
+      "characters": 257,
+      "images": 1,
+      "heading": [
+        "Aquisição 6",
+        "Figura 23. Posterior e EI antes da aquisição 6, com 10 observações. Candidato: η=0,2000, s=0,8000. As",
+        "observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 34,
+      "characters": 257,
+      "images": 1,
+      "heading": [
+        "Aquisição 7",
+        "Figura 24. Posterior e EI antes da aquisição 7, com 11 observações. Candidato: η=0,2000, s=0,7933. As",
+        "observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 35,
+      "characters": 257,
+      "images": 1,
+      "heading": [
+        "Aquisição 8",
+        "Figura 25. Posterior e EI antes da aquisição 8, com 12 observações. Candidato: η=0,2000, s=0,6000. As",
+        "observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 36,
+      "characters": 257,
+      "images": 1,
+      "heading": [
+        "Aquisição 9",
+        "Figura 26. Posterior e EI antes da aquisição 9, com 13 observações. Candidato: η=0,2000, s=0,6067. As",
+        "observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 37,
+      "characters": 259,
+      "images": 1,
+      "heading": [
+        "Aquisição 10",
+        "Figura 27. Posterior e EI antes da aquisição 10, com 14 observações. Candidato: η=0,2000, s=0,6133. As",
+        "observações reais são exibidas no mapa 2D; o corte mantém o subsample fixo e não projeta pontos de outras"
+      ],
+      "text_outside_safe_margin": []
+    },
+    {
+      "page": 38,
+      "characters": 2356,
+      "images": 0,
+      "heading": [
+        "Referências",
+        "[1] Yeh, I. (1998). Concrete Compressive Strength [Dataset]. UCI Machine Learning Repository. DOI:",
+        "10.24432/C5PK67 (https://doi.org/10.24432/C5PK67)."
+      ],
+      "text_outside_safe_margin": []
+    }
+  ],
+  "recommendation": [
+    {
+      "page": 23,
+      "lines": 5,
+      "text": [
+        "Adotaria Optuna TPE como opção operacional: CV de 4,6435 MPa, teste de 4,4328 MPa e",
+        "6,906 s em 40 avaliações. A API padronizada facilita integração ao pipeline e reprodução com",
+        "seeds, versões e logs. Este é um julgamento pós-resultados de custo e qualidade: a seleção por",
+        "CV permanece PSO w=0,9, e o vencedor descritivo do teste é DE rand1bin. Antes de produção,",
+        "validaria em novos lotes e confrontaria o erro com a tolerância de engenharia."
+      ]
+    }
+  ],
+  "page_count": 38,
+  "metadata": {
+    "format": "PDF 1.4",
+    "title": "Exercícios da Aula 05 - Otimização de hiperparâmetros",
+    "author": "Adriely Teixeira de Paula; Betina Zynger Capaverde; Emilio Gaudeda Junior",
+    "subject": "(unspecified)",
+    "keywords": "",
+    "creator": "(unspecified)",
+    "producer": "ReportLab PDF Library - (opensource)",
+    "creationDate": "D:20260930210330-03'00'",
+    "modDate": "D:20260930210330-03'00'",
+    "trapped": "",
+    "encryption": null
+  },
+  "visual_review": "All page contact sheets reviewed; detailed inspection of TOC, equations, consolidated table, recommendation, and GP pages. No clipping or orphan GP headings remain.",
+  "latex_static_checks": {
+    "balanced_environments": true,
+    "unique_labels": true,
+    "all_citations_defined": true,
+    "all_figures_present": true
+  },
+  "latex_compilation": "not verified",
+  "figures": 27,
+  "tables": 20,
+  "pdf_sha256": "6451a3c395131c860c438c0fe299f5b53f2a32d83a8124323d7c862f90ec4bef"
+}

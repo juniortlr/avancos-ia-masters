@@ -1,0 +1,46 @@
+{
+  "protocol_version": 1,
+  "registered_at": "2026-09-30T20:29:00-03:00",
+  "status": "prospective_before_outcomes",
+  "framework_commit": "f68892c8b7adba358b8aa437eec00a89fe88d340",
+  "cycles": 1,
+  "dataset_uci_id": 165,
+  "dataset_fraction_primary": 1.0,
+  "target_unit": "MPa",
+  "model": "GradientBoostingRegressor",
+  "test_fraction": 0.2,
+  "split_seed": 42,
+  "cv": {"folds": 5, "shuffle": true, "seed": 42, "fixed_across_methods": true},
+  "primary_seed": 42,
+  "resources": {"device": "local_cpu", "gpu_hours": 0, "paid_api_spend": 0, "estimator_jobs": 1, "cv_jobs": 5, "parallel_methods": false, "worker_warmup": "excluded_and_reported", "operational_wall_target_hours": 6, "hard_timeout": false, "memory_cap_gb": null, "disk_cap_gb": null, "resource_actuals": "record_in_run_environment"},
+  "space": {
+    "learning_rate": {"lower": 0.03, "upper": 0.2, "scale": "log"},
+    "subsample": {"lower": 0.6, "upper": 1.0},
+    "n_estimators": {"lower": 50, "upper": 200, "type": "integer"},
+    "grid": {"learning_rate": [0.03,0.1,0.2], "subsample": [0.6,0.8,1.0], "n_estimators": [50,100,150,200]}
+  },
+  "methods": {
+    "Baseline": {"objective_calls": 1, "cv_fits": 5, "final_refits": 1, "default_hyperparameters": true},
+    "Grid": {"objective_calls": 36, "cv_fits": 180, "final_refits": 1},
+    "Random": {"objective_calls": 30, "cv_fits": 150, "final_refits": 1},
+    "GP-scratch": {"initial": 5, "iterations": 10, "objective_calls": 15, "cv_fits": 75, "fixed_n_estimators": 100, "final_refits": 1},
+    "skopt": {"objective_calls": 40, "cv_fits": 200, "final_refits": 1, "acquisition": "EI", "kernel": "Matern_2.5"},
+    "bayes_opt": {"initial": 5, "iterations": 35, "objective_calls": 40, "cv_fits": 200, "final_refits": 1, "acquisition": "UCB", "kappa": 2.576},
+    "Optuna": {"objective_calls": 40, "cv_fits": 200, "final_refits": 1, "sampler": "TPE"},
+    "Hyperopt": {"objective_calls": 40, "cv_fits": 200, "final_refits": 1, "sampler": "TPE"},
+    "Ray": {"trials_started": 40, "full_evaluations": "measured", "partial_work": "measured_by_resource_and_incremental_trees", "sampler": "OptunaSearch", "scheduler": "ASHA", "resource_fractions": [0.25,0.5,0.75,1.0], "grace_period": 0.25, "reduction_factor": 2, "warm_start": true, "final_refits": 1},
+    "GA": {"population": 20, "generations": 15, "cxpb": 0.7, "mutpb": 0.25, "objective_calls_max": 320, "cv_fits_max": 1600, "final_refits": 1},
+    "DE-best1bin": {"maxiter": 15, "popsize_multiplier": 10, "dimension": 3, "mutation": [0.5,1.0], "recombination": 0.7, "polish": false, "objective_calls_max": 480, "cv_fits_max": 2400, "final_refits": 1},
+    "DE-rand1bin": {"maxiter": 15, "popsize_multiplier": 10, "dimension": 3, "mutation": [0.5,1.0], "recombination": 0.7, "polish": false, "objective_calls_max": 480, "cv_fits_max": 2400, "final_refits": 1},
+    "PSO-w0.7": {"particles": 20, "updates": 15, "initial_evaluations": 20, "objective_calls": 320, "cv_fits": 1600, "w": 0.7, "c1": 1.5, "c2": 1.5, "final_refits": 1},
+    "PSO-w0.4": {"particles": 20, "updates": 15, "initial_evaluations": 20, "objective_calls": 320, "cv_fits": 1600, "w": 0.4, "c1": 1.5, "c2": 1.5, "final_refits": 1},
+    "PSO-w0.9": {"particles": 20, "updates": 15, "initial_evaluations": 20, "objective_calls": 320, "cv_fits": 1600, "w": 0.9, "c1": 1.5, "c2": 1.5, "final_refits": 1}
+  },
+  "sensitivity": {
+    "optuna_half_training": {"train_fraction": 0.5, "sample_seed": 42, "objective_calls": 40, "cv_fits": 200, "fixed_holdout": true},
+    "winner_repeated_hpo": {"methods": "test_winner_and_cv_winner_if_distinct", "seeds": [0,7,21,42,99], "full_method_rerun": true, "fixed_holdout": true, "fixed_folds": true, "seed42_reuse_allowed": true, "std_ddof": 1, "objective_budget_each": "same_as_selected_primary_method"}
+  },
+  "accounting": {"search_seconds": "wall time including CV and optimizer overhead", "refit_seconds": "fit selected pipeline on all training data", "total_seconds": "search_seconds plus refit_seconds", "baseline_total": "CV plus final fit", "exclude": ["dependency_install", "data_download", "EDA", "plots"], "report": ["objective_calls", "unique_candidates", "actual_cv_fits", "completed_trials", "pruned_trials", "failures", "resource_partial"]},
+  "stopping": "fixed budgets; failures logged; no result-driven extra tuning; record deviations",
+  "amendments": [{"registered_at":"2026-09-30T20:34:00-03:00","prior_scores_seen":false,"scope":"Specify 5 parallel CV workers and warmup; ASHA fraction stages; GA genotype coding in protocol; repeat CV winner too if distinct; training-only graphical EDA"}]
+}
