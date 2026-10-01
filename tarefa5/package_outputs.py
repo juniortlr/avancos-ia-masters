@@ -18,6 +18,7 @@ def main():
             raise FileNotFoundError(path)
     audit=json.loads((ROOT/'results/independent-audit.json').read_text(encoding='utf8'))
     assert audit['status']=='passed'
+    build=json.loads((ROOT/'latex-build-manifest.json').read_text(encoding='utf8'))
     delivery=ROOT/'entrega'
     delivery.mkdir(exist_ok=True)
     overleaf=[ROOT/'Exercício_Aula5.tex']+sorted((ROOT/'Figuras_Aula5').glob('*.png'))
@@ -34,8 +35,9 @@ def main():
         sources.append(path)
     manifest={'primary_outputs':[{ 'path':str(p.relative_to(ROOT)).replace('\\','/'),
                 'bytes':p.stat().st_size,'sha256':sha(p)} for p in required[:3]],
-              'overleaf_updated':False,'browser_access':'denied by browser permission policy after source download',
-              'pdf_renderer':'ReportLab; not a LaTeX compilation',
+              'overleaf_updated':build.get('overleaf_updated',False),
+              'browser_access':'blocked; user supplies the Overleaf PDF download',
+              'pdf_renderer':build['pdf_export'],
               'framework_commit':'f68892c8b7adba358b8aa437eec00a89fe88d340',
               'included_files':[{ 'path':p.relative_to(ROOT).as_posix(),'sha256':sha(p)} for p in sources]}
     mp=delivery/'delivery-manifest.json'

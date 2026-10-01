@@ -1,7 +1,7 @@
 [
   {
     "kind": "latex",
-    "text": "\\documentclass[12pt,a4paper]{article}\n\\usepackage[utf8]{inputenc}\n\\usepackage[T1]{fontenc}\n\\usepackage[brazilian]{babel}\n\\usepackage{amsmath,amssymb,graphicx,booktabs,caption,float,geometry,hyperref}\n\\usepackage[table]{xcolor}\n\\usepackage{enumitem,array,longtable,microtype}\n\\geometry{margin=2.5cm}\n\\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}\n\\setlength{\\emergencystretch}{3em}\n\\definecolor{bestgreen}{RGB}{215,240,218}\n\\definecolor{timeyellow}{RGB}{255,242,179}\n\\title{\\Large\\textbf{Avanços em Inteligência Artificial}\\\\\n\\large EELT7025 --- PPGEE, UFPR\\\\[0.3cm]\n\\normalsize Exercícios da Aula 05\\\\\n\\normalsize Otimização de hiperparâmetros na resistência à compressão do concreto}\n\\author{\\parbox{\\textwidth}{\\centering Adriely Teixeira de Paula\\\\\nBetina Zynger Capaverde\\\\Emilio Gaudeda Junior}}\n\\date{30 de setembro de 2026}\n\\begin{document}\n\\maketitle\n\\tableofcontents\n\\newpage"
+    "text": "\\documentclass[12pt,a4paper]{article}\n\\usepackage[utf8]{inputenc}\n\\usepackage[T1]{fontenc}\n\\usepackage{lmodern}\n\\usepackage[brazilian]{babel}\n\\usepackage{amsmath,amssymb,graphicx,booktabs,caption,float,geometry,hyperref}\n\\usepackage[table]{xcolor}\n\\usepackage{enumitem,array,longtable,microtype,adjustbox,xurl}\n\\geometry{margin=2.5cm}\n\\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}\n\\setlength{\\emergencystretch}{3em}\n\\raggedbottom\n\\clubpenalty=10000\n\\widowpenalty=10000\n\\displaywidowpenalty=10000\n\\captionsetup{font=small,labelfont=bf,skip=6pt}\n\\captionsetup[table]{position=top}\n\\setlength{\\intextsep}{12pt plus 2pt minus 2pt}\n\\setlength{\\textfloatsep}{16pt plus 2pt minus 2pt}\n\\definecolor{bestgreen}{RGB}{215,240,218}\n\\definecolor{timeyellow}{RGB}{255,242,179}\n\\title{\\Large\\textbf{Avanços em Inteligência Artificial}\\\\\n\\large EELT7025 --- PPGEE, UFPR\\\\[0.3cm]\n\\normalsize Exercícios da Aula 05\\\\\n\\normalsize Otimização de hiperparâmetros na resistência à compressão do concreto}\n\\author{\\parbox{0.94\\textwidth}{\\centering Adriely Teixeira de Paula\\\\\nBetina Zynger Capaverde\\\\Emilio Gaudeda Junior}}\n\\date{30 de setembro de 2026}\n\\begin{document}\n\\maketitle\n\\tableofcontents\n\\newpage"
   },
   {
     "kind": "latex",
@@ -105,7 +105,6 @@
     "kind": "table",
     "headers": [
       "Variável",
-      "$n$",
       "Média",
       "DP",
       "Mín.",
@@ -117,7 +116,6 @@
     "rows": [
       [
         "Cimento",
-        "1030",
         "281{,}17",
         "104{,}51",
         "102{,}00",
@@ -128,7 +126,6 @@
       ],
       [
         "Escória",
-        "1030",
         "73{,}90",
         "86{,}28",
         "0{,}00",
@@ -139,7 +136,6 @@
       ],
       [
         "Cinza volante",
-        "1030",
         "54{,}19",
         "64{,}00",
         "0{,}00",
@@ -150,7 +146,6 @@
       ],
       [
         "Água",
-        "1030",
         "181{,}57",
         "21{,}35",
         "121{,}80",
@@ -161,7 +156,6 @@
       ],
       [
         "Superplastificante",
-        "1030",
         "6{,}20",
         "5{,}97",
         "0{,}00",
@@ -172,7 +166,6 @@
       ],
       [
         "Agregado graúdo",
-        "1030",
         "972{,}92",
         "77{,}75",
         "801{,}00",
@@ -183,7 +176,6 @@
       ],
       [
         "Agregado miúdo",
-        "1030",
         "773{,}58",
         "80{,}18",
         "594{,}00",
@@ -194,7 +186,6 @@
       ],
       [
         "Idade",
-        "1030",
         "45{,}66",
         "63{,}17",
         "1{,}00",
@@ -205,7 +196,6 @@
       ],
       [
         "Resistência",
-        "1030",
         "35{,}82",
         "16{,}71",
         "2{,}33",
@@ -215,7 +205,7 @@
         "82{,}60"
       ]
     ],
-    "caption": "Estatísticas descritivas brutas. Ingredientes em kg/m$^3$, idade em dias e alvo em MPa."
+    "caption": "Estatísticas descritivas brutas ($n=1030$ em todas as variáveis). Ingredientes em kg/m$^3$, idade em dias e alvo em MPa."
   },
   {
     "kind": "latex",
@@ -1269,11 +1259,11 @@
   },
   {
     "kind": "latex",
-    "text": "DE rand1bin: RMSE de teste médio $4{,}5390\\pm0{,}1092$ MPa (desvio padrão amostral, $n=5$), intervalo observado $[4{,}4135;4{,}6909]$ MPa. A variação relativa $\\mathrm{DP}/\\mathrm{média}$ foi 2{,}41\\%. São cinco aleatoriedades de um mesmo dataset; a dispersão não quantifica incerteza entre populações, lotes ou outros conjuntos de teste."
+    "text": "DE rand1bin: RMSE de teste médio $4{,}5390\\pm0{,}1092$ MPa (desvio padrão amostral, $n=5$), intervalo observado $[4{,}4135;4{,}6909]$ MPa. A variação relativa $\\mathrm{DP}/\\text{média}$ foi 2{,}41\\%. São cinco aleatoriedades de um mesmo dataset; a dispersão não quantifica incerteza entre populações, lotes ou outros conjuntos de teste."
   },
   {
     "kind": "latex",
-    "text": "PSO w=0,9: RMSE de teste médio $4{,}5288\\pm0{,}0867$ MPa (desvio padrão amostral, $n=5$), intervalo observado $[4{,}4263;4{,}6603]$ MPa. A variação relativa $\\mathrm{DP}/\\mathrm{média}$ foi 1{,}92\\%. São cinco aleatoriedades de um mesmo dataset; a dispersão não quantifica incerteza entre populações, lotes ou outros conjuntos de teste."
+    "text": "PSO w=0,9: RMSE de teste médio $4{,}5288\\pm0{,}0867$ MPa (desvio padrão amostral, $n=5$), intervalo observado $[4{,}4263;4{,}6603]$ MPa. A variação relativa $\\mathrm{DP}/\\text{média}$ foi 1{,}92\\%. São cinco aleatoriedades de um mesmo dataset; a dispersão não quantifica incerteza entre populações, lotes ou outros conjuntos de teste."
   },
   {
     "kind": "latex",
@@ -1513,6 +1503,106 @@
       "Método",
       "Busca/CV (s)",
       "Refit (s)",
+      "Total (s)"
+    ],
+    "rows": [
+      [
+        "Baseline",
+        "0{,}253",
+        "0{,}0960",
+        "0{,}349"
+      ],
+      [
+        "Grid Search",
+        "3{,}991",
+        "0{,}1430",
+        "4{,}134"
+      ],
+      [
+        "Random Search",
+        "3{,}288",
+        "0{,}1239",
+        "3{,}412"
+      ],
+      [
+        "GP manual",
+        "1{,}990",
+        "0{,}0898",
+        "2{,}080"
+      ],
+      [
+        "skopt (GP + EI)",
+        "13{,}558",
+        "0{,}1699",
+        "13{,}728"
+      ],
+      [
+        "bayes\\_opt (GP + UCB)",
+        "10{,}947",
+        "0{,}1866",
+        "11{,}133"
+      ],
+      [
+        "Optuna (TPE)",
+        "6{,}759",
+        "0{,}1468",
+        "6{,}906"
+      ],
+      [
+        "Hyperopt (TPE)",
+        "5{,}429",
+        "0{,}1218",
+        "5{,}551"
+      ],
+      [
+        "Ray (Optuna + ASHA)",
+        "160{,}008",
+        "0{,}1887",
+        "160{,}197"
+      ],
+      [
+        "GA (DEAP)",
+        "40{,}953",
+        "0{,}1614",
+        "41{,}114"
+      ],
+      [
+        "DE best1bin",
+        "56{,}532",
+        "0{,}1455",
+        "56{,}677"
+      ],
+      [
+        "DE rand1bin",
+        "52{,}105",
+        "0{,}1530",
+        "52{,}258"
+      ],
+      [
+        "PSO w=0,7",
+        "51{,}899",
+        "0{,}1527",
+        "52{,}052"
+      ],
+      [
+        "PSO w=0,4",
+        "55{,}241",
+        "0{,}1690",
+        "55{,}410"
+      ],
+      [
+        "PSO w=0,9",
+        "51{,}112",
+        "0{,}1453",
+        "51{,}257"
+      ]
+    ],
+    "caption": "Tempos registrados na comparação principal: busca/validação, refit e soma das duas etapas."
+  },
+  {
+    "kind": "table",
+    "headers": [
+      "Método",
       "Aval.",
       "Únicos",
       "Fits CV",
@@ -1522,8 +1612,6 @@
     "rows": [
       [
         "Baseline",
-        "0{,}253",
-        "0{,}0960",
         "1",
         "1",
         "5",
@@ -1532,8 +1620,6 @@
       ],
       [
         "Grid Search",
-        "3{,}991",
-        "0{,}1430",
         "36",
         "36",
         "180",
@@ -1542,8 +1628,6 @@
       ],
       [
         "Random Search",
-        "3{,}288",
-        "0{,}1239",
         "30",
         "30",
         "150",
@@ -1552,8 +1636,6 @@
       ],
       [
         "GP manual",
-        "1{,}990",
-        "0{,}0898",
         "15",
         "15",
         "75",
@@ -1562,8 +1644,6 @@
       ],
       [
         "skopt (GP + EI)",
-        "13{,}558",
-        "0{,}1699",
         "40",
         "40",
         "200",
@@ -1572,8 +1652,6 @@
       ],
       [
         "bayes\\_opt (GP + UCB)",
-        "10{,}947",
-        "0{,}1866",
         "40",
         "40",
         "200",
@@ -1582,8 +1660,6 @@
       ],
       [
         "Optuna (TPE)",
-        "6{,}759",
-        "0{,}1468",
         "40",
         "40",
         "200",
@@ -1592,8 +1668,6 @@
       ],
       [
         "Hyperopt (TPE)",
-        "5{,}429",
-        "0{,}1218",
         "40",
         "40",
         "200",
@@ -1602,8 +1676,6 @@
       ],
       [
         "Ray (Optuna + ASHA)",
-        "160{,}008",
-        "0{,}1887",
         "40",
         "40",
         "585",
@@ -1612,8 +1684,6 @@
       ],
       [
         "GA (DEAP)",
-        "40{,}953",
-        "0{,}1614",
         "259",
         "113",
         "1295",
@@ -1622,8 +1692,6 @@
       ],
       [
         "DE best1bin",
-        "56{,}532",
-        "0{,}1455",
         "390",
         "389",
         "1950",
@@ -1632,8 +1700,6 @@
       ],
       [
         "DE rand1bin",
-        "52{,}105",
-        "0{,}1530",
         "390",
         "390",
         "1950",
@@ -1642,8 +1708,6 @@
       ],
       [
         "PSO w=0,7",
-        "51{,}899",
-        "0{,}1527",
         "320",
         "311",
         "1600",
@@ -1652,8 +1716,6 @@
       ],
       [
         "PSO w=0,4",
-        "55{,}241",
-        "0{,}1690",
         "320",
         "319",
         "1600",
@@ -1662,8 +1724,6 @@
       ],
       [
         "PSO w=0,9",
-        "51{,}112",
-        "0{,}1453",
         "320",
         "319",
         "1600",
@@ -1671,7 +1731,7 @@
         "0"
       ]
     ],
-    "caption": "Chamadas efetivas e tempos. No Ray, fit CV é uma chamada por fold/estágio, com warm start; não equivale a treinamento completo do zero."
+    "caption": "Contagem de avaliações e ajustes. No Ray, fit CV é uma chamada por fold/estágio, com warm start; não equivale a treinamento completo do zero."
   },
   {
     "kind": "latex",
@@ -1683,7 +1743,7 @@
   },
   {
     "kind": "latex",
-    "text": "\\textbf{Formato desta entrega.} O PDF foi exportado com ReportLab a partir dos mesmos blocos de conteúdo usados para gerar a fonte LaTeX. O arquivo \\texttt{.tex} e as figuras acompanham a entrega; a compilação LaTeX não foi verificada neste ambiente. A exportação PDF não constitui evidência de compilação do projeto TeX."
+    "text": "\\textbf{Fontes do relatório.} O arquivo \\texttt{Exercício\\_Aula5.tex} e a pasta \\texttt{Figuras\\_Aula5} acompanham os dados e o notebook executado. As tabelas são geradas a partir dos resultados registrados; alterações de diagramação não reexecutam as buscas nem modificam as métricas arquivadas."
   },
   {
     "kind": "latex",
@@ -1693,68 +1753,58 @@
     "kind": "table",
     "headers": [
       "Biblioteca",
-      "Versão instalada"
+      "Versão",
+      "Biblioteca",
+      "Versão"
     ],
     "rows": [
       [
         "numpy",
-        "2.5.3"
-      ],
-      [
-        "pandas",
-        "3.0.6"
-      ],
-      [
-        "scipy",
-        "1.18.1"
-      ],
-      [
-        "scikit-learn",
-        "1.9.1"
-      ],
-      [
-        "joblib",
-        "1.6.0"
-      ],
-      [
-        "threadpoolctl",
-        "3.7.0"
-      ],
-      [
-        "ucimlrepo",
-        "0.0.7"
-      ],
-      [
-        "scikit-optimize",
-        "0.10.2"
-      ],
-      [
+        "2.5.3",
         "bayesian-optimization",
         "3.3.0"
       ],
       [
+        "pandas",
+        "3.0.6",
         "optuna",
         "5.0.0"
       ],
       [
+        "scipy",
+        "1.18.1",
         "hyperopt",
         "0.3.0"
       ],
       [
+        "scikit-learn",
+        "1.9.1",
         "ray",
         "2.58.0"
       ],
       [
+        "joblib",
+        "1.6.0",
         "deap",
         "1.4.4"
       ],
       [
+        "threadpoolctl",
+        "3.7.0",
         "matplotlib",
         "3.11.2"
       ],
       [
+        "ucimlrepo",
+        "0.0.7",
         "seaborn",
         "0.13.2"
+      ],
+      [
+        "scikit-optimize",
+        "0.10.2",
+        "",
+        ""
       ]
     ],
     "caption": "Versões registradas na execução, distintas das versões futuras de documentação online."

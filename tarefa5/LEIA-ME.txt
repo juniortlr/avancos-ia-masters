@@ -28,7 +28,9 @@ REPRODUÇÃO (após extrair o pacote completo)
    python audit_engine_results.py
    python plot_results.py
    python build_notebook.py
-   python build_latex.py
+   python build_latex.py --tex-only
+   pdflatex -interaction=nonstopmode -halt-on-error -no-shell-escape Exercício_Aula5.tex
+   pdflatex -interaction=nonstopmode -halt-on-error -no-shell-escape Exercício_Aula5.tex
 
 O prepare reutiliza o CSV UCI preservado quando existente. Cada método concluído
 pode ser retomado com --resume se os dados, fração de treino e paralelismo forem
@@ -43,8 +45,10 @@ as buscas pode consumir dezenas de minutos ou horas conforme o computador.
 OVERLEAF
 Copiar Exercício_Aula5.tex e a pasta Figuras_Aula5 para o mesmo projeto.
 Selecionar Exercício_Aula5.tex como documento principal e compilar com pdfLaTeX.
-O PDF local, se identificado como exportação ReportLab no manifesto, é gerado dos
-mesmos blocos de conteúdo; não constitui verificação de compilação LaTeX.
+A revisão de diagramação foi compilada com pdfLaTeX/MiKTeX e inspecionada em PDF.
+O manifesto latex-build-manifest.json identifica a procedência do PDF entregue.
+O gerador oferece também uma exportação legada em ReportLab; use --tex-only para
+regenerar apenas a fonte, sem substituir o PDF compilado.
 
 LIMITES DE INTERPRETAÇÃO
 O teste é um holdout fixo de linhas. A seleção pelo melhor teste é exploratória;

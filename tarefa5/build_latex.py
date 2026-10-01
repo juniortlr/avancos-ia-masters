@@ -83,11 +83,34 @@ class Report:
             self.check_label(label)
             latex.append(r"\label{" + label + "}")
         if small:
-            latex.append(r"\small")
-        latex += [r"\resizebox{\textwidth}{!}{%", r"\begin{tabular}{" + spec + "}",
-                  r"\toprule", " & ".join(headers) + r" \\", r"\midrule"]
-        latex.extend(" & ".join(str(x) for x in row) + r" \\" for row in rows)
-        latex += [r"\bottomrule", r"\end{tabular}}", r"\end{table}"]
+            latex.append(r"\footnotesize" if len(headers) >= 6 else r"\small")
+        # Restrict wide tables without ever enlarging a naturally compact table.
+        # Two-line headers keep the data font readable instead of scaling it down.
+        header_lines = {
+            "CV RMSE": r"\shortstack[r]{CV\\RMSE}",
+            "Teste RMSE": r"\shortstack[r]{Teste\\RMSE}",
+            "Teste MAE": r"\shortstack[r]{Teste\\MAE}",
+            r"Teste $R^2$": r"\shortstack[r]{Teste\\$R^2$}",
+            "Tempo (s)": r"\shortstack[r]{Tempo\\(s)}",
+            "Busca/CV (s)": r"\shortstack[r]{Busca/CV\\(s)}",
+            "Refit (s)": r"\shortstack[r]{Refit\\(s)}",
+            "Total (s)": r"\shortstack[r]{Total\\(s)}",
+            "Obs. prévias": r"\shortstack[r]{Obs.\\prévias}",
+            "EI máxima": r"\shortstack[r]{EI\\máxima}",
+            "Melhor prévio": r"\shortstack[r]{Melhor\\prévio}",
+            "Trials iniciados": r"\shortstack[r]{Trials\\iniciados}",
+            "Completos": r"\shortstack[r]{Trials\\completos}",
+            "Podados": r"\shortstack[r]{Trials\\podados}",
+        }
+        latex += [r"\setlength{\tabcolsep}{4.5pt}", r"\renewcommand{\arraystretch}{1.16}",
+                  r"\begin{adjustbox}{max width=\linewidth}",
+                  r"\begin{tabular}{@{}" + spec + "@{}}", r"\toprule",
+                  " & ".join(header_lines.get(h, h) for h in headers) + r" \\", r"\midrule"]
+        for i, row in enumerate(rows):
+            latex.append(" & ".join(str(x) for x in row) + r" \\")
+            if len(rows) > 10 and (i + 1) % 5 == 0 and i + 1 < len(rows):
+                latex.append(r"\addlinespace[3pt]")
+        latex += [r"\bottomrule", r"\end{tabular}", r"\end{adjustbox}", r"\end{table}"]
         self.add("\n".join(latex), record=False)
         self.blocks.append({"kind": "table", "headers": headers, "rows": rows, "caption": caption})
 
@@ -124,20 +147,29 @@ PREAMBLE = r"""
 \documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[brazilian]{babel}
 \usepackage{amsmath,amssymb,graphicx,booktabs,caption,float,geometry,hyperref}
 \usepackage[table]{xcolor}
-\usepackage{enumitem,array,longtable,microtype}
+\usepackage{enumitem,array,longtable,microtype,adjustbox,xurl}
 \geometry{margin=2.5cm}
 \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
 \setlength{\emergencystretch}{3em}
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\captionsetup{font=small,labelfont=bf,skip=6pt}
+\captionsetup[table]{position=top}
+\setlength{\intextsep}{12pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{16pt plus 2pt minus 2pt}
 \definecolor{bestgreen}{RGB}{215,240,218}
 \definecolor{timeyellow}{RGB}{255,242,179}
 \title{\Large\textbf{Avanços em Inteligência Artificial}\\
 \large EELT7025 --- PPGEE, UFPR\\[0.3cm]
 \normalsize Exercícios da Aula 05\\
 \normalsize Otimização de hiperparâmetros na resistência à compressão do concreto}
-\author{\parbox{\textwidth}{\centering Adriely Teixeira de Paula\\
+\author{\parbox{0.94\textwidth}{\centering Adriely Teixeira de Paula\\
 Betina Zynger Capaverde\\Emilio Gaudeda Junior}}
 \date{30 de setembro de 2026}
 \begin{document}
@@ -236,7 +268,7 @@ def table_metrics(report, results, methods, caption, color=False):
                  rows, caption, spec="lrrrrrr")
 
 
-def build(root):
+def build(root, render_reportlab=True):
     root = Path(root)
     analysis = read_json(root / "results" / "analysis.json")
     contract = read_json(root / "data" / "data-contract.json")
@@ -323,9 +355,12 @@ def build(root):
         drows.append([feature_name(c), str(int(desc.loc["count", c])), num(desc.loc["mean", c], 2),
                       num(desc.loc["std", c], 2), num(desc.loc["min", c], 2), num(desc.loc["25%", c], 2),
                       num(desc.loc["50%", c], 2), num(desc.loc["75%", c], 2), num(desc.loc["max", c], 2)])
-    report.table(["Variável", "$n$", "Média", "DP", "Mín.", "$Q_1$", "Mediana", "$Q_3$", "Máx."],
-                 drows, "Estatísticas descritivas brutas. Ingredientes em kg/m$^3$, idade em dias e alvo em MPa.",
-                 spec="lrrrrrrrr")
+    assert len({row[1] for row in drows}) == 1
+    report.table(["Variável", "Média", "DP", "Mín.", "$Q_1$", "Mediana", "$Q_3$", "Máx."],
+                 [[row[0], *row[2:]] for row in drows],
+                 "Estatísticas descritivas brutas ($n=" + drows[0][1] +
+                 "$ em todas as variáveis). Ingredientes em kg/m$^3$, idade em dias e alvo em MPa.",
+                 spec="lrrrrrrr")
     report.add(r"A limpeza precedeu a divisão aleatória 80/20 com \texttt{random\_state=42}: " +
                str(contract["train_rows"]) + r" observações de treino e " + str(contract["test_rows"]) +
                r" de teste. A validação usa \texttt{KFold(5, shuffle=True, random\_state=42)} "
@@ -478,13 +513,14 @@ def build(root):
     (root / "report-blocks.json").write_text(json.dumps(report.blocks, ensure_ascii=False, indent=2), encoding="utf-8")
     pdf_output = root / "output" / "pdf" / "Exercicio_Aula5.pdf"
     pdf_output.parent.mkdir(parents=True, exist_ok=True)
-    render_pdf(report.blocks, pdf_output)
+    if render_reportlab:
+        render_pdf(report.blocks, pdf_output)
     (root / "latex-build-manifest.json").write_text(json.dumps({"source": output.name,
         "figures": report.figure_paths, "methods": list(results), "best_cv_method": cv_winner,
         "best_test_method": test_winner, "source_data_fingerprint": next(iter(fingerprints)),
-        "placeholder_check": "passed", "pdf": pdf_output.relative_to(root).as_posix(),
-        "pdf_export": "ReportLab from shared semantic blocks; not compiled from TeX",
-        "compilation": "LaTeX source not compiled"},
+        "placeholder_check": "passed", "pdf": pdf_output.relative_to(root).as_posix() if render_reportlab else None,
+        "pdf_export": "ReportLab from shared semantic blocks; not compiled from TeX" if render_reportlab else None,
+        "compilation": "Source regenerated; compile and validate before delivery"},
         ensure_ascii=False, indent=2), encoding="utf-8")
     return output
 
@@ -803,7 +839,8 @@ def build_exercise2(report, root, analysis, results, trials, robustness, half, c
         ["Optuna", "TPE; minimizar RMSE; seed 42", str(results["optuna"]["n_evaluations"])],
         ["Hyperopt", r"TPE; \texttt{hp.loguniform} para $\eta$", str(results["hyperopt"]["n_evaluations"])],
         ["Ray Tune", "OptunaSearch + ASHA; recurso progressivo", str(results["ray"]["n_evaluations"])],
-    ], "Bibliotecas aplicadas aos três hiperparâmetros do espaço completo.", spec="llr")
+    ], "Bibliotecas aplicadas aos três hiperparâmetros do espaço completo.",
+       spec=r">{\raggedright\arraybackslash}p{0.23\linewidth}>{\raggedright\arraybackslash}p{0.55\linewidth}r")
     report.add(r"Foram usados GP e aquisição explicitamente configurados no skopt\cite{skopt} "
                r"e no bayes\_opt\cite{bayesopt}; TPE orientou Optuna\cite{optuna} e "
                r"Hyperopt\cite{hyperopt}. Cada biblioteca iniciou 40 candidatos. Os métodos contínuos "
@@ -993,7 +1030,7 @@ def build_exercise2(report, root, analysis, results, trials, robustness, half, c
         report.add(name(method) + ": RMSE de teste médio $" + num(scores.mean()) + r"\pm" +
                    num(scores.std(ddof=1)) + r"$ MPa (desvio padrão amostral, $n=5$), intervalo observado "
                    r"$[" + num(scores.min()) + ";" + num(scores.max()) + r"]$ MPa. A variação relativa "
-                   r"$\mathrm{DP}/\mathrm{média}$ foi " + pct(scores.std(ddof=1)/scores.mean()) +
+                   r"$\mathrm{DP}/\text{média}$ foi " + pct(scores.std(ddof=1)/scores.mean()) +
                    r". São cinco aleatoriedades de um mesmo dataset; a dispersão não quantifica "
                    r"incerteza entre populações, lotes ou outros conjuntos de teste.")
     relative_spreads = robustness.groupby("method").test_rmse.agg(["mean", "std"])
@@ -1043,27 +1080,36 @@ def build_appendix(report, results, contract, env, analysis, fig):
         parameter_rows.append([name(method), num(p["learning_rate"], 6), num(p["subsample"], 6), str(p["n_estimators"])])
     report.table(["Método", r"learning\_rate", "subsample", r"n\_estimators"], parameter_rows,
                  "Melhores parâmetros por CV; baseline registra seus defaults.", spec="lrrr")
-    report.table(["Método", "Busca/CV (s)", "Refit (s)", "Aval.", "Únicos", "Fits CV", "Completos", "Podados"],
-        [[name(m), num(r["search_seconds"], 3), num(r["refit_seconds"], 4), str(r["n_evaluations"]),
+    report.table(["Método", "Busca/CV (s)", "Refit (s)", "Total (s)"],
+        [[name(m), num(r["search_seconds"], 3), num(r["refit_seconds"], 4), num(r["total_seconds"], 3)]
+         for m, r in results.items()],
+        "Tempos registrados na comparação principal: busca/validação, refit e soma das duas etapas.", spec="lrrr")
+    report.table(["Método", "Aval.", "Únicos", "Fits CV", "Completos", "Podados"],
+        [[name(m), str(r["n_evaluations"]),
           str(r["unique_candidates"]), str(r["cv_fits"]), str(r["full_resource_evaluations"]), str(r["pruned_trials"])]
          for m, r in results.items()],
-        "Chamadas efetivas e tempos. No Ray, fit CV é uma chamada por fold/estágio, com warm start; não equivale a treinamento completo do zero.",
-        spec="lrrrrrrr")
+        "Contagem de avaliações e ajustes. No Ray, fit CV é uma chamada por fold/estágio, com warm start; não equivale a treinamento completo do zero.",
+        spec="lrrrrr")
     report.add(r"O baseline usa perda quadrática, profundidade máxima 3 e demais parâmetros "
                r"padrão da versão registrada. Fora das três dimensões acima, os métodos preservam "
                r"esses parâmetros. Contagens distintas de candidatos e candidatos únicos mostram "
                r"revisitas; não foi aplicado cache de scores entre otimizadores para artificialmente "
                r"reduzir seu custo. O custo das sensibilidades é adicional à tabela principal.")
     report.section("Ambiente e evidências de reprodução")
-    report.add(r"\textbf{Formato desta entrega.} O PDF foi exportado com ReportLab a partir dos mesmos "
-               r"blocos de conteúdo usados para gerar a fonte LaTeX. O arquivo \texttt{.tex} e as figuras "
-               r"acompanham a entrega; a compilação LaTeX não foi verificada neste ambiente. "
-               r"A exportação PDF não constitui evidência de compilação do projeto TeX.")
+    report.add(r"\textbf{Fontes do relatório.} O arquivo \texttt{Exercício\_Aula5.tex} e a pasta "
+               r"\texttt{Figuras\_Aula5} acompanham os dados e o notebook executado. As tabelas são "
+               r"geradas a partir dos resultados registrados; alterações de diagramação não "
+               r"reexecutam as buscas nem modificam as métricas arquivadas.")
     report.add("Python: " + esc(env["python"].splitlines()[0]) + r". Plataforma: " + esc(env["platform"]) +
                r". Processador: " + esc(env["processor"] or "identificador não disponibilizado pelo sistema") +
                r". CPUs lógicas detectadas: " + str(env["logical_cpus"]) + ".")
-    report.table(["Biblioteca", "Versão instalada"], [[esc(k), esc(v)] for k, v in env["packages"].items()],
-                 "Versões registradas na execução, distintas das versões futuras de documentação online.", spec="ll")
+    versions = [[esc(k), esc(v)] for k, v in env["packages"].items()]
+    midpoint = (len(versions) + 1) // 2
+    version_rows = [versions[i] + (versions[i + midpoint] if i + midpoint < len(versions) else ["", ""])
+                    for i in range(midpoint)]
+    report.table(["Biblioteca", "Versão", "Biblioteca", "Versão"], version_rows,
+                 "Versões registradas na execução, distintas das versões futuras de documentação online.",
+                 spec=r"ll@{\hspace{1cm}}ll")
     report.add(r"São fornecidos notebook executado, código de experimentos, dados e contrato, "
                r"manifesto de split/folds, resultados por trial, previsões, figuras e fontes do relatório. "
                r"Os arquivos \texttt{result.json}, \texttt{trials.csv}, \texttt{predictions.csv} "
@@ -1104,5 +1150,6 @@ def build_appendix(report, results, contract, env, analysis, fig):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
+    parser.add_argument("--tex-only", action="store_true", help="Generate source without the legacy ReportLab export")
     args = parser.parse_args()
-    print(build(args.root))
+    print(build(args.root, render_reportlab=not args.tex_only))

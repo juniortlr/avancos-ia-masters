@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "source_pdf": "C:\\Users\\EG\\Documents\\ChatGPT\\avançosia\\tarefa5\\tmp\\latex-layout\\Exercicio_Aula5.pdf",
+  "source_sha256": "cc0f8972246ed0ad0312bcddb9236bc9cf3f5327c8e293f1041a17e6100bf46a",
+  "page_count": 34,
+  "all_pages_visually_reviewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34
+  ],
+  "render_source": "Poppler PNGs in tarefa5/tmp/latex-final; contact sheets composed with PIL. Critical tables also inspected enlarged with PyMuPDF raster crops from the immediately previous layout, whose table geometry is unchanged except final version table.",
+  "final_full_page_rechecks": [
+    3,
+    4,
+    23
+  ],
+  "body_table_font_sizes_pt_approx": [
+    9.96,
+    10.91
+  ],
+  "critical_tables_legible": true,
+  "gp_panels_legible": true,
+  "clipped_or_overlapping_content_found": false,
+  "orphan_section_headings_found": false,
+  "remaining_actionable_layout_defects": [],
+  "fixed_findings": [
+    {
+      "prior_page": 24,
+      "detail": "Almost empty appendixB tail eliminated by compact two-pair version table."
+    },
+    {
+      "prior_page": 3,
+      "detail": "Single beginning line of paragraph moved with paragraph to page4."
+    }
+  ],
+  "source_and_pdf_not_modified_by_reviewer": true
+}

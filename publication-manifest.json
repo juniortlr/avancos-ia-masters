@@ -15,8 +15,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 7103,
-      "sha256": "014137690ddb5b226a61314faf15a7d8dd9fa08283804938fbf878e23ce278fa"
+      "bytes": 7744,
+      "sha256": "bb4997a5514b87672ad440c3039cf9e6373f5abf251f6b89f708b079b17bf0ef"
     },
     {
       "path": "enunciados/Aula05_Enunciado.ipynb",
@@ -275,8 +275,8 @@
     },
     {
       "path": "tarefa5/Exercício_Aula5.tex",
-      "bytes": 54411,
-      "sha256": "bffdb3cec107111f1df733c2e229de15ed761752fe42560e457d9dac91981231"
+      "bytes": 58713,
+      "sha256": "792c7e8b99669b40293eb8414d61fdbf75b2c056026615a0e0d85d1869ec46f4"
     },
     {
       "path": "tarefa5/Figuras_Aula5/01_eda_distributions.png",
@@ -415,8 +415,8 @@
     },
     {
       "path": "tarefa5/LEIA-ME.txt",
-      "bytes": 2847,
-      "sha256": "7cf856d76c83c3456868bfaaed2ca75cea8c5f1603482ebd4e384bb714bbfed2"
+      "bytes": 3181,
+      "sha256": "7938c7f1660e4596604233f230e48b3aa5e51288062857d5c1298a5b8934f168"
     },
     {
       "path": "tarefa5/audit_engine_results.py",
@@ -440,8 +440,8 @@
     },
     {
       "path": "tarefa5/build_latex.py",
-      "bytes": 78053,
-      "sha256": "317fec7b3f58184ea5ce9a2793a64c007ef64613ef77dce460c0d7af349dfaf7"
+      "bytes": 80812,
+      "sha256": "f50653f0ff173b4f0348ea7f05a26a89292e993cce13310388780243a07bec27"
     },
     {
       "path": "tarefa5/build_notebook.py",
@@ -530,8 +530,8 @@
     },
     {
       "path": "tarefa5/delivery-validation.json",
-      "bytes": 763,
-      "sha256": "fa608f01f9ef9bc18d0c78dd5169d0193edf4c5385b8f300416198b6e8a849a6"
+      "bytes": 915,
+      "sha256": "74307903c64d40ef40fcab621134f1c11c797bb1481e8688f2f76c5e7fa96a48"
     },
     {
       "path": "tarefa5/design-matrix.csv",
@@ -545,8 +545,8 @@
     },
     {
       "path": "tarefa5/execution-notes.txt",
-      "bytes": 2553,
-      "sha256": "1a13f286a660d78f850d835c8252ffe4218f9adc177e4c23408f6b053aadb5da"
+      "bytes": 3385,
+      "sha256": "d6b455d58358a594fb67fd2595c00ed1dd9fc56373138aa63c918bf8599c147c"
     },
     {
       "path": "tarefa5/experiment.py",
@@ -840,8 +840,8 @@
     },
     {
       "path": "tarefa5/latex-build-manifest.json",
-      "bytes": 1952,
-      "sha256": "b471d142cab42edb24240f02d1048a7fa166aa1d51b70ffaeb40bb9a8c1c0703"
+      "bytes": 2566,
+      "sha256": "f047caccadd4737476254314b80b46c9e01f0afdf3f52d7257cc4d4425180ed4"
     },
     {
       "path": "tarefa5/model-artifact-audit.json",
@@ -850,18 +850,18 @@
     },
     {
       "path": "tarefa5/output/pdf/Exercicio_Aula5.pdf",
-      "bytes": 5075461,
-      "sha256": "6451a3c395131c860c438c0fe299f5b53f2a32d83a8124323d7c862f90ec4bef"
+      "bytes": 4341933,
+      "sha256": "90f5953cba84e1cd2de13512be702f4a5eea067c0d98437d0f69731445027836"
     },
     {
       "path": "tarefa5/package_outputs.py",
-      "bytes": 2782,
-      "sha256": "c1bed3495599c6fb62b075b0ef44b1f0241c26dbc1d0f378787fd0fec120dc95"
+      "bytes": 2885,
+      "sha256": "bd20cb17d2dee096f5d5b56140a1686274e06232368e7f991a201e184c38e33f"
     },
     {
       "path": "tarefa5/pdf-render-qa.json",
-      "bytes": 16180,
-      "sha256": "dcc3f7e392f300de444fa7349802d2ef777b6a44fd9669891832f6a2cc733dab"
+      "bytes": 1159,
+      "sha256": "4b77f00c4ea876a0a654c8d60cb1521525c3093329ae153916fd4e06c71914be"
     },
     {
       "path": "tarefa5/plot_results.py",
@@ -875,8 +875,8 @@
     },
     {
       "path": "tarefa5/report-blocks.json",
-      "bytes": 68768,
-      "sha256": "8f7c92e3850170dc9ef7bea4880b510d47f68dcf15e1f06e11813230cfb84a63"
+      "bytes": 70054,
+      "sha256": "2d9bfe4ec8a9d004f8a5e41d03cf9d36be06b2a496a8301249382aaa1eea057a"
     },
     {
       "path": "tarefa5/requirements-colab.txt",
@@ -1965,8 +1965,8 @@
     },
     {
       "path": "tarefa5/validate_delivery.py",
-      "bytes": 2951,
-      "sha256": "67a8441c4929d6001a8c1067e5c0942f6172796c97fa74033aaa9315c7fb4905"
+      "bytes": 3066,
+      "sha256": "514ad6770b38211f60ab44f21e5c64f8abc9f5f686a266bfea65a6e5cbf58cc8"
     },
     {
       "path": "tarefa5/validation/README.md",
@@ -1982,6 +1982,26 @@
       "path": "tarefa5/validation/colab_linux/validation.json",
       "bytes": 475,
       "sha256": "145fce5208ba27e49f31041bf652d9bf2fc7d7ec61b95d3696924d9a4e453350"
+    },
+    {
+      "path": "tarefa5/validation/latex/compile-log.txt",
+      "bytes": 45623,
+      "sha256": "49238e2eb069db1deb47ea6703cc2f0c0ab7e448432dccd4fdfb4b9e9636734c"
+    },
+    {
+      "path": "tarefa5/validation/latex/layout-validation.json",
+      "bytes": 653,
+      "sha256": "c5532350ac6698dfefe3448e22680916a901ceb7a991d3512cd834557aceac50"
+    },
+    {
+      "path": "tarefa5/validation/latex/overleaf-visual-qa.json",
+      "bytes": 1159,
+      "sha256": "4b77f00c4ea876a0a654c8d60cb1521525c3093329ae153916fd4e06c71914be"
+    },
+    {
+      "path": "tarefa5/validation/latex/visual-qa.json",
+      "bytes": 1525,
+      "sha256": "259f759153170cae273233535a6348964cb7ff9ea62b1accce498b67b461f457"
     },
     {
       "path": "tarefa5/validation/linux_smoke/data/clean.csv",

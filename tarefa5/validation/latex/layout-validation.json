@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "compiler": "pdfTeX 1.40.28 (MiKTeX 25.12), local Windows",
+  "pages": 34,
+  "tex_sha256": "792c7e8b99669b40293eb8414d61fdbf75b2c056026615a0e0d85d1869ec46f4",
+  "local_pdf_sha256": "cc0f8972246ed0ad0312bcddb9236bc9cf3f5327c8e293f1041a17e6100bf46a",
+  "overfull_boxes": [],
+  "latex_warnings": [],
+  "table_count": 21,
+  "figure_count": 27,
+  "scientific_artifacts_changed": false,
+  "overleaf_status": "passed: user-provided final PDF",
+  "overleaf_pdf_sha256": "90f5953cba84e1cd2de13512be702f4a5eea067c0d98437d0f69731445027836",
+  "overleaf_producer": "pdfTeX-1.40.27",
+  "normalized_text_matches_local": true
+}

@@ -22,7 +22,7 @@ Comparação de estratégias de otimização do `GradientBoostingRegressor` no d
 | Material | Arquivo |
 |---|---|
 | Notebook com os resultados executados | [Aula05_Tarefa5_Resultados.ipynb](tarefa5/Aula05_Tarefa5_Resultados.ipynb) |
-| Relatório de 38 páginas | [Exercicio_Aula5.pdf](tarefa5/output/pdf/Exercicio_Aula5.pdf) |
+| Relatório de 34 páginas, compilado no Overleaf | [Exercicio_Aula5.pdf](tarefa5/output/pdf/Exercicio_Aula5.pdf) |
 | Fonte LaTeX | [Exercício_Aula5.tex](tarefa5/Exercício_Aula5.tex) |
 | Figuras para o Overleaf | [Figuras_Aula5](tarefa5/Figuras_Aula5) |
 | Implementação de todos os experimentos | [experiment.py](tarefa5/experiment.py) |
@@ -59,7 +59,9 @@ Para repetir as buscas, siga [LEIA-ME.txt](tarefa5/LEIA-ME.txt) e use uma cópia
 
 ## Overleaf e aulas anteriores
 
-Para a Aula 5, adicione `Exercício_Aula5.tex` na raiz do projeto e a pasta `Figuras_Aula5` ao lado dele; selecione essa fonte como documento principal. O PDF disponibilizado foi exportado de blocos compartilhados com o LaTeX usando ReportLab. A compilação no Overleaf ainda não foi verificada; o acesso automatizado ao projeto permaneceu bloqueado por uma preferência salva do navegador.
+Para a Aula 5, adicione `Exercício_Aula5.tex` na raiz do projeto e a pasta `Figuras_Aula5` ao lado dele; selecione essa fonte como documento principal e compile com pdfLaTeX. O PDF disponibilizado é a versão final baixada do Overleaf e fornecida pelo usuário. Suas 34 páginas foram revisadas visualmente e o texto normalizado coincide com a compilação local da mesma fonte. As 21 tabelas usam largura natural limitada à página, cabeçalhos compactos e contabilidade de tempos separada das contagens. O ajuste de diagramação preserva os dados, notebooks e resultados dos experimentos.
+
+Evidências: [manifesto LaTeX](tarefa5/latex-build-manifest.json), [validação da compilação](tarefa5/validation/latex/layout-validation.json) e [revisão visual do PDF do Overleaf](tarefa5/validation/latex/overleaf-visual-qa.json). Para reconstruir a fonte, execute `python tarefa5/build_latex.py --tex-only`; a exportação legada em ReportLab continua disponível no gerador, mas não é o PDF desta entrega.
 
 As fontes e figuras das [aulas 1–4](referencias/overleaf_aulas_01_a_04) são cópias do projeto usado como referência. Foram preservadas como recebidas, sem alegar reexecução ou validação dos seus experimentos. Não foram fornecidos notebooks executáveis dessas quatro aulas nesta sessão.
 

@@ -50,11 +50,13 @@ def main():
         assert expected in full_text, expected
     audit = json.loads((ROOT / 'results/independent-audit.json').read_text(encoding='utf8'))
     assert audit['status'] == 'passed'
+    build = json.loads((ROOT / 'latex-build-manifest.json').read_text(encoding='utf8'))
     output = {
         'status': 'passed', 'notebook_code_cells': len(code),
         'notebook_error_outputs': len(errors), 'notebook_embedded_pngs': pngs,
         'tex_referenced_figures': len(figures), 'tex_environments_balanced': True,
-        'tex_compilation': 'not verified; requires Overleaf access',
+        'tex_compilation': build['compilation'],
+        'pdf_provenance': build['pdf_export'],
         'pdf_pages': len(pdf), 'pdf_text_outside_page': outside,
         'independent_model_audit': 'passed',
         'sha256': {p.name: hashlib.sha256(p.read_bytes()).hexdigest()

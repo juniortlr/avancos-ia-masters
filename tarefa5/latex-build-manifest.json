@@ -51,6 +51,12 @@
   "source_data_fingerprint": "503672bc1db72cdcb457df56bc34d44e94a933cee18b7a8baaabc8540ac7719e:53a672d829c8bea46dc35372870640922b377684b0b6bd2985b8fe7a2877e0c5",
   "placeholder_check": "passed",
   "pdf": "output/pdf/Exercicio_Aula5.pdf",
-  "pdf_export": "ReportLab from shared semantic blocks; not compiled from TeX",
-  "compilation": "LaTeX source not compiled"
+  "pdf_export": "Overleaf pdfLaTeX; final PDF downloaded and supplied by the user",
+  "compilation": "Verified: local pdfLaTeX and user-supplied Overleaf PDF, both 34 pages with identical normalized text",
+  "source_sha256": "792c7e8b99669b40293eb8414d61fdbf75b2c056026615a0e0d85d1869ec46f4",
+  "pdf_sha256": "90f5953cba84e1cd2de13512be702f4a5eea067c0d98437d0f69731445027836",
+  "overleaf_updated": true,
+  "overleaf_update_evidence": "User pasted final source and supplied the resulting 34-page PDF on 2026-09-30",
+  "layout_validation": "validation/latex/layout-validation.json",
+  "editor_compile": "Built-in editor unavailable: could not find platform standard directories; external pdfLaTeX and Overleaf compilations succeeded"
 }

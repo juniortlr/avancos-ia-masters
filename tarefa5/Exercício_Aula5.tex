@@ -1,20 +1,29 @@
 \documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[brazilian]{babel}
 \usepackage{amsmath,amssymb,graphicx,booktabs,caption,float,geometry,hyperref}
 \usepackage[table]{xcolor}
-\usepackage{enumitem,array,longtable,microtype}
+\usepackage{enumitem,array,longtable,microtype,adjustbox,xurl}
 \geometry{margin=2.5cm}
 \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
 \setlength{\emergencystretch}{3em}
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\captionsetup{font=small,labelfont=bf,skip=6pt}
+\captionsetup[table]{position=top}
+\setlength{\intextsep}{12pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{16pt plus 2pt minus 2pt}
 \definecolor{bestgreen}{RGB}{215,240,218}
 \definecolor{timeyellow}{RGB}{255,242,179}
 \title{\Large\textbf{Avanços em Inteligência Artificial}\\
 \large EELT7025 --- PPGEE, UFPR\\[0.3cm]
 \normalsize Exercícios da Aula 05\\
 \normalsize Otimização de hiperparâmetros na resistência à compressão do concreto}
-\author{\parbox{\textwidth}{\centering Adriely Teixeira de Paula\\
+\author{\parbox{0.94\textwidth}{\centering Adriely Teixeira de Paula\\
 Betina Zynger Capaverde\\Emilio Gaudeda Junior}}
 \date{30 de setembro de 2026}
 \begin{document}
@@ -42,8 +51,10 @@ Os dados foram obtidos por \texttt{ucimlrepo.fetch\_ucirepo(id=165)}. O arquivo 
 \centering
 \caption{Qualidade de todas as colunas no arquivo bruto.}
 \small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{llrr}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}llrr@{}}
 \toprule
 Variável & Tipo lido & Ausentes & Proporção \\
 \midrule
@@ -57,29 +68,33 @@ Agregado miúdo & float64 & 0 & 0{,}00\% \\
 Idade & int64 & 0 & 0{,}00\% \\
 Resistência & float64 & 0 & 0{,}00\% \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Estatísticas descritivas brutas. Ingredientes em kg/m$^3$, idade em dias e alvo em MPa.}
-\small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrrrr}
+\caption{Estatísticas descritivas brutas ($n=1030$ em todas as variáveis). Ingredientes em kg/m$^3$, idade em dias e alvo em MPa.}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrrrrrr@{}}
 \toprule
-Variável & $n$ & Média & DP & Mín. & $Q_1$ & Mediana & $Q_3$ & Máx. \\
+Variável & Média & DP & Mín. & $Q_1$ & Mediana & $Q_3$ & Máx. \\
 \midrule
-Cimento & 1030 & 281{,}17 & 104{,}51 & 102{,}00 & 192{,}38 & 272{,}90 & 350{,}00 & 540{,}00 \\
-Escória & 1030 & 73{,}90 & 86{,}28 & 0{,}00 & 0{,}00 & 22{,}00 & 142{,}95 & 359{,}40 \\
-Cinza volante & 1030 & 54{,}19 & 64{,}00 & 0{,}00 & 0{,}00 & 0{,}00 & 118{,}30 & 200{,}10 \\
-Água & 1030 & 181{,}57 & 21{,}35 & 121{,}80 & 164{,}90 & 185{,}00 & 192{,}00 & 247{,}00 \\
-Superplastificante & 1030 & 6{,}20 & 5{,}97 & 0{,}00 & 0{,}00 & 6{,}40 & 10{,}20 & 32{,}20 \\
-Agregado graúdo & 1030 & 972{,}92 & 77{,}75 & 801{,}00 & 932{,}00 & 968{,}00 & 1029{,}40 & 1145{,}00 \\
-Agregado miúdo & 1030 & 773{,}58 & 80{,}18 & 594{,}00 & 730{,}95 & 779{,}50 & 824{,}00 & 992{,}60 \\
-Idade & 1030 & 45{,}66 & 63{,}17 & 1{,}00 & 7{,}00 & 28{,}00 & 56{,}00 & 365{,}00 \\
-Resistência & 1030 & 35{,}82 & 16{,}71 & 2{,}33 & 23{,}71 & 34{,}45 & 46{,}14 & 82{,}60 \\
+Cimento & 281{,}17 & 104{,}51 & 102{,}00 & 192{,}38 & 272{,}90 & 350{,}00 & 540{,}00 \\
+Escória & 73{,}90 & 86{,}28 & 0{,}00 & 0{,}00 & 22{,}00 & 142{,}95 & 359{,}40 \\
+Cinza volante & 54{,}19 & 64{,}00 & 0{,}00 & 0{,}00 & 0{,}00 & 118{,}30 & 200{,}10 \\
+Água & 181{,}57 & 21{,}35 & 121{,}80 & 164{,}90 & 185{,}00 & 192{,}00 & 247{,}00 \\
+Superplastificante & 6{,}20 & 5{,}97 & 0{,}00 & 0{,}00 & 6{,}40 & 10{,}20 & 32{,}20 \\
+Agregado graúdo & 972{,}92 & 77{,}75 & 801{,}00 & 932{,}00 & 968{,}00 & 1029{,}40 & 1145{,}00 \\
+Agregado miúdo & 773{,}58 & 80{,}18 & 594{,}00 & 730{,}95 & 779{,}50 & 824{,}00 & 992{,}60 \\
+Idade & 45{,}66 & 63{,}17 & 1{,}00 & 7{,}00 & 28{,}00 & 56{,}00 & 365{,}00 \\
+Resistência & 35{,}82 & 16{,}71 & 2{,}33 & 23{,}71 & 34{,}45 & 46{,}14 & 82{,}60 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 A limpeza precedeu a divisão aleatória 80/20 com \texttt{random\_state=42}: 804 observações de treino e 201 de teste. A validação usa \texttt{KFold(5, shuffle=True, random\_state=42)} com índices congelados. Imputação por mediana, \texttt{StandardScaler} e GBR são um único pipeline ajustado dentro de cada fold e, no refit, somente no treino. A imputação é uma regra preventiva; sua necessidade efetiva está na tabela de ausentes. A padronização é exigida pelo enunciado, embora as árvores não dependam dela. O alvo não é padronizado, preservando MPa nas métricas.
@@ -111,15 +126,18 @@ A referência usa os parâmetros padrão do scikit-learn\cite{sklearn}, exceto \
 \begin{table}[H]
 \centering
 \caption{Baseline: métricas em MPa, exceto $R^2$, tempo total e avaliação CV.}
-\small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrr}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrrrrr@{}}
 \toprule
-Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+Método & \shortstack[r]{CV\\RMSE} & \shortstack[r]{Teste\\RMSE} & \shortstack[r]{Teste\\MAE} & \shortstack[r]{Teste\\$R^2$} & \shortstack[r]{Tempo\\(s)} & Aval. \\
 \midrule
 Baseline & 5{,}2954 & 5{,}6039 & 4{,}1284 & 0{,}8947 & 0{,}349 & 1 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 \begin{figure}[H]
@@ -132,16 +150,19 @@ Baseline & 5{,}2954 & 5{,}6039 & 4{,}1284 & 0{,}8947 & 0{,}349 & 1 \\
 \begin{table}[H]
 \centering
 \caption{Referências suplementares no mesmo split e folds, sem busca de hiperparâmetros.}
-\small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrr}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrrrr@{}}
 \toprule
-Referência adicional & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) \\
+Referência adicional & \shortstack[r]{CV\\RMSE} & \shortstack[r]{Teste\\RMSE} & \shortstack[r]{Teste\\MAE} & \shortstack[r]{Teste\\$R^2$} & \shortstack[r]{Tempo\\(s)} \\
 \midrule
 Preditor da média & 16{,}0283 & 17{,}2964 & 13{,}9719 & -0{,}0028 & 0{,}163 \\
 Ridge $\alpha=1$ & 10{,}2018 & 11{,}1934 & 8{,}8976 & 0{,}5800 & 0{,}021 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 Essas referências foram executadas depois da comparação principal, para contextualizar a dificuldade preditiva sem interferir nos tempos dos métodos. O preditor da média ignora as features; Ridge fornece uma referência linear com regularização fixa. O baseline exigido continua sendo o GBR com defaults, e é ele que define as razões de ganho e eficiência no restante do relatório.
@@ -152,8 +173,10 @@ Essas referências foram executadas depois da comparação principal, para conte
 \centering
 \caption{Espaço fixado prospectivamente; demais hiperparâmetros permanecem nos defaults.}
 \small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lll}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lll@{}}
 \toprule
 Hiperparâmetro & Domínio & Valores da grade \\
 \midrule
@@ -161,7 +184,8 @@ Taxa $\eta$ (learning\_rate) & $[0{,}03;0{,}20]$, log & $0{,}03;0{,}10;0{,}20$ \
 Fração $s$ (subsample) & $[0{,}60;1{,}00]$ & $0{,}60;0{,}80;1{,}00$ \\
 Árvores $N$ (n\_estimators) & $[50;200]$, inteiro & $50;100;150;200$ \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 O produto cartesiano tem $3\times3\times4=36$ candidatos. O \texttt{GridSearchCV} avalia todos com cinco folds e \texttt{neg\_root\_mean\_squared\_error}; os sinais são revertidos neste relatório. O menor CV RMSE foi 4{,}7327\,MPa, em $\eta=0{,}2000$, $s=0{,}800$ e $N=150$, após 4{,}134\,s incluindo refit. Os limites são os mesmos dos métodos contínuos posteriores, mas a grade tem apenas estes pontos; isso impede tratar as resoluções de busca como idênticas.
@@ -192,8 +216,10 @@ A busca aleatória igualou o mínimo da grade na avaliação 6. Não pode supera
 \centering
 \caption{Associação entre valor do hiperparâmetro e RMSE CV nos 30 candidatos aleatórios.}
 \small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrr}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrr@{}}
 \toprule
 Hiperparâmetro & $\rho$ de Spearman & $p$ exploratório & $n$ \\
 \midrule
@@ -201,7 +227,8 @@ learning\_rate & -0{,}7594 & $1{,}14\times10^{-6}$ & 30 \\
 subsample & 0{,}1528 & $0{,}4203$ & 30 \\
 n\_estimators & -0{,}6216 & $2{,}46\times10^{-4}$ & 30 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 A maior associação monotônica em módulo foi de \texttt{learning\_rate}, com $\rho=-0{,}7594$. Como o score está em RMSE positivo, sinal negativo associa valores maiores a erro menor. Spearman é marginal: não isola interações, não estabelece causalidade e não garante importância universal. Taxa de aprendizado e número de árvores controlam conjuntamente a intensidade do boosting; subsample altera a aleatoriedade de ajuste, tornando dependência do contexto plausível.
@@ -218,17 +245,20 @@ A maior associação monotônica em módulo foi de \texttt{learning\_rate}, com 
 \begin{table}[H]
 \centering
 \caption{Métodos clássicos: CV/teste em MPa, tempo CV+refit e avaliações efetivas.}
-\small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrr}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrrrrr@{}}
 \toprule
-Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+Método & \shortstack[r]{CV\\RMSE} & \shortstack[r]{Teste\\RMSE} & \shortstack[r]{Teste\\MAE} & \shortstack[r]{Teste\\$R^2$} & \shortstack[r]{Tempo\\(s)} & Aval. \\
 \midrule
 Baseline & 5{,}2954 & 5{,}6039 & 4{,}1284 & 0{,}8947 & 0{,}349 & 1 \\
 Grid Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 4{,}134 & 36 \\
 Random Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 3{,}412 & 30 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 \textbf{A otimização trouxe ganho e compensa o custo?} O melhor teste entre as buscas clássicas empatou entre Grid e Random; o Random teve menor tempo, com redução de 20{,}36\% no RMSE e custo adicional de 3{,}063\,s. A decisão econômica depende da tolerância de erro e da frequência de retreinamento, não informadas.
@@ -250,11 +280,13 @@ O máximo de EI é aproximado numa malha $61\times61$ do domínio normalizado, e
 \begin{table}[H]
 \centering
 \caption{Dez aquisições: posterior registrado antes da nova avaliação. RMSE e incerteza em MPa.}
-\small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{rrrrrrr}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}rrrrrrr@{}}
 \toprule
-Iter. & Obs. prévias & $\bar\sigma$ & EI máxima & Melhor prévio & Próx. $\eta$ & Próx. $s$ \\
+Iter. & \shortstack[r]{Obs.\\prévias} & $\bar\sigma$ & \shortstack[r]{EI\\máxima} & \shortstack[r]{Melhor\\prévio} & Próx. $\eta$ & Próx. $s$ \\
 \midrule
 1 & 5 & 0{,}1357 & 0{,}1984 & 4{,}9288 & 0{,}2000 & 1{,}0000 \\
 2 & 6 & 0{,}1563 & 0{,}0725 & 4{,}9288 & 0{,}0775 & 1{,}0000 \\
@@ -267,7 +299,8 @@ Iter. & Obs. prévias & $\bar\sigma$ & EI máxima & Melhor prévio & Próx. $\et
 9 & 13 & 0{,}0888 & 0{,}0029 & 4{,}8254 & 0{,}2000 & 0{,}6067 \\
 10 & 14 & 0{,}0856 & 0{,}0031 & 4{,}8254 & 0{,}2000 & 0{,}6133 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 A incerteza média da malha passou de 0{,}1357 para 0{,}0856\,MPa, com 4 aumentos entre iterações consecutivas. Ela não precisa diminuir monotonicamente, porque os hiperparâmetros do kernel são reajustados e novas observações podem revelar estrutura inesperada. A EI máxima passou de 0{,}1984 para 0{,}0031. O critério busca equilibrar regiões promissoras e incerteza segundo o modelo; dez passos não provam convergência ao ótimo verdadeiro.
@@ -279,17 +312,20 @@ O melhor GP manual obteve CV RMSE 4{,}8254\,MPa e teste 4{,}6763\,MPa em $\eta=0
 \begin{table}[H]
 \centering
 \caption{Comparação do GP manual com as buscas clássicas.}
-\small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrr}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrrrrr@{}}
 \toprule
-Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+Método & \shortstack[r]{CV\\RMSE} & \shortstack[r]{Teste\\RMSE} & \shortstack[r]{Teste\\MAE} & \shortstack[r]{Teste\\$R^2$} & \shortstack[r]{Tempo\\(s)} & Aval. \\
 \midrule
 Grid Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 4{,}134 & 36 \\
 Random Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 3{,}412 & 30 \\
 GP manual & 4{,}8254 & 4{,}6763 & 3{,}4329 & 0{,}9267 & 2{,}080 & 15 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 \begin{figure}[H]
@@ -307,10 +343,12 @@ As dez figuras individuais estão no apêndice de aquisições. Cada uma exibe p
 \centering
 \caption{Bibliotecas aplicadas aos três hiperparâmetros do espaço completo.}
 \small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{llr}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.23\linewidth}>{\raggedright\arraybackslash}p{0.55\linewidth}r@{}}
 \toprule
-Biblioteca & Configuração executada & Trials iniciados \\
+Biblioteca & Configuração executada & \shortstack[r]{Trials\\iniciados} \\
 \midrule
 scikit-optimize & GP Matérn 5/2; EI; 10 iniciais & 40 \\
 bayes\_opt & GP; UCB $\kappa=2{,}576$; 5 iniciais + 35 & 40 \\
@@ -318,7 +356,8 @@ Optuna & TPE; minimizar RMSE; seed 42 & 40 \\
 Hyperopt & TPE; \texttt{hp.loguniform} para $\eta$ & 40 \\
 Ray Tune & OptunaSearch + ASHA; recurso progressivo & 40 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 Foram usados GP e aquisição explicitamente configurados no skopt\cite{skopt} e no bayes\_opt\cite{bayesopt}; TPE orientou Optuna\cite{optuna} e Hyperopt\cite{hyperopt}. Cada biblioteca iniciou 40 candidatos. Os métodos contínuos compartilham os limites da grade; valores intermediários são admissíveis, e a taxa é amostrada em escala logarítmica. O inteiro $N$ usa a mesma regra de conversão na avaliação e no ajuste final, evitando comparar um candidato com um refit diferente.
@@ -330,11 +369,13 @@ O tempo de busca do Ray inclui a inicialização do serviço, ao passo que o poo
 \begin{table}[H]
 \centering
 \caption{Cinco bibliotecas: melhor CV completo e métricas do refit no teste.}
-\small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrr}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrrrrr@{}}
 \toprule
-Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+Método & \shortstack[r]{CV\\RMSE} & \shortstack[r]{Teste\\RMSE} & \shortstack[r]{Teste\\MAE} & \shortstack[r]{Teste\\$R^2$} & \shortstack[r]{Tempo\\(s)} & Aval. \\
 \midrule
 skopt (GP + EI) & 4{,}6436 & 4{,}5346 & 2{,}9857 & 0{,}9311 & 13{,}728 & 40 \\
 bayes\_opt (GP + UCB) & 4{,}6476 & 4{,}4439 & 3{,}0819 & 0{,}9338 & 11{,}133 & 40 \\
@@ -342,7 +383,8 @@ Optuna (TPE) & 4{,}6435 & 4{,}4328 & 3{,}1128 & 0{,}9341 & 6{,}906 & 40 \\
 Hyperopt (TPE) & 4{,}7253 & 4{,}8299 & 3{,}4202 & 0{,}9218 & 5{,}551 & 40 \\
 Ray (Optuna + ASHA) & 4{,}6096 & 4{,}6428 & 3{,}1124 & 0{,}9277 & 160{,}197 & 40 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 \begin{figure}[H]
@@ -373,15 +415,18 @@ O GA realizou 259 avaliações e 113 candidatos distintos. A diversidade, fraç�
 \centering
 \caption{Término efetivo da evolução diferencial.}
 \small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrr}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrrr@{}}
 \toprule
-Estratégia & Gerações & Avaliações & CV RMSE & Tempo (s) \\
+Estratégia & Gerações & Avaliações & \shortstack[r]{CV\\RMSE} & \shortstack[r]{Tempo\\(s)} \\
 \midrule
 DE best1bin & 12 & 390 & 4{,}5612 & 56{,}677 \\
 DE rand1bin & 12 & 390 & 4{,}5981 & 52{,}258 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 \begin{figure}[H]
@@ -400,17 +445,20 @@ O perfil observado foi: DE best1bin: 4{,}6235\,MPa após 100 avaliações, últi
 \begin{table}[H]
 \centering
 \caption{Sensibilidade do PSO à inércia, com os demais parâmetros e orçamento iguais.}
-\small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrr}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrrrrr@{}}
 \toprule
-Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+Método & \shortstack[r]{CV\\RMSE} & \shortstack[r]{Teste\\RMSE} & \shortstack[r]{Teste\\MAE} & \shortstack[r]{Teste\\$R^2$} & \shortstack[r]{Tempo\\(s)} & Aval. \\
 \midrule
 PSO w=0,4 & 4{,}5694 & 4{,}5138 & 3{,}1941 & 0{,}9317 & 55{,}410 & 320 \\
 PSO w=0,7 & 4{,}5339 & 4{,}6955 & 3{,}0591 & 0{,}9261 & 52{,}052 & 320 \\
 PSO w=0,9 & 4{,}5277 & 4{,}5358 & 3{,}1241 & 0{,}9310 & 51{,}257 & 320 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 \begin{figure}[H]
@@ -429,29 +477,34 @@ A evolução do gbest nas iterações 5, 10 e 15 foi, em MPa: PSO w=0,4: 4{,}610
 \begin{table}[H]
 \centering
 \caption{Comparação completa e variantes: verde marca melhores métricas e amarelo o menor tempo total; erros em MPa.}
-\small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrr}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrrrrr@{}}
 \toprule
-Método & CV RMSE & Teste RMSE & Teste MAE & Teste $R^2$ & Tempo (s) & Aval. \\
+Método & \shortstack[r]{CV\\RMSE} & \shortstack[r]{Teste\\RMSE} & \shortstack[r]{Teste\\MAE} & \shortstack[r]{Teste\\$R^2$} & \shortstack[r]{Tempo\\(s)} & Aval. \\
 \midrule
 Baseline & 5{,}2954 & 5{,}6039 & 4{,}1284 & 0{,}8947 & \cellcolor{timeyellow}0{,}349 & 1 \\
 Grid Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 4{,}134 & 36 \\
 Random Search & 4{,}7327 & 4{,}4630 & 3{,}1411 & 0{,}9332 & 3{,}412 & 30 \\
 GP manual & 4{,}8254 & 4{,}6763 & 3{,}4329 & 0{,}9267 & 2{,}080 & 15 \\
 skopt (GP + EI) & 4{,}6436 & 4{,}5346 & \cellcolor{bestgreen}2{,}9857 & 0{,}9311 & 13{,}728 & 40 \\
+\addlinespace[3pt]
 bayes\_opt (GP + UCB) & 4{,}6476 & 4{,}4439 & 3{,}0819 & 0{,}9338 & 11{,}133 & 40 \\
 Optuna (TPE) & 4{,}6435 & 4{,}4328 & 3{,}1128 & 0{,}9341 & 6{,}906 & 40 \\
 Hyperopt (TPE) & 4{,}7253 & 4{,}8299 & 3{,}4202 & 0{,}9218 & 5{,}551 & 40 \\
 Ray (Optuna + ASHA) & 4{,}6096 & 4{,}6428 & 3{,}1124 & 0{,}9277 & 160{,}197 & 40 \\
 GA (DEAP) & 4{,}6010 & 4{,}5181 & 3{,}0133 & 0{,}9316 & 41{,}114 & 259 \\
+\addlinespace[3pt]
 DE best1bin & 4{,}5612 & 4{,}6933 & 3{,}3025 & 0{,}9262 & 56{,}677 & 390 \\
 DE rand1bin & 4{,}5981 & \cellcolor{bestgreen}4{,}4135 & 3{,}0899 & \cellcolor{bestgreen}0{,}9347 & 52{,}258 & 390 \\
 PSO w=0,7 & 4{,}5339 & 4{,}6955 & 3{,}0591 & 0{,}9261 & 52{,}052 & 320 \\
 PSO w=0,4 & 4{,}5694 & 4{,}5138 & 3{,}1941 & 0{,}9317 & 55{,}410 & 320 \\
 PSO w=0,9 & \cellcolor{bestgreen}4{,}5277 & 4{,}5358 & 3{,}1241 & 0{,}9310 & 51{,}257 & 320 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 A tabela contém os 12 métodos principais e as três variantes adicionais de DE/PSO. A coluna Aval. conta candidatos registrados; em Ray inclui podas, cujo trabalho parcial é discriminado anteriormente e no apêndice. Os orçamentos diferentes são exigidos pelo roteiro. Vantagens em qualidade com muitas avaliações não devem ser atribuídas somente ao otimizador.
@@ -502,8 +555,10 @@ Os três maiores valores foram Idade (35{,}32\%); Cimento (28{,}12\%); Água (10
 \centering
 \caption{Importâncias normalizadas fANOVA após 40 trials Optuna em cada tamanho.}
 \small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrr}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrr@{}}
 \toprule
 Hiperparâmetro & Treino integral & Metade do treino \\
 \midrule
@@ -511,7 +566,8 @@ learning\_rate & 68{,}36\% & 30{,}21\% \\
 n\_estimators & 29{,}91\% & 62{,}58\% \\
 subsample & 1{,}73\% & 7{,}21\% \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 \begin{figure}[H]
@@ -529,10 +585,12 @@ O principal hiperparâmetro no treino integral foi \texttt{learning\_rate} e na 
 \centering
 \caption{Reexecuções completas do HPO com dados e partições fixos.}
 \small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrr}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrrr@{}}
 \toprule
-Método & Seed & CV RMSE & Teste RMSE & Tempo (s) \\
+Método & Seed & \shortstack[r]{CV\\RMSE} & \shortstack[r]{Teste\\RMSE} & \shortstack[r]{Tempo\\(s)} \\
 \midrule
 DE rand1bin & 0 & 4{,}6413 & 4{,}5569 & 40{,}783 \\
 DE rand1bin & 7 & 4{,}6532 & 4{,}6909 & 33{,}620 \\
@@ -545,7 +603,8 @@ PSO w=0,9 & 21 & 4{,}5955 & 4{,}4263 & 49{,}861 \\
 PSO w=0,9 & 42 & 4{,}5277 & 4{,}5358 & 51{,}257 \\
 PSO w=0,9 & 99 & 4{,}5643 & 4{,}4826 & 50{,}981 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 \begin{figure}[H]
@@ -555,9 +614,9 @@ PSO w=0,9 & 99 & 4{,}5643 & 4{,}4826 & 50{,}981 \\
 \label{fig:17-robustness}
 \end{figure}
 
-DE rand1bin: RMSE de teste médio $4{,}5390\pm0{,}1092$ MPa (desvio padrão amostral, $n=5$), intervalo observado $[4{,}4135;4{,}6909]$ MPa. A variação relativa $\mathrm{DP}/\mathrm{média}$ foi 2{,}41\%. São cinco aleatoriedades de um mesmo dataset; a dispersão não quantifica incerteza entre populações, lotes ou outros conjuntos de teste.
+DE rand1bin: RMSE de teste médio $4{,}5390\pm0{,}1092$ MPa (desvio padrão amostral, $n=5$), intervalo observado $[4{,}4135;4{,}6909]$ MPa. A variação relativa $\mathrm{DP}/\text{média}$ foi 2{,}41\%. São cinco aleatoriedades de um mesmo dataset; a dispersão não quantifica incerteza entre populações, lotes ou outros conjuntos de teste.
 
-PSO w=0,9: RMSE de teste médio $4{,}5288\pm0{,}0867$ MPa (desvio padrão amostral, $n=5$), intervalo observado $[4{,}4263;4{,}6603]$ MPa. A variação relativa $\mathrm{DP}/\mathrm{média}$ foi 1{,}92\%. São cinco aleatoriedades de um mesmo dataset; a dispersão não quantifica incerteza entre populações, lotes ou outros conjuntos de teste.
+PSO w=0,9: RMSE de teste médio $4{,}5288\pm0{,}0867$ MPa (desvio padrão amostral, $n=5$), intervalo observado $[4{,}4263;4{,}6603]$ MPa. A variação relativa $\mathrm{DP}/\text{média}$ foi 1{,}92\%. São cinco aleatoriedades de um mesmo dataset; a dispersão não quantifica incerteza entre populações, lotes ou outros conjuntos de teste.
 
 A maior dispersão relativa foi 2{,}41\% do RMSE médio. Isso indica estabilidade relativa às cinco seeds estudadas no holdout fixo, com a faixa de variação acima explicitada; não assegura estabilidade em produção nem sustenta interpretar diferenças de centésimos de MPa como decisivas.
 
@@ -567,8 +626,10 @@ A maior dispersão relativa foi 2{,}41\% do RMSE médio. Isso indica estabilidad
 \centering
 \caption{Eficiência relativa ao baseline; traço significa razão não definida.}
 \small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrr}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrr@{}}
 \toprule
 Método & Ganho relativo & $\Delta t$ (s) & $E_m$ (s$^{-1}$) \\
 \midrule
@@ -577,18 +638,21 @@ Grid Search & 20{,}36\% & 3{,}785 & 0{,}0537830 \\
 Random Search & 20{,}36\% & 3{,}063 & 0{,}0664614 \\
 GP manual & 16{,}55\% & 1{,}731 & 0{,}0956433 \\
 skopt (GP + EI) & 19{,}08\% & 13{,}379 & 0{,}0142618 \\
+\addlinespace[3pt]
 bayes\_opt (GP + UCB) & 20{,}70\% & 10{,}784 & 0{,}0191949 \\
 Optuna (TPE) & 20{,}90\% & 6{,}557 & 0{,}0318695 \\
 Hyperopt (TPE) & 13{,}81\% & 5{,}202 & 0{,}0265499 \\
 Ray (Optuna + ASHA) & 17{,}15\% & 159{,}848 & 0{,}0010729 \\
 GA (DEAP) & 19{,}38\% & 40{,}765 & 0{,}0047530 \\
+\addlinespace[3pt]
 DE best1bin & 16{,}25\% & 56{,}328 & 0{,}0028846 \\
 DE rand1bin & 21{,}24\% & 51{,}908 & 0{,}0040921 \\
 PSO w=0,7 & 16{,}21\% & 51{,}702 & 0{,}0031353 \\
 PSO w=0,4 & 19{,}45\% & 55{,}060 & 0{,}0035327 \\
 PSO w=0,9 & 19{,}06\% & 50{,}908 & 0{,}0037437 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 A maior razão definida foi a de GP manual, $E=0{,}0956433\,$s$^{-1}$. Essa razão responde ao ganho marginal por tempo adicional nesta máquina; pode favorecer ganhos pequenos e baratos, e não inclui inferência, manutenção ou valor econômico do erro.
@@ -605,8 +669,10 @@ Adotaria Optuna TPE como opção operacional: CV de 4{,}6435\,MPa, teste de 4{,}
 \centering
 \caption{Melhores parâmetros por CV; baseline registra seus defaults.}
 \small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrr}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrr@{}}
 \toprule
 Método & learning\_rate & subsample & n\_estimators \\
 \midrule
@@ -615,53 +681,94 @@ Grid Search & 0{,}200000 & 0{,}800000 & 150 \\
 Random Search & 0{,}200000 & 0{,}800000 & 150 \\
 GP manual & 0{,}200000 & 0{,}800000 & 100 \\
 skopt (GP + EI) & 0{,}199032 & 0{,}716111 & 198 \\
+\addlinespace[3pt]
 bayes\_opt (GP + UCB) & 0{,}150675 & 0{,}843548 & 197 \\
 Optuna (TPE) & 0{,}184487 & 0{,}697361 & 171 \\
 Hyperopt (TPE) & 0{,}153621 & 0{,}720169 & 141 \\
 Ray (Optuna + ASHA) & 0{,}190575 & 0{,}701679 & 188 \\
 GA (DEAP) & 0{,}192554 & 0{,}712400 & 199 \\
+\addlinespace[3pt]
 DE best1bin & 0{,}185928 & 0{,}922905 & 166 \\
 DE rand1bin & 0{,}179739 & 0{,}713162 & 190 \\
 PSO w=0,7 & 0{,}200000 & 0{,}681240 & 198 \\
 PSO w=0,4 & 0{,}193127 & 0{,}909809 & 185 \\
 PSO w=0,9 & 0{,}168098 & 0{,}622404 & 200 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Chamadas efetivas e tempos. No Ray, fit CV é uma chamada por fold/estágio, com warm start; não equivale a treinamento completo do zero.}
+\caption{Tempos registrados na comparação principal: busca/validação, refit e soma das duas etapas.}
 \small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrrr}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrr@{}}
 \toprule
-Método & Busca/CV (s) & Refit (s) & Aval. & Únicos & Fits CV & Completos & Podados \\
+Método & \shortstack[r]{Busca/CV\\(s)} & \shortstack[r]{Refit\\(s)} & \shortstack[r]{Total\\(s)} \\
 \midrule
-Baseline & 0{,}253 & 0{,}0960 & 1 & 1 & 5 & 1 & 0 \\
-Grid Search & 3{,}991 & 0{,}1430 & 36 & 36 & 180 & 36 & 0 \\
-Random Search & 3{,}288 & 0{,}1239 & 30 & 30 & 150 & 30 & 0 \\
-GP manual & 1{,}990 & 0{,}0898 & 15 & 15 & 75 & 15 & 0 \\
-skopt (GP + EI) & 13{,}558 & 0{,}1699 & 40 & 40 & 200 & 40 & 0 \\
-bayes\_opt (GP + UCB) & 10{,}947 & 0{,}1866 & 40 & 40 & 200 & 40 & 0 \\
-Optuna (TPE) & 6{,}759 & 0{,}1468 & 40 & 40 & 200 & 40 & 0 \\
-Hyperopt (TPE) & 5{,}429 & 0{,}1218 & 40 & 40 & 200 & 40 & 0 \\
-Ray (Optuna + ASHA) & 160{,}008 & 0{,}1887 & 40 & 40 & 585 & 24 & 16 \\
-GA (DEAP) & 40{,}953 & 0{,}1614 & 259 & 113 & 1295 & 259 & 0 \\
-DE best1bin & 56{,}532 & 0{,}1455 & 390 & 389 & 1950 & 390 & 0 \\
-DE rand1bin & 52{,}105 & 0{,}1530 & 390 & 390 & 1950 & 390 & 0 \\
-PSO w=0,7 & 51{,}899 & 0{,}1527 & 320 & 311 & 1600 & 320 & 0 \\
-PSO w=0,4 & 55{,}241 & 0{,}1690 & 320 & 319 & 1600 & 320 & 0 \\
-PSO w=0,9 & 51{,}112 & 0{,}1453 & 320 & 319 & 1600 & 320 & 0 \\
+Baseline & 0{,}253 & 0{,}0960 & 0{,}349 \\
+Grid Search & 3{,}991 & 0{,}1430 & 4{,}134 \\
+Random Search & 3{,}288 & 0{,}1239 & 3{,}412 \\
+GP manual & 1{,}990 & 0{,}0898 & 2{,}080 \\
+skopt (GP + EI) & 13{,}558 & 0{,}1699 & 13{,}728 \\
+\addlinespace[3pt]
+bayes\_opt (GP + UCB) & 10{,}947 & 0{,}1866 & 11{,}133 \\
+Optuna (TPE) & 6{,}759 & 0{,}1468 & 6{,}906 \\
+Hyperopt (TPE) & 5{,}429 & 0{,}1218 & 5{,}551 \\
+Ray (Optuna + ASHA) & 160{,}008 & 0{,}1887 & 160{,}197 \\
+GA (DEAP) & 40{,}953 & 0{,}1614 & 41{,}114 \\
+\addlinespace[3pt]
+DE best1bin & 56{,}532 & 0{,}1455 & 56{,}677 \\
+DE rand1bin & 52{,}105 & 0{,}1530 & 52{,}258 \\
+PSO w=0,7 & 51{,}899 & 0{,}1527 & 52{,}052 \\
+PSO w=0,4 & 55{,}241 & 0{,}1690 & 55{,}410 \\
+PSO w=0,9 & 51{,}112 & 0{,}1453 & 51{,}257 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Contagem de avaliações e ajustes. No Ray, fit CV é uma chamada por fold/estágio, com warm start; não equivale a treinamento completo do zero.}
+\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Método & Aval. & Únicos & Fits CV & \shortstack[r]{Trials\\completos} & \shortstack[r]{Trials\\podados} \\
+\midrule
+Baseline & 1 & 1 & 5 & 1 & 0 \\
+Grid Search & 36 & 36 & 180 & 36 & 0 \\
+Random Search & 30 & 30 & 150 & 30 & 0 \\
+GP manual & 15 & 15 & 75 & 15 & 0 \\
+skopt (GP + EI) & 40 & 40 & 200 & 40 & 0 \\
+\addlinespace[3pt]
+bayes\_opt (GP + UCB) & 40 & 40 & 200 & 40 & 0 \\
+Optuna (TPE) & 40 & 40 & 200 & 40 & 0 \\
+Hyperopt (TPE) & 40 & 40 & 200 & 40 & 0 \\
+Ray (Optuna + ASHA) & 40 & 40 & 585 & 24 & 16 \\
+GA (DEAP) & 259 & 113 & 1295 & 259 & 0 \\
+\addlinespace[3pt]
+DE best1bin & 390 & 389 & 1950 & 390 & 0 \\
+DE rand1bin & 390 & 390 & 1950 & 390 & 0 \\
+PSO w=0,7 & 320 & 311 & 1600 & 320 & 0 \\
+PSO w=0,4 & 320 & 319 & 1600 & 320 & 0 \\
+PSO w=0,9 & 320 & 319 & 1600 & 320 & 0 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 O baseline usa perda quadrática, profundidade máxima 3 e demais parâmetros padrão da versão registrada. Fora das três dimensões acima, os métodos preservam esses parâmetros. Contagens distintas de candidatos e candidatos únicos mostram revisitas; não foi aplicado cache de scores entre otimizadores para artificialmente reduzir seu custo. O custo das sensibilidades é adicional à tabela principal.
 
 \section{Ambiente e evidências de reprodução}
 
-\textbf{Formato desta entrega.} O PDF foi exportado com ReportLab a partir dos mesmos blocos de conteúdo usados para gerar a fonte LaTeX. O arquivo \texttt{.tex} e as figuras acompanham a entrega; a compilação LaTeX não foi verificada neste ambiente. A exportação PDF não constitui evidência de compilação do projeto TeX.
+\textbf{Fontes do relatório.} O arquivo \texttt{Exercício\_Aula5.tex} e a pasta \texttt{Figuras\_Aula5} acompanham os dados e o notebook executado. As tabelas são geradas a partir dos resultados registrados; alterações de diagramação não reexecutam as buscas nem modificam as métricas arquivadas.
 
 Python: 3.12.1 (tags/v3.12.1:2305ca5, Dec  7 2023, 22:03:25) [MSC v.1937 64 bit (AMD64)]. Plataforma: Windows-11-10.0.26200-SP0. Processador: identificador não disponibilizado pelo sistema. CPUs lógicas detectadas: 16.
 
@@ -669,28 +776,24 @@ Python: 3.12.1 (tags/v3.12.1:2305ca5, Dec  7 2023, 22:03:25) [MSC v.1937 64 bit 
 \centering
 \caption{Versões registradas na execução, distintas das versões futuras de documentação online.}
 \small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{ll}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}ll@{\hspace{1cm}}ll@{}}
 \toprule
-Biblioteca & Versão instalada \\
+Biblioteca & Versão & Biblioteca & Versão \\
 \midrule
-numpy & 2.5.3 \\
-pandas & 3.0.6 \\
-scipy & 1.18.1 \\
-scikit-learn & 1.9.1 \\
-joblib & 1.6.0 \\
-threadpoolctl & 3.7.0 \\
-ucimlrepo & 0.0.7 \\
-scikit-optimize & 0.10.2 \\
-bayesian-optimization & 3.3.0 \\
-optuna & 5.0.0 \\
-hyperopt & 0.3.0 \\
-ray & 2.58.0 \\
-deap & 1.4.4 \\
-matplotlib & 3.11.2 \\
-seaborn & 0.13.2 \\
+numpy & 2.5.3 & bayesian-optimization & 3.3.0 \\
+pandas & 3.0.6 & optuna & 5.0.0 \\
+scipy & 1.18.1 & hyperopt & 0.3.0 \\
+scikit-learn & 1.9.1 & ray & 2.58.0 \\
+joblib & 1.6.0 & deap & 1.4.4 \\
+threadpoolctl & 3.7.0 & matplotlib & 3.11.2 \\
+ucimlrepo & 0.0.7 & seaborn & 0.13.2 \\
+scikit-optimize & 0.10.2 &  &  \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{adjustbox}
 \end{table}
 
 São fornecidos notebook executado, código de experimentos, dados e contrato, manifesto de split/folds, resultados por trial, previsões, figuras e fontes do relatório. Os arquivos \texttt{result.json}, \texttt{trials.csv}, \texttt{predictions.csv} e \texttt{analysis.json} conectam números e figuras à mesma execução. Reexecutar o HPO pode alterar tempos; seeds controlam aleatoriedade, mas não garantem igualdade bit a bit entre bibliotecas, versões e plataformas.

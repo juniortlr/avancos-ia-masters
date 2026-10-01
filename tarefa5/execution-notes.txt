@@ -25,7 +25,7 @@ o navegador recusou acesso com a mensagem de que a permissão havia sido negada.
 Não houve tentativa de contornar a recusa. Após autorização explícita do usuário
 para liberar acesso, uma nova leitura foi recusada: a política informou que uma
 preferência salva ainda bloqueava overleaf.com. Os artefatos finais foram produzidos
-localmente e o arquivo da Aula 5 no projeto remoto permanece sem atualização.
+localmente; nessa etapa, o arquivo da Aula 5 não havia sido atualizado automaticamente.
 
 Fechamento: notebook com 71 células de código executadas, zero erros e 28 imagens;
 PDF de 38 páginas revisado visualmente, 27 figuras e 20 tabelas. A fonte TeX teve
@@ -37,3 +37,14 @@ loky (registrado separadamente), gráficos e serialização. Incluem a busca/CV 
 refit no treino integral. O início/overhead do runtime Ray integra seu tempo de
 busca. Esse backend usa cinco threads por trial, enquanto os demais usam cinco
 processos CV. Não tratar os tempos como benchmark universal de algoritmos.
+
+Revisão de diagramação de 30/09/2026: tabelas com largura natural, cabeçalhos em
+duas linhas, contabilidade dividida em tempos e contagens, versões em dois pares
+de colunas e controle de linhas órfãs. Compilação local com pdfLaTeX/MiKTeX:
+34 páginas, sem caixas excedentes ou avisos LaTeX. O compilador interno do editor
+não encontrou os diretórios padrão da plataforma; a fonte ficou preservada.
+O usuário colou a fonte final no Overleaf e forneceu o PDF compilado de 34 páginas.
+O texto normalizado coincide integralmente com a compilação local; todas as páginas
+do PDF do Overleaf foram inspecionadas. Esse PDF substitui a exportação ReportLab
+anterior em output/pdf/Exercicio_Aula5.pdf. Os experimentos e notebooks não mudaram.
+Evidências e hashes: latex-build-manifest.json e validation/latex/.

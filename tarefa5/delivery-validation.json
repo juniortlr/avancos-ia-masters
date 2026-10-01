@@ -5,14 +5,15 @@
   "notebook_embedded_pngs": 28,
   "tex_referenced_figures": 27,
   "tex_environments_balanced": true,
-  "tex_compilation": "not verified; requires Overleaf access",
-  "pdf_pages": 38,
+  "tex_compilation": "Verified: local pdfLaTeX and user-supplied Overleaf PDF, both 34 pages with identical normalized text",
+  "pdf_provenance": "Overleaf pdfLaTeX; final PDF downloaded and supplied by the user",
+  "pdf_pages": 34,
   "pdf_text_outside_page": [],
   "independent_model_audit": "passed",
   "sha256": {
     "Aula05_Tarefa5_Resultados.ipynb": "15edda5533fdfaf55a688fccb0d3693e363110dc4f9efd14c02d3563df0620f8",
-    "Exerc\u00edcio_Aula5.tex": "bffdb3cec107111f1df733c2e229de15ed761752fe42560e457d9dac91981231",
-    "Exercicio_Aula5.pdf": "6451a3c395131c860c438c0fe299f5b53f2a32d83a8124323d7c862f90ec4bef",
+    "Exerc\u00edcio_Aula5.tex": "792c7e8b99669b40293eb8414d61fdbf75b2c056026615a0e0d85d1869ec46f4",
+    "Exercicio_Aula5.pdf": "90f5953cba84e1cd2de13512be702f4a5eea067c0d98437d0f69731445027836",
     "experiment.py": "4bd4e786823cd9b0637186f1a46f4651d3e092b341d8316d3cdfc3c7c1dceda1"
   }
 }
