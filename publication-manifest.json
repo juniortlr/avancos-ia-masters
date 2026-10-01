@@ -1,18 +1,7 @@
 {
+  "archive_commit": "02d110722f2aee6f9d684faa748afcd932821477",
   "framework_commit": "f68892c8b7adba358b8aa437eec00a89fe88d340",
-  "original_artifacts_modified": false,
-  "excluded": [
-    ".ipynb_checkpoints",
-    ".mplcache",
-    ".venv",
-    "__pycache__",
-    "entrega",
-    "notebook_source.txt",
-    "overleaf_original",
-    "ray-storage",
-    "tmp"
-  ],
-  "scope": "Tarefa5 complete; original provided assignment; prior Overleaf sources and figures",
+  "scope": "Tarefa5 artifacts, executable Colab notebook, provided assignment and prior Overleaf references",
   "files": [
     {
       "path": ".gitattributes",
@@ -25,14 +14,14 @@
       "sha256": "73a62c097ca6d44af772e6c7f3b56eb5b938fe97cf5337b1debbcce0bd6f2180"
     },
     {
+      "path": "README.md",
+      "bytes": 6292,
+      "sha256": "a37e12078822ac49f33d7867f9a8808d951406f68bcbc3c319c7821a7699f028"
+    },
+    {
       "path": "enunciados/Aula05_Enunciado.ipynb",
       "bytes": 5072753,
       "sha256": "7a1ee79605a8ea6431cb00fe888c78bce801956e4918a31129b8283f089f49e3"
-    },
-    {
-      "path": "README.md",
-      "bytes": 5044,
-      "sha256": "38b6f4f735357556204b03911d0c004127a258899dc151804f623e8c26164be1"
     },
     {
       "path": "referencias/overleaf_aulas_01_a_04/Exercício_Aula1.tex",
@@ -265,24 +254,19 @@
       "sha256": "ed72153f9aa677e77c67b9570b47a2e43977f3f87e6a5a0f116325f3f8ac2fb0"
     },
     {
+      "path": "scripts/update_manifest.py",
+      "bytes": 1159,
+      "sha256": "5088fa7e3cf1b101021da88f5489c01853cab1903940d9799457692685884b6b"
+    },
+    {
       "path": "tarefa5/.matplotlib/fontlist-v3.11.0.json",
       "bytes": 122159,
       "sha256": "47fa30202ef6a25dceac2f8209b85a295a6e4bb66f625f0f8e87a936b97806b2"
     },
     {
-      "path": "tarefa5/audit_engine_results.py",
-      "bytes": 4110,
-      "sha256": "11c01e53ad356da78dcb8a31b63f65b6496be058ae4232627f50e097b13a8ed3"
-    },
-    {
-      "path": "tarefa5/audit_prior_tasks.txt",
-      "bytes": 12919,
-      "sha256": "6b08f793803544a527433facf2ffa71f089799823cbaec23341af0c61a41dba2"
-    },
-    {
-      "path": "tarefa5/audit_saved_outputs.py",
-      "bytes": 14989,
-      "sha256": "797d97c895ee0bb717c716ba147a9672d8f6793eacf3082a78fda6919ccea398"
+      "path": "tarefa5/Aula05_Tarefa5_Colab.ipynb",
+      "bytes": 41880,
+      "sha256": "9954023828af4560194987ffbf7d300a4608e3ea30c7efac8b43b94a8650d5a2"
     },
     {
       "path": "tarefa5/Aula05_Tarefa5_Resultados.ipynb",
@@ -290,114 +274,9 @@
       "sha256": "15edda5533fdfaf55a688fccb0d3693e363110dc4f9efd14c02d3563df0620f8"
     },
     {
-      "path": "tarefa5/build_latex.py",
-      "bytes": 78053,
-      "sha256": "317fec7b3f58184ea5ce9a2793a64c007ef64613ef77dce460c0d7af349dfaf7"
-    },
-    {
-      "path": "tarefa5/build_notebook.py",
-      "bytes": 20543,
-      "sha256": "29c385b4dfc4ce868c2631c232526a335992ab5ad64ca4ff65b616e42574a6a1"
-    },
-    {
-      "path": "tarefa5/checklist_requisitos.txt",
-      "bytes": 9600,
-      "sha256": "34d43f2058aad49a7e56abb40321003e6bd781820211b41fb6fb475a8b377def"
-    },
-    {
-      "path": "tarefa5/code_versions/experiment_4bd4e786.py",
-      "bytes": 41848,
-      "sha256": "4bd4e786823cd9b0637186f1a46f4651d3e092b341d8316d3cdfc3c7c1dceda1"
-    },
-    {
-      "path": "tarefa5/code_versions/experiment_f652fe5e.py",
-      "bytes": 41792,
-      "sha256": "f652fe5eab5e5cec8ea6b8c53e7de4b31fc3f14f453fd695768e8e0b0cf3aea8"
-    },
-    {
-      "path": "tarefa5/data/clean.csv",
-      "bytes": 52277,
-      "sha256": "503672bc1db72cdcb457df56bc34d44e94a933cee18b7a8baaabc8540ac7719e"
-    },
-    {
-      "path": "tarefa5/data/data-contract.json",
-      "bytes": 1463,
-      "sha256": "f0c1bf900964fe6de1e727b725f2a5c6719861b5b8256c317b9937b9cedf169d"
-    },
-    {
-      "path": "tarefa5/data/describe_raw.csv",
-      "bytes": 804,
-      "sha256": "2d1185d89001bb5a48c0be43352168db498cece76d408f5eb65ee63a2caa2395"
-    },
-    {
-      "path": "tarefa5/data/describe_train.csv",
-      "bytes": 800,
-      "sha256": "4bf3f340cf769a31d28344db1d9954eb7777724b6d8da6ad54000bb05079660c"
-    },
-    {
-      "path": "tarefa5/data/environment.json",
-      "bytes": 688,
-      "sha256": "3aa29f33053acfb53662badaa1266735edb878af48342c7f8829d3d79a981749"
-    },
-    {
-      "path": "tarefa5/data/prepared.npz",
-      "bytes": 24540,
-      "sha256": "a642bb83837a56a7772fdbf5f876265a3be1524b76a43d90db3ad9d4972c7b14"
-    },
-    {
-      "path": "tarefa5/data/quality-summary.csv",
-      "bytes": 282,
-      "sha256": "33db832c8992ec8d13ba8badb68e1c420184452e5fc037854215671cb2b60afc"
-    },
-    {
-      "path": "tarefa5/data/split-manifest.csv",
-      "bytes": 16951,
-      "sha256": "53a672d829c8bea46dc35372870640922b377684b0b6bd2985b8fe7a2877e0c5"
-    },
-    {
-      "path": "tarefa5/data/uci165_raw.csv",
-      "bytes": 49513,
-      "sha256": "becab3d4456f67058a4db247ef0ae2dfbe6cef8e50c18898beed13e100202c5d"
-    },
-    {
-      "path": "tarefa5/data/uci_metadata.json",
-      "bytes": 3027,
-      "sha256": "b54c744bf6e190626a5644279c0459694f19ea650d083f4d5e391d5c63cd6c31"
-    },
-    {
-      "path": "tarefa5/decision-log.md",
-      "bytes": 4589,
-      "sha256": "f2917ea319c2786db938a9c299ab01c5fcaee0e3bb112167eb1a2aaa1954d4a0"
-    },
-    {
-      "path": "tarefa5/delivery-validation.json",
-      "bytes": 763,
-      "sha256": "fa608f01f9ef9bc18d0c78dd5169d0193edf4c5385b8f300416198b6e8a849a6"
-    },
-    {
-      "path": "tarefa5/design-matrix.csv",
-      "bytes": 1644,
-      "sha256": "c75feadfc4869976b80645165ba71acd4a9782ff58595024123a3bd92006a3a9"
-    },
-    {
-      "path": "tarefa5/enunciado.txt",
-      "bytes": 15517,
-      "sha256": "902abbdaf63d93ab8b72eb44a02acecd7f97689f995eb527b9c4a59c3ab1e82c"
-    },
-    {
-      "path": "tarefa5/execution-notes.txt",
-      "bytes": 2553,
-      "sha256": "1a13f286a660d78f850d835c8252ffe4218f9adc177e4c23408f6b053aadb5da"
-    },
-    {
       "path": "tarefa5/Exercício_Aula5.tex",
       "bytes": 54411,
       "sha256": "bffdb3cec107111f1df733c2e229de15ed761752fe42560e457d9dac91981231"
-    },
-    {
-      "path": "tarefa5/experiment.py",
-      "bytes": 41848,
-      "sha256": "4bd4e786823cd9b0637186f1a46f4651d3e092b341d8316d3cdfc3c7c1dceda1"
     },
     {
       "path": "tarefa5/Figuras_Aula5/01_eda_distributions.png",
@@ -533,6 +412,141 @@
       "path": "tarefa5/Figuras_Aula5/gp_iteration_10.png",
       "bytes": 265307,
       "sha256": "d0212e0ff9411c9160a331ad1e7fc903274c412239440e3cb0f9423f34cf248a"
+    },
+    {
+      "path": "tarefa5/LEIA-ME.txt",
+      "bytes": 2847,
+      "sha256": "7cf856d76c83c3456868bfaaed2ca75cea8c5f1603482ebd4e384bb714bbfed2"
+    },
+    {
+      "path": "tarefa5/audit_engine_results.py",
+      "bytes": 4110,
+      "sha256": "11c01e53ad356da78dcb8a31b63f65b6496be058ae4232627f50e097b13a8ed3"
+    },
+    {
+      "path": "tarefa5/audit_prior_tasks.txt",
+      "bytes": 12919,
+      "sha256": "6b08f793803544a527433facf2ffa71f089799823cbaec23341af0c61a41dba2"
+    },
+    {
+      "path": "tarefa5/audit_saved_outputs.py",
+      "bytes": 14989,
+      "sha256": "797d97c895ee0bb717c716ba147a9672d8f6793eacf3082a78fda6919ccea398"
+    },
+    {
+      "path": "tarefa5/build_colab.py",
+      "bytes": 28864,
+      "sha256": "66217cd5f1332aa5abd3259e8098354a12fbd2cdb18983d701841c20b21f656f"
+    },
+    {
+      "path": "tarefa5/build_latex.py",
+      "bytes": 78053,
+      "sha256": "317fec7b3f58184ea5ce9a2793a64c007ef64613ef77dce460c0d7af349dfaf7"
+    },
+    {
+      "path": "tarefa5/build_notebook.py",
+      "bytes": 20543,
+      "sha256": "29c385b4dfc4ce868c2631c232526a335992ab5ad64ca4ff65b616e42574a6a1"
+    },
+    {
+      "path": "tarefa5/checklist_requisitos.txt",
+      "bytes": 9600,
+      "sha256": "34d43f2058aad49a7e56abb40321003e6bd781820211b41fb6fb475a8b377def"
+    },
+    {
+      "path": "tarefa5/code_versions/experiment_4bd4e786.py",
+      "bytes": 41848,
+      "sha256": "4bd4e786823cd9b0637186f1a46f4651d3e092b341d8316d3cdfc3c7c1dceda1"
+    },
+    {
+      "path": "tarefa5/code_versions/experiment_f652fe5e.py",
+      "bytes": 41792,
+      "sha256": "f652fe5eab5e5cec8ea6b8c53e7de4b31fc3f14f453fd695768e8e0b0cf3aea8"
+    },
+    {
+      "path": "tarefa5/colab-validation.json",
+      "bytes": 1792,
+      "sha256": "b196905bab8a6c0df6f1116fc80a030387f48e55adfb51e3658228f4234d2acd"
+    },
+    {
+      "path": "tarefa5/data/clean.csv",
+      "bytes": 52277,
+      "sha256": "503672bc1db72cdcb457df56bc34d44e94a933cee18b7a8baaabc8540ac7719e"
+    },
+    {
+      "path": "tarefa5/data/data-contract.json",
+      "bytes": 1463,
+      "sha256": "f0c1bf900964fe6de1e727b725f2a5c6719861b5b8256c317b9937b9cedf169d"
+    },
+    {
+      "path": "tarefa5/data/describe_raw.csv",
+      "bytes": 804,
+      "sha256": "2d1185d89001bb5a48c0be43352168db498cece76d408f5eb65ee63a2caa2395"
+    },
+    {
+      "path": "tarefa5/data/describe_train.csv",
+      "bytes": 800,
+      "sha256": "4bf3f340cf769a31d28344db1d9954eb7777724b6d8da6ad54000bb05079660c"
+    },
+    {
+      "path": "tarefa5/data/environment.json",
+      "bytes": 688,
+      "sha256": "3aa29f33053acfb53662badaa1266735edb878af48342c7f8829d3d79a981749"
+    },
+    {
+      "path": "tarefa5/data/prepared.npz",
+      "bytes": 24540,
+      "sha256": "a642bb83837a56a7772fdbf5f876265a3be1524b76a43d90db3ad9d4972c7b14"
+    },
+    {
+      "path": "tarefa5/data/quality-summary.csv",
+      "bytes": 282,
+      "sha256": "33db832c8992ec8d13ba8badb68e1c420184452e5fc037854215671cb2b60afc"
+    },
+    {
+      "path": "tarefa5/data/split-manifest.csv",
+      "bytes": 16951,
+      "sha256": "53a672d829c8bea46dc35372870640922b377684b0b6bd2985b8fe7a2877e0c5"
+    },
+    {
+      "path": "tarefa5/data/uci165_raw.csv",
+      "bytes": 49513,
+      "sha256": "becab3d4456f67058a4db247ef0ae2dfbe6cef8e50c18898beed13e100202c5d"
+    },
+    {
+      "path": "tarefa5/data/uci_metadata.json",
+      "bytes": 3027,
+      "sha256": "b54c744bf6e190626a5644279c0459694f19ea650d083f4d5e391d5c63cd6c31"
+    },
+    {
+      "path": "tarefa5/decision-log.md",
+      "bytes": 4589,
+      "sha256": "f2917ea319c2786db938a9c299ab01c5fcaee0e3bb112167eb1a2aaa1954d4a0"
+    },
+    {
+      "path": "tarefa5/delivery-validation.json",
+      "bytes": 763,
+      "sha256": "fa608f01f9ef9bc18d0c78dd5169d0193edf4c5385b8f300416198b6e8a849a6"
+    },
+    {
+      "path": "tarefa5/design-matrix.csv",
+      "bytes": 1644,
+      "sha256": "c75feadfc4869976b80645165ba71acd4a9782ff58595024123a3bd92006a3a9"
+    },
+    {
+      "path": "tarefa5/enunciado.txt",
+      "bytes": 15517,
+      "sha256": "902abbdaf63d93ab8b72eb44a02acecd7f97689f995eb527b9c4a59c3ab1e82c"
+    },
+    {
+      "path": "tarefa5/execution-notes.txt",
+      "bytes": 2553,
+      "sha256": "1a13f286a660d78f850d835c8252ffe4218f9adc177e4c23408f6b053aadb5da"
+    },
+    {
+      "path": "tarefa5/experiment.py",
+      "bytes": 41848,
+      "sha256": "4bd4e786823cd9b0637186f1a46f4651d3e092b341d8316d3cdfc3c7c1dceda1"
     },
     {
       "path": "tarefa5/figures/01_eda_distributions.pdf",
@@ -825,11 +839,6 @@
       "sha256": "b471d142cab42edb24240f02d1048a7fa166aa1d51b70ffaeb40bb9a8c1c0703"
     },
     {
-      "path": "tarefa5/LEIA-ME.txt",
-      "bytes": 2847,
-      "sha256": "7cf856d76c83c3456868bfaaed2ca75cea8c5f1603482ebd4e384bb714bbfed2"
-    },
-    {
       "path": "tarefa5/model-artifact-audit.json",
       "bytes": 1926,
       "sha256": "145b4d4377cbce7f3e54f2278f6be9d9d65370413a53a26e1413803983b0c94f"
@@ -863,6 +872,11 @@
       "path": "tarefa5/report-blocks.json",
       "bytes": 68768,
       "sha256": "8f7c92e3850170dc9ef7bea4880b510d47f68dcf15e1f06e11813230cfb84a63"
+    },
+    {
+      "path": "tarefa5/requirements-colab.txt",
+      "bytes": 671,
+      "sha256": "716a0404a00d3a63cc14a02b5addebc405a782b10dfb77f29f2379af5b328875"
     },
     {
       "path": "tarefa5/requirements-lock.txt",
@@ -1925,9 +1939,24 @@
       "sha256": "3dc1f3e109e176053d0572887d5e42f3701622dec30041fa7589fa7bf1c4e5a8"
     },
     {
+      "path": "tarefa5/smoke_colab_linux.py",
+      "bytes": 4434,
+      "sha256": "db415dbafd19d00fa5f074fa92bcc20d2508e0b211880cd1c94eb1c7d6cd7e6d"
+    },
+    {
       "path": "tarefa5/study-protocol.md",
       "bytes": 12486,
       "sha256": "452cd2c56a0ec7f3c85360a6d6001e5cac51693e5c9fb5a3e427257bad9a7e63"
+    },
+    {
+      "path": "tarefa5/test_colab_linux.py",
+      "bytes": 3668,
+      "sha256": "1dce28e6d7ca0fab1ccb30f68c3b337a636a419e95c0fef8496fe0021834e203"
+    },
+    {
+      "path": "tarefa5/validate_colab.py",
+      "bytes": 5515,
+      "sha256": "bee3fd3ba932a43cac40ac2150595635ea3668cd974a131d821ed2e6096aa3ff"
     },
     {
       "path": "tarefa5/validate_delivery.py",
@@ -1940,14 +1969,24 @@
       "sha256": "574d63f691d39c17e9a75ca8d4c6756512502b66ed6c002416c6d6dd65fe2934"
     },
     {
-      "path": "vendor/rnd-superpowers/agents/research-superpowers.agent.md",
-      "bytes": 6180,
-      "sha256": "b4ff99e6cffc08863975b916968d77266c2069a5c384137a81938edb047564fd"
-    },
-    {
       "path": "vendor/rnd-superpowers/AGENTS.md",
       "bytes": 969,
       "sha256": "c136cc2a7082c8c0c76d4b6616f547f839279c143d3fd1ea1fead352549df419"
+    },
+    {
+      "path": "vendor/rnd-superpowers/README.md",
+      "bytes": 5202,
+      "sha256": "c4193ec22ea8dfae1ca216921ecb37b201d433db403064f31c70d1ab5b3c2a1a"
+    },
+    {
+      "path": "vendor/rnd-superpowers/SOURCE-MANIFEST.json",
+      "bytes": 7692,
+      "sha256": "e39fbe8e6337d4de9dc3f3326866e8665e61adc362cb50684ef79a4750c091aa"
+    },
+    {
+      "path": "vendor/rnd-superpowers/agents/research-superpowers.agent.md",
+      "bytes": 6180,
+      "sha256": "b4ff99e6cffc08863975b916968d77266c2069a5c384137a81938edb047564fd"
     },
     {
       "path": "vendor/rnd-superpowers/docs/method-catalog.md",
@@ -1998,11 +2037,6 @@
       "path": "vendor/rnd-superpowers/install.ps1",
       "bytes": 2727,
       "sha256": "e3aa69301ec11a593d88f75a22bb294770a849003826e39bf922afc54235bb32"
-    },
-    {
-      "path": "vendor/rnd-superpowers/README.md",
-      "bytes": 5202,
-      "sha256": "c4193ec22ea8dfae1ca216921ecb37b201d433db403064f31c70d1ab5b3c2a1a"
     },
     {
       "path": "vendor/rnd-superpowers/requirements-dev.txt",
@@ -2163,11 +2197,6 @@
       "path": "vendor/rnd-superpowers/skills/writing-research-papers/SKILL.md",
       "bytes": 2160,
       "sha256": "7ab587f83c891181335021ce791ffcd95d421c70e498c2ff5ca2d06b22767af9"
-    },
-    {
-      "path": "vendor/rnd-superpowers/SOURCE-MANIFEST.json",
-      "bytes": 7692,
-      "sha256": "e39fbe8e6337d4de9dc3f3326866e8665e61adc362cb50684ef79a4750c091aa"
     },
     {
       "path": "vendor/rnd-superpowers/templates/research-cycle.md",

@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "scope": "Notebook schema and Python syntax, real archived presentation, both orchestration control flows with recorded subprocess calls, requirements pins versus original environment. No hosted Colab or new full HPO claimed.",
+  "code_cells_compiled": 61,
+  "presentation_cells_executed": 57,
+  "images_loaded": 28,
+  "display_objects": 68,
+  "flows": {
+    "analise_arquivada": {
+      "engine_actions": [
+        "verify"
+      ],
+      "final_stage": "07-reconstruct-analysis"
+    },
+    "experimento_completo": {
+      "engine_actions": [
+        "prepare",
+        "supplement",
+        "run",
+        "sample",
+        "robustness",
+        "verify"
+      ],
+      "final_stage": "07-reconstruct-analysis"
+    }
+  },
+  "archive_ref": "02d110722f2aee6f9d684faa748afcd932821477",
+  "original_files_unchanged": {
+    "experiment.py": "4bd4e786823cd9b0637186f1a46f4651d3e092b341d8316d3cdfc3c7c1dceda1",
+    "Aula05_Tarefa5_Resultados.ipynb": "15edda5533fdfaf55a688fccb0d3693e363110dc4f9efd14c02d3563df0620f8",
+    "metrics.csv": "5cf7bf4957087e17d9bb6a80e2fdf161705a4eab0fee9daa28b9ed0a9bf90309",
+    "analysis.json": "1ebd1b4dec9cd3c5877b456f46cb2941125e94918c5de3116053f1088c262cfa"
+  },
+  "installed_original_versions": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.7.0",
+    "ucimlrepo": "0.0.7",
+    "scikit-optimize": "0.10.2",
+    "bayesian-optimization": "3.3.0",
+    "optuna": "5.0.0",
+    "hyperopt": "0.3.0",
+    "ray": "2.58.0",
+    "deap": "1.4.4",
+    "setuptools": "80.10.2"
+  },
+  "notebook_sha256": "9954023828af4560194987ffbf7d300a4608e3ea30c7efac8b43b94a8650d5a2"
+}

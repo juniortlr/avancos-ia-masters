@@ -2,6 +2,17 @@
 
 Exercícios e resultados da disciplina EELT7025. Integrantes: **Adriely Teixeira de Paula, Betina Zynger Capaverde e Emilio Gaudeda Junior**.
 
+[![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/juniortlr/avancos-ia-masters/blob/main/tarefa5/Aula05_Tarefa5_Colab.ipynb)
+
+## Executar no Google Colab
+
+Abra o notebook pelo botão acima e escolha **Ambiente de execução → Executar tudo**, com runtime CPU. Não é necessário enviar arquivos: o notebook baixa automaticamente o snapshot publicado, instala as dependências em um ambiente Python 3.12 isolado e mostra as respostas aos exercícios.
+
+- `analise_arquivada` é o padrão: verifica o snapshot e reconstrói os resultados, tabelas e gráficos sem refazer as buscas.
+- `experimento_completo` refaz todos os métodos, controles, comparação amostral e robustez. Os resultados são gravados em uma pasta nova e podem ser baixados ao final.
+
+O notebook [Aula05_Tarefa5_Colab.ipynb](tarefa5/Aula05_Tarefa5_Colab.ipynb) fixa o commit dos materiais arquivados e registra o ambiente de cada execução. O paralelismo se adapta à CPU disponível. Os tempos da execução original não são apresentados como tempos do Colab. Recursos e duração de sessões podem variar, conforme a [documentação oficial do Colab](https://research.google.com/colaboratory/faq.html).
+
 ## Tarefa 5 — otimização de hiperparâmetros
 
 Comparação de estratégias de otimização do `GradientBoostingRegressor` no dataset **Concrete Compressive Strength (UCI 165)**. O relatório cobre os dois exercícios e os itens 1–10 do enunciado, incluindo GP manual, cinco bibliotecas de otimização Bayesiana, GA, DE, PSO e análise de robustez.
