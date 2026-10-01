@@ -1,0 +1,60 @@
+[
+  {
+    "command": [
+      "/root/codex-aula05-validation/work/aula05_colab/environments/py312-15cc88d67aa5d412/bin/python",
+      "/root/codex-aula05-validation/smoke-20260930/experiment.py",
+      "prepare"
+    ],
+    "returncode": 0,
+    "seconds": 1.8682156119999718,
+    "log": "/root/codex-aula05-validation/smoke-20260930/logs/01-prepare.log"
+  },
+  {
+    "command": [
+      "/root/codex-aula05-validation/work/aula05_colab/environments/py312-15cc88d67aa5d412/bin/python",
+      "/root/codex-aula05-validation/smoke-20260930/experiment.py",
+      "supplement",
+      "--jobs",
+      "2"
+    ],
+    "returncode": 0,
+    "seconds": 2.168527802999961,
+    "log": "/root/codex-aula05-validation/smoke-20260930/logs/02-supplement.log"
+  },
+  {
+    "command": [
+      "/root/codex-aula05-validation/work/aula05_colab/environments/py312-15cc88d67aa5d412/bin/python",
+      "/root/codex-aula05-validation/smoke-20260930/experiment.py",
+      "run",
+      "--method",
+      "baseline,optuna,ray",
+      "--jobs",
+      "2"
+    ],
+    "returncode": 0,
+    "seconds": 131.47704359400007,
+    "log": "/root/codex-aula05-validation/smoke-20260930/logs/03-run.log"
+  },
+  {
+    "command": [
+      "/root/codex-aula05-validation/work/aula05_colab/environments/py312-15cc88d67aa5d412/bin/python",
+      "/root/codex-aula05-validation/smoke-20260930/experiment.py",
+      "sample",
+      "--jobs",
+      "2"
+    ],
+    "returncode": 0,
+    "seconds": 13.39670271,
+    "log": "/root/codex-aula05-validation/smoke-20260930/logs/04-sample.log"
+  },
+  {
+    "command": [
+      "/root/codex-aula05-validation/work/aula05_colab/environments/py312-15cc88d67aa5d412/bin/python",
+      "/root/codex-aula05-validation/smoke-20260930/experiment.py",
+      "verify"
+    ],
+    "returncode": 0,
+    "seconds": 0.9665584519999584,
+    "log": "/root/codex-aula05-validation/smoke-20260930/logs/05-verify.log"
+  }
+]

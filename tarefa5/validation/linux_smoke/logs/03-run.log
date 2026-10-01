@@ -1,0 +1,27 @@
+baseline seed=42 n=1 rmse=5.295371
+{"method": "baseline", "seed": 42, "cv_rmse": 5.295370960228461, "test_rmse": 5.603850110947511, "total_seconds": 0.43568814799994016, "n_evaluations": 1}
+optuna seed=42 n=1 rmse=5.263477
+optuna seed=42 n=10 rmse=5.994066
+optuna seed=42 n=20 rmse=4.817339
+optuna seed=42 n=30 rmse=4.729180
+optuna seed=42 n=40 rmse=4.815912
+{"method": "optuna", "seed": 42, "cv_rmse": 4.633781248529072, "test_rmse": 4.578226098662413, "total_seconds": 15.455930175000049, "n_evaluations": 40}
+2026-09-30 21:21:52,048	INFO worker.py:2024 -- Started a local Ray instance.
+╭──────────────────────────────────────────────────────────╮
+│ Configuration for experiment     asha                    │
+├──────────────────────────────────────────────────────────┤
+│ Search algorithm                 SearchGenerator         │
+│ Scheduler                        AsyncHyperBandScheduler │
+│ Number of trials                 40                      │
+╰──────────────────────────────────────────────────────────╯
+
+View detailed results here: /root/codex-aula05-validation/smoke-20260930/results/ray/seed_42/ray-storage/asha
+To visualize your results with TensorBoard, run: `tensorboard --logdir /tmp/a05r-c5def774/ray/session_2026-09-30_21-21-50_185623_465/artifacts/2026-09-30_21-21-52/asha/driver_artifacts`
+2026-09-30 21:23:41,062	INFO tune.py:1007 -- Wrote the latest version of all result files and experiment state to '/root/codex-aula05-validation/smoke-20260930/results/ray/seed_42/ray-storage/asha' in 0.0105s.
+
+ray seed=42 n=1 rmse=5.263477
+ray seed=42 n=10 rmse=9.510699
+ray seed=42 n=20 rmse=4.817339
+ray seed=42 n=30 rmse=4.707546
+ray seed=42 n=40 rmse=5.947824
+{"method": "ray", "seed": 42, "cv_rmse": 4.672994122292242, "test_rmse": 4.453830296770967, "total_seconds": 113.275546437, "n_evaluations": 40}

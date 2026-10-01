@@ -1,0 +1,3 @@
+{"utc": "2026-10-01T00:21:33.342871+00:00", "event": "started", "method": "baseline", "seed": 42, "jobs": 2}
+{"utc": "2026-10-01T00:21:33.679871+00:00", "event": "candidate", "method": "baseline", "seed": 42, "trial": 1, "cv_rmse": 5.295370960228461, "learning_rate": 0.1, "subsample": 1.0, "n_estimators": 100, "seconds": 0.33438863499998206, "elapsed_seconds": 0.33441198000002714, "status": "complete", "resource": 1.0, "duration_kind": "objective_wall", "fold_0": 4.833771394832354, "fold_1": 5.2546328929595285, "fold_2": 5.97603876669821, "fold_3": 4.9769774777997124, "fold_4": 5.435434268852501}
+{"utc": "2026-10-01T00:21:33.805558+00:00", "event": "completed", "cv_rmse": 5.295370960228461, "test_rmse": 5.603850110947511, "total_seconds": 0.43568814799994016}

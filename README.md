@@ -13,6 +13,8 @@ Abra o notebook pelo botão acima e escolha **Ambiente de execução → Executa
 
 O notebook [Aula05_Tarefa5_Colab.ipynb](tarefa5/Aula05_Tarefa5_Colab.ipynb) fixa o commit dos materiais arquivados e registra o ambiente de cada execução. O paralelismo se adapta à CPU disponível. Os tempos da execução original não são apresentados como tempos do Colab. Recursos e duração de sessões podem variar, conforme a [documentação oficial do Colab](https://research.google.com/colaboratory/faq.html).
 
+**Validação realizada:** a versão publicada executou 61/61 células em Linux, gerando 28 imagens sem erros. O teste usou kernel Python 3.14 e o Python 3.12 isolado instalado pelo próprio notebook. Um teste adicional com duas CPUs completou baseline, controles Dummy/Ridge, Optuna40, Ray40/ASHA e Optuna com metade do treino; o Ray concluiu 22 trials e podou 18. Evidências: [notebook executado em Linux](tarefa5/validation/colab_linux/analysis_executed.ipynb), [validação das células](tarefa5/validation/colab_linux/validation.json) e [teste de otimização](tarefa5/validation/linux_smoke/linux-smoke-validation.json). Esses testes foram locais em Linux/WSL; não se alega execução em uma sessão hospedada do Google Colab. A suíte original completa permanece separada dos testes de portabilidade.
+
 ## Tarefa 5 — otimização de hiperparâmetros
 
 Comparação de estratégias de otimização do `GradientBoostingRegressor` no dataset **Concrete Compressive Strength (UCI 165)**. O relatório cobre os dois exercícios e os itens 1–10 do enunciado, incluindo GP manual, cinco bibliotecas de otimização Bayesiana, GA, DE, PSO e análise de robustez.

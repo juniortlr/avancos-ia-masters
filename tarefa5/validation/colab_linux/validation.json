@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "failure": null,
+  "environment": "Local Linux / WSL; not hosted Google Colab",
+  "kernel_python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "notebook_sha256": "9954023828af4560194987ffbf7d300a4608e3ea30c7efac8b43b94a8650d5a2",
+  "code_cells": 61,
+  "executed_cells": 61,
+  "error_outputs": 0,
+  "embedded_pngs": 28,
+  "elapsed_seconds": 55.78320890200007
+}

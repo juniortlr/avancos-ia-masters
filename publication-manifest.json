@@ -15,8 +15,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6292,
-      "sha256": "a37e12078822ac49f33d7867f9a8808d951406f68bcbc3c319c7821a7699f028"
+      "bytes": 7103,
+      "sha256": "014137690ddb5b226a61314faf15a7d8dd9fa08283804938fbf878e23ce278fa"
     },
     {
       "path": "enunciados/Aula05_Enunciado.ipynb",
@@ -467,6 +467,11 @@
       "path": "tarefa5/colab-validation.json",
       "bytes": 1792,
       "sha256": "b196905bab8a6c0df6f1116fc80a030387f48e55adfb51e3658228f4234d2acd"
+    },
+    {
+      "path": "tarefa5/collect_validation.py",
+      "bytes": 529,
+      "sha256": "c436af7eb5abb07f8dd029d8060991438c648de6faa5fe8b3dd3a921b499c020"
     },
     {
       "path": "tarefa5/data/clean.csv",
@@ -1962,6 +1967,296 @@
       "path": "tarefa5/validate_delivery.py",
       "bytes": 2951,
       "sha256": "67a8441c4929d6001a8c1067e5c0942f6172796c97fa74033aaa9315c7fb4905"
+    },
+    {
+      "path": "tarefa5/validation/README.md",
+      "bytes": 1437,
+      "sha256": "515d3a4031533362398576f4443c587015cad110aa1436ec8d6533189797adf3"
+    },
+    {
+      "path": "tarefa5/validation/colab_linux/analysis_executed.ipynb",
+      "bytes": 7107823,
+      "sha256": "36730f144e1eddda9a57e702f3c73a45c27436f02ac78868be8a5b63085dcd91"
+    },
+    {
+      "path": "tarefa5/validation/colab_linux/validation.json",
+      "bytes": 475,
+      "sha256": "145fce5208ba27e49f31041bf652d9bf2fc7d7ec61b95d3696924d9a4e453350"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/data/clean.csv",
+      "bytes": 51271,
+      "sha256": "d552c3fa221bd9a5d4ca243e70ab344020ef6a9536b58676d1e6698bc3cc0533"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/data/data-contract.json",
+      "bytes": 1424,
+      "sha256": "589afa909b05c6beee46b6715f383a4fb0555d734d3a8d2ef2fb91e01e606735"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/data/describe_raw.csv",
+      "bytes": 795,
+      "sha256": "9285570da6bf9789a9f0b2fa7e3920f69ed991e2af79249aa035dd9275a5881d"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/data/describe_train.csv",
+      "bytes": 791,
+      "sha256": "385aeed961a6ef00f30599cfa56992dd9144cba67b7147333b9e0736e2891d6f"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/data/environment.json",
+      "bytes": 630,
+      "sha256": "5e04fb296f4114be9b50b27fdce07d301df540b084cc94e8164a8631e1a25d07"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/data/prepared.npz",
+      "bytes": 24540,
+      "sha256": "cb34498c92f4312bfec7bf16adf70fbdd590827df3df2c718265a05b6f4c7b85"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/data/quality-summary.csv",
+      "bytes": 272,
+      "sha256": "68efa12ef3946cb1d1b0fe3e6eb1bfd6383964010c641c4a4ada731f3cb212c7"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/data/split-manifest.csv",
+      "bytes": 15945,
+      "sha256": "eb84445dde178823d57b2234effb989f0b5ffa906c33030efc9b54c6b4c02561"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/data/uci165_raw.csv",
+      "bytes": 49513,
+      "sha256": "becab3d4456f67058a4db247ef0ae2dfbe6cef8e50c18898beed13e100202c5d"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/data/uci_metadata.json",
+      "bytes": 3027,
+      "sha256": "b54c744bf6e190626a5644279c0459694f19ea650d083f4d5e391d5c63cd6c31"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/experiment.py",
+      "bytes": 41848,
+      "sha256": "4bd4e786823cd9b0637186f1a46f4651d3e092b341d8316d3cdfc3c7c1dceda1"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/linux-smoke-validation.json",
+      "bytes": 1618,
+      "sha256": "774cfca25a27963ab11397a032e3527d76c4d17c4333ada0755d0e3904a04384"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/logs/01-prepare.log",
+      "bytes": 74,
+      "sha256": "4b9322d5556cd1bfbca9f95af5777a593273a1330bf52b523d6cdc0c74c32f20"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/logs/02-supplement.log",
+      "bytes": 543,
+      "sha256": "d4111d2ed651d9012818876956159ff8374349991f9aa7e25aa0ae9458a37187"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/logs/03-run.log",
+      "bytes": 2199,
+      "sha256": "759dc172b750b3dcf9362481867269bd1f80635cc28a949567b6d8d28dc915fd"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/logs/04-sample.log",
+      "bytes": 320,
+      "sha256": "027ba04208ae55ffc3f4a8585c8afa329ede8f0c973ec5d48247446c9fb6f4d2"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/logs/05-verify.log",
+      "bytes": 44,
+      "sha256": "127e1b695124fcc8450b059d1ad6f45e1ed30b5546ada8ba19fd8337d9b05c4c"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/baseline/seed_42/events.jsonl",
+      "bytes": 770,
+      "sha256": "1b2f789591065237dbe58f4e23e98d08e1a78fb5962b45d839d4c5484c49a924"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/baseline/seed_42/feature_importance.csv",
+      "bytes": 274,
+      "sha256": "0c389b76febc0f522903aa6f2b7e1720e4cba245ee060fab4df7cf7a83588b16"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/baseline/seed_42/model.joblib",
+      "bytes": 141761,
+      "sha256": "c914e48335aba68fea55a7c92656395cd9f4a2773d8466dd2e762a249dbbe4a4"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/baseline/seed_42/predictions.csv",
+      "bytes": 9485,
+      "sha256": "684ebba14e0b113d664864083bbeec6072c6acf5c7d1ac267df688c1d39278d6"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/baseline/seed_42/result.json",
+      "bytes": 2305,
+      "sha256": "d2522b0a3d13f0eca82ba1c50ebd8de40825d66e89121225931afd5ddda52b5b"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/baseline/seed_42/trials.csv",
+      "bytes": 357,
+      "sha256": "e57cdaa7d72c89a323d2c0e587ab55c05c9ca859967dc0a8338c56f491ed2ed6"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/metrics.csv",
+      "bytes": 3174,
+      "sha256": "57bfa0960ec78b9e774d1d87667934a440053904573d6b663cf128660d349fe5"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/optuna/seed_42/events.jsonl",
+      "bytes": 21124,
+      "sha256": "f84b376a609aba290c6baff61411b8400375ab1378caf86b75e26155d3dd2d69"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/optuna/seed_42/feature_importance.csv",
+      "bytes": 274,
+      "sha256": "119f8ae586a98fae5c272e107d4fba173a5985a2bc7be636fb65cef6a9bbb8ae"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/optuna/seed_42/model.joblib",
+      "bytes": 229202,
+      "sha256": "f479b1f5de6df98bb1b38e5cb5ad6e303490bd2f8addbd45f2b80cd622b5935b"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/optuna/seed_42/optuna-study.joblib",
+      "bytes": 26043,
+      "sha256": "3081127d68e7f021403b8a0a48e11657d68f843eaf82b05a3b1720f56791862c"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/optuna/seed_42/optuna-trials.csv",
+      "bytes": 9157,
+      "sha256": "69c0c9217c748f7f1fca6af41fc2a1a1c1c927f9e9cdc88272d827cc1312651a"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/optuna/seed_42/optuna_importances.csv",
+      "bytes": 122,
+      "sha256": "565b4eb0f143163be8d4019cc67f675b1debc4eb175e06318c8668f8e322aee5"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/optuna/seed_42/predictions.csv",
+      "bytes": 9499,
+      "sha256": "007d2bfb00e8585a93a346e441e53629d1ae07f27bfed636dee9eec6373140d9"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/optuna/seed_42/result.json",
+      "bytes": 2325,
+      "sha256": "4067d0338277c3763853cbb47c634c275d66908054d54d439167cf800928fd4a"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/optuna/seed_42/trials.csv",
+      "bytes": 9365,
+      "sha256": "2201d3de165fd115c2135a0b51da24ccd469c3db649ba569dfa6c79baf8e50cb"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/optuna_importances.csv",
+      "bytes": 122,
+      "sha256": "565b4eb0f143163be8d4019cc67f675b1debc4eb175e06318c8668f8e322aee5"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/ray/seed_42/events.jsonl",
+      "bytes": 55025,
+      "sha256": "09ba671729c9906913ffd3a8a9ed7b977d2c4d139cec7af1250cd2373ddb5da9"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/ray/seed_42/feature_importance.csv",
+      "bytes": 271,
+      "sha256": "601fe96c33d2bf4d8ff21036babfeafa40c24edec2ebf0508920b6ea06d96be1"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/ray/seed_42/model.joblib",
+      "bytes": 239746,
+      "sha256": "a904e65bc32615b82c81b560d041143d0fe6b985e120a503d6540c32ae92e762"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/ray/seed_42/predictions.csv",
+      "bytes": 9533,
+      "sha256": "f8fb5f29c7a9c9bc0e4a50c1a901e73bebc1f01a588ba4c0241d2f83eab34444"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/ray/seed_42/ray-stages.csv",
+      "bytes": 11126,
+      "sha256": "4700a2a889a1a0cd4363dfd6bbb064f600337c050981a4f44fc150a79d33a30a"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/ray/seed_42/result.json",
+      "bytes": 2319,
+      "sha256": "6ddfc073007b0575f2ed6894d1209ee91ea7694f212df82d9d926944454e98f3"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/ray/seed_42/trials.csv",
+      "bytes": 9699,
+      "sha256": "141a20fc9c76accc2fe283bce7d9fcc02f07d025fb3f0dfe98e26d5a57ffb5b7"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/sample-comparison.csv",
+      "bytes": 2081,
+      "sha256": "f45b0e6b58b9e3ec67b21bde5a921fae170c0843b3f66f97d58939a2024160ef"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/sample50/optuna/seed_42/events.jsonl",
+      "bytes": 21111,
+      "sha256": "83a04bab218c2b939188ea3e81fdf3bd36ceb2a20078eaac0ad16e2bd78bdfe5"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/sample50/optuna/seed_42/feature_importance.csv",
+      "bytes": 272,
+      "sha256": "568283c04cdc147b0b568e80e3ed19c896a101044f046a138c83e0daf0ae7047"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/sample50/optuna/seed_42/model.joblib",
+      "bytes": 237266,
+      "sha256": "d9eff365900c8db53402080452c4cd39118321050ae54bb577efcdfe7cb4b3df"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/sample50/optuna/seed_42/optuna-study.joblib",
+      "bytes": 26027,
+      "sha256": "eb64d5b9d02bcb4922953044355f1aeca9c54462a802a8464adb420c77f85fd3"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/sample50/optuna/seed_42/optuna-trials.csv",
+      "bytes": 9144,
+      "sha256": "1cc133ccea82e9ac39173e9bd51ac16c415167d9217c8660c34375c9eafa59d4"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/sample50/optuna/seed_42/optuna_importances.csv",
+      "bytes": 122,
+      "sha256": "bb2fc565b72dc6ccfa2f9dfaf6c6b3077b7c903075fc11b0485ffede5905a3c4"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/sample50/optuna/seed_42/predictions.csv",
+      "bytes": 9488,
+      "sha256": "d25a04b20caaf288ad231ad207de16dbaaabbb08655a4f91d227297e9c470941"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/sample50/optuna/seed_42/result.json",
+      "bytes": 2323,
+      "sha256": "cc78d78b59ff24a3e4de00205261b2951c88b5332ba9506deabd8d5049fc7847"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/sample50/optuna/seed_42/sample-indices.csv",
+      "bytes": 1577,
+      "sha256": "d0118dfa8c429031a475c122b5cd5dc69066e147fad1022d78a872a9eb5b0973"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/sample50/optuna/seed_42/trials.csv",
+      "bytes": 9354,
+      "sha256": "ef9939a620c1ce85b62ceb55ac0ee414dbcec6e9a6d699297003f3e059f8e183"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/supplemental-baselines.csv",
+      "bytes": 385,
+      "sha256": "4ceaa963a6a52048c50ee281fb8263224513ad7ff39345f7f46c069fda0ac043"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/results/verification.json",
+      "bytes": 188,
+      "sha256": "86b4761b9c1b2bf01f884c3e39be476f908e19856dfe80a77613d0f5ff13747e"
+    },
+    {
+      "path": "tarefa5/validation/linux_smoke/smoke-commands.json",
+      "bytes": 1891,
+      "sha256": "7bf23af2421fa4ae271ba229a06fe1cdefb72355ce5ba967761cfe850ae42e66"
     },
     {
       "path": "vendor/rnd-superpowers/.gitignore",

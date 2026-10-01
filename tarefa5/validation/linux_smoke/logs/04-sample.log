@@ -1,0 +1,6 @@
+optuna seed=42 n=1 rmse=5.696122
+optuna seed=42 n=10 rmse=6.306000
+optuna seed=42 n=20 rmse=5.369005
+optuna seed=42 n=30 rmse=5.268140
+optuna seed=42 n=40 rmse=5.146726
+{"method": "optuna", "seed": 42, "cv_rmse": 5.039040961282417, "test_rmse": 5.7075330809647, "total_seconds": 11.406585353000082, "n_evaluations": 40}

@@ -1,0 +1,40 @@
+{
+  "dataset": "UCI 165 Concrete Compressive Strength",
+  "url": "https://archive.ics.uci.edu/dataset/165/concrete+compressive+strength",
+  "target_unit": "MPa",
+  "raw_shape": [
+    1030,
+    9
+  ],
+  "clean_shape": [
+    1005,
+    9
+  ],
+  "exact_duplicate_rows_removed": 25,
+  "train_rows": 804,
+  "test_rows": 201,
+  "split_seed": 42,
+  "fold_seed": 42,
+  "folds": 5,
+  "features": [
+    "Cement",
+    "Blast Furnace Slag",
+    "Fly Ash",
+    "Water",
+    "Superplasticizer",
+    "Coarse Aggregate",
+    "Fine Aggregate",
+    "Age"
+  ],
+  "missing_policy": "Median imputation inside every training fold; target not scaled",
+  "duplicates_policy": "Only complete exactly identical feature+target rows removed before split",
+  "prior_outcome_exposure": "Whole-data shape/dtypes/missingness/describe required by assignment; substantive EDA restricted to development set",
+  "generalization_limit": "Random row split; no batch IDs available to verify independence of related mixes",
+  "sha256": {
+    "uci165_raw.csv": "becab3d4456f67058a4db247ef0ae2dfbe6cef8e50c18898beed13e100202c5d",
+    "clean.csv": "d552c3fa221bd9a5d4ca243e70ab344020ef6a9536b58676d1e6698bc3cc0533",
+    "split-manifest.csv": "eb84445dde178823d57b2234effb989f0b5ffa906c33030efc9b54c6b4c02561",
+    "prepared.npz": "cb34498c92f4312bfec7bf16adf70fbdd590827df3df2c718265a05b6f4c7b85"
+  },
+  "framework_commit": "f68892c8b7adba358b8aa437eec00a89fe88d340"
+}
